@@ -2,7 +2,7 @@ const { Model, DataTypes } = require("sequelize");
 const sequelize = require("../../bin/dbConfig");
 const customers = require("./Customers");
 const rooms = require("./Rooms");
-
+const Sequelize = require("sequelize");
 class hotelBookings extends Model {}
 
 hotelBookings.init(
@@ -30,14 +30,16 @@ hotelBookings.init(
       },
       checkIn: {
         type: DataTypes.DATE,
+        defaultValue: Sequelize.NOW,
         allowNull: false,
       },
       checkOut: {
         type: DataTypes.DATE,
+        defaultValue: Sequelize.NOW,
         allowNull: false,
       },
       totalAmount: {
-        type: DataTypes.NUMBER,
+        type: DataTypes.INTEGER,
         allowNull: false,
       },
       hotelBookingStatus: {

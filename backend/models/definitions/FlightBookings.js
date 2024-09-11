@@ -2,6 +2,8 @@ const { Model, DataTypes } = require("sequelize");
 const sequelize = require("../../bin/dbConfig");
 const customers = require("./Customers");
 const flights = require("./Flights");
+const Sequelize = require("sequelize");
+
 class flightBookings extends Model {}
 
 flightBookings.init(
@@ -29,13 +31,14 @@ flightBookings.init(
       },
       flightBookingDate: {
         type: DataTypes.DATE,
+        defaultValue: Sequelize.NOW,
         allowNull: false,
       },
       totalPrice: {
-        type: DataTypes.NUMBER,
+        type: DataTypes.INTEGER,
         allowNull: false,
       },
-      hotelBookingStatus: {
+      flightBookingStatus: {
         type: DataTypes.ENUM, //ENUM is a datatype that is strictly defined
         values: ["cancelled", "confirmed"],
       },

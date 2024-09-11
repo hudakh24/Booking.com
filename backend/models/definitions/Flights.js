@@ -1,5 +1,6 @@
 const { Model, DataTypes } = require("sequelize");
 const sequelize = require("../../bin/dbConfig");
+const Sequelize = require("sequelize");
 
 class flights extends Model {}
 
@@ -21,14 +22,18 @@ flights.init(
     },
     departureTime: {
       type: DataTypes.DATE,
+      defaultValue: Sequelize.NOW,
+
       allowNull: false,
     },
     arrivalTime: {
       type: DataTypes.DATE,
+      defaultValue: Sequelize.NOW,
+
       allowNull: false,
     },
     ticketPrice: {
-      type: DataTypes.NUMBER,
+      type: DataTypes.INTEGER,
       allowNull: false,
     },
   },

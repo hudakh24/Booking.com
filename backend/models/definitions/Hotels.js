@@ -25,7 +25,7 @@ hotels.init(
     },
     ratings: {
       type: DataTypes.ENUM,
-      values: [1, 2, 3, 4, 5],
+      values: ["1", "2", "3", "4", "5"],
       allowNull: false,
     },
   },

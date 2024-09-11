@@ -34,7 +34,7 @@ admins.init(
       allowNull: false,
     },
     email: {
-      type: DataTypes.STRING(),
+      type: DataTypes.STRING,
       unique: true,
       allowNull: false,
     },

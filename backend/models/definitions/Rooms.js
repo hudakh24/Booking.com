@@ -16,7 +16,7 @@ rooms.init(
       type: DataTypes.STRING(),
       references: {
         model: hotels,
-        key: "hotelID",
+        key: "hotelId",
       },
     },
     roomType: {
@@ -25,7 +25,7 @@ rooms.init(
       allowNull: false,
     },
     pricePerNight: {
-      type: DataTypes.NUMBER(60),
+      type: DataTypes.INTEGER,
       allowNull: false,
     },
   },

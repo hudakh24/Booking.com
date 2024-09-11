@@ -29,7 +29,7 @@ payments.init(
         },
       },
       grandTotal: {
-        type: DataTypes.NUMBER,
+        type: DataTypes.INTEGER,
         allowNull: false,
       },
       paymentStatus: {

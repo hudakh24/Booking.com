@@ -19,6 +19,27 @@ const models = {
   Payments,
 };
 
+Customers.hasMany(FlightBookings, { foreignKey: "customerId" });
+FlightBookings.belongsTo(Customers, { foreignKey: "customerId" });
+
+Customers.hasMany(HotelBookings, { foreignKey: "customerId" });
+HotelBookings.belongsTo(Customers, { foreignKey: "customerId" });
+
+Flights.hasMany(FlightBookings, { foreignKey: "flightId" });
+FlightBookings.belongsTo(Flights, { foreignKey: "flightId" });
+
+Hotels.hasMany(Rooms, { foreignKey: "hotelId" });
+Rooms.belongsTo(Hotels, { foreignKey: "hotelId" });
+
+Rooms.hasMany(HotelBookings, { foreignKey: "hotelId" });
+HotelBookings.belongsTo(Rooms, { foreignKey: "hotelId" });
+
+HotelBookings.hasOne(Payments, { foreignKey: "hotelBookingId" });
+Payments.belongsTo(HotelBookings, { foreignKey: "hotelBookingId" });
+
+FlightBookings.hasOne(Payments, { foreignKey: "flightBookingId" });
+Payments.belongsTo(FlightBookings, { foreignKey: "flightBookingId" });
+
 const db = {}; //created db object
 
 db.sequelize = sequelize; // object.newKey=Value

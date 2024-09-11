@@ -27,14 +27,14 @@ var server = http.createServer(app);
  */
 
 db.sequelize
-  .sync({ alter: true, logging: false })
+  .sync({ alter: true, logging: false, force: true })
   .then(() => {
     server.listen(port);
     server.on("error", onError);
     server.on("listening", onListening);
   })
   .catch((error) => {
-    console.log(`error is in synchronizing ${error.message}`);
+    console.log(`error is in synchronizing --> ${error}`);
   });
 
 /**
