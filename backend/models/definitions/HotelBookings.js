@@ -12,7 +12,6 @@ hotelBookings.init(
       primaryKey: true,
     },
     customerId: {
-      unique: true,
       allowNull: false,
       type: DataTypes.STRING(),
       references: {
@@ -20,7 +19,6 @@ hotelBookings.init(
         key: "customerId",
       },
       roomId: {
-        unique: true,
         allowNull: false,
         type: DataTypes.STRING(),
         references: {

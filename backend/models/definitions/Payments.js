@@ -12,7 +12,6 @@ payments.init(
       primaryKey: true,
     },
     flightBookingId: {
-      unique: true,
       allowNull: false,
       type: DataTypes.STRING(),
       references: {
@@ -20,7 +19,6 @@ payments.init(
         key: "flightBookingId",
       },
       hotelBookingId: {
-        unique: true,
         allowNull: false,
         type: DataTypes.STRING(),
         references: {

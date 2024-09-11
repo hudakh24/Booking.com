@@ -11,7 +11,6 @@ rooms.init(
       primaryKey: true,
     },
     hotelId: {
-      unique: true,
       allowNull: false,
       type: DataTypes.STRING(),
       references: {

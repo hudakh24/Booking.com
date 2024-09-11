@@ -13,7 +13,6 @@ flightBookings.init(
       primaryKey: true,
     },
     customerId: {
-      unique: true,
       allowNull: false,
       type: DataTypes.STRING(),
       references: {
@@ -21,7 +20,6 @@ flightBookings.init(
         key: "customerId",
       },
       flightId: {
-        unique: true,
         allowNull: false,
         type: DataTypes.STRING(),
         references: {
