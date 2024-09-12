@@ -3,9 +3,9 @@ var express = require("express");
 var cookieParser = require("cookie-parser");
 var logger = require("morgan");
 
-var customersRouter = require("./routes/customersRouter");
-var hotelsRouter = require("./routes/hotelsRouter");
-var adminsRouter = require("./routes/adminsRouter");
+var customersRouter = require("./src/routes/customersRouter");
+var hotelsRouter = require("./src/routes/hotelsRouter");
+var adminsRouter = require("./src/routes/adminsRouter");
 
 var app = express();
 
