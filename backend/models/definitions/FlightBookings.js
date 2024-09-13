@@ -1,13 +1,15 @@
 const { Model, DataTypes } = require("sequelize");
 const sequelize = require("../../bin/dbConfig");
 const customers = require("./Customers");
-const rooms = require("./Rooms");
+const flights = require("./Flights");
 const Sequelize = require("sequelize");
-class hotelBookings extends Model {}
+const { v4: uuid } = require("uuid");
 
-hotelBookings.init(
+class flightBookings extends Model {}
+
+flightBookings.init(
   {
-    hotelBookingId: {
+    flightBookingId: {
       type: DataTypes.STRING(60),
       primaryKey: true,
     },
@@ -18,29 +20,24 @@ hotelBookings.init(
         model: customers,
         key: "customerId",
       },
-      roomId: {
+      flightId: {
         allowNull: false,
         type: DataTypes.STRING(),
         references: {
-          model: rooms,
-          key: "roomId",
+          model: flights,
+          key: "flightId",
         },
       },
-      checkIn: {
+      flightBookingDate: {
         type: DataTypes.DATE,
         defaultValue: Sequelize.NOW,
         allowNull: false,
       },
-      checkOut: {
-        type: DataTypes.DATE,
-        defaultValue: Sequelize.NOW,
-        allowNull: false,
-      },
-      totalAmount: {
+      totalPrice: {
         type: DataTypes.INTEGER,
         allowNull: false,
       },
-      hotelBookingStatus: {
+      flightBookingStatus: {
         type: DataTypes.ENUM, //ENUM is a datatype that is strictly defined
         values: ["cancelled", "confirmed"],
       },
@@ -49,9 +46,13 @@ hotelBookings.init(
   {
     timestamps: true, //sets create time and update time
     paranoid: true, // gives delete time
-    modelName: "HotelBookings", //table name
+    modelName: "FlightsBooking", //table name
     sequelize, //db connection
   }
 );
 
-module.exports = hotelBookings;
+flightBookings.beforeCreate(async (flightBooking) => {
+  flightBooking.flightBookingId = uuid();
+});
+
+module.exports = flightBookings;

@@ -1,5 +1,6 @@
 const { Model, DataTypes } = require("sequelize");
 const sequelize = require("../../bin/dbConfig");
+const { v4: uuid } = require("uuid");
 
 class hotels extends Model {}
 
@@ -19,13 +20,21 @@ hotels.init(
       values: ["Islamabad", "Lahore", "Karachi", "Peshawar", "Quetta"],
       allowNull: false,
     },
-    description: {
+    address: {
       type: DataTypes.STRING(256),
       allowNull: false,
     },
+    mobile: {
+      type: DataTypes.STRING(),
+      unique: true,
+      allowNull: false,
+    },
     ratings: {
-      type: DataTypes.ENUM,
-      values: ["1", "2", "3", "4", "5"],
+      type: DataTypes.FLOAT,
+      validate: {
+        min: 0.0,
+        max: 5.0,
+      },
       allowNull: false,
     },
   },
@@ -36,5 +45,9 @@ hotels.init(
     sequelize, //db connection
   }
 );
+
+hotels.beforeCreate(async (hotel) => {
+  hotel.hotelId = uuid();
+});
 
 module.exports = hotels;

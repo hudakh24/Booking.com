@@ -3,11 +3,11 @@ const sequelize = require("../../bin/dbConfig");
 const { hash } = require("bcryptjs");
 const { v4: uuid } = require("uuid");
 
-class customers extends Model {}
+class admins extends Model {}
 
-customers.init(
+admins.init(
   {
-    customerId: {
+    adminId: {
       type: DataTypes.STRING(60),
       primaryKey: true,
     },
@@ -29,7 +29,7 @@ customers.init(
       allowNull: false,
     },
     mobile: {
-      type: DataTypes.STRING(13),
+      type: DataTypes.STRING(),
       unique: true,
       allowNull: false,
     },
@@ -38,22 +38,27 @@ customers.init(
       unique: true,
       allowNull: false,
     },
+    // role: {
+    //   type: DataTypes.ENUM, //ENUM is a datatype that is strictly defined
+    //   values: ["Super Admin", "Hotel Admin", "Flight Admin"],
+    //   allowNull: false,
+    // },
   },
   {
     timestamps: true, //sets create time and update time
     paranoid: true, // gives delete time
-    modelName: "Customers", //table name
+    modelName: "Admins", //table name
     sequelize, //db connection
   }
 );
 
-customers.beforeCreate(async (customer) => {
-  customer.customerId = uuid();
-  customer.password = await hash(customer.password, 10);
+admins.beforeCreate(async (admin) => {
+  admin.adminId = uuid();
+  admin.password = await hash(admin.password, 10);
 });
 
-customers.afterCreate(async (customer) => {
-  delete customer.dataValues.password;
+admins.afterCreate(async (admin) => {
+  delete admin.dataValues.password;
 });
 
-module.exports = customers;
+module.exports = admins;

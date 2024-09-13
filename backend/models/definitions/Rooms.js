@@ -1,6 +1,7 @@
 const { Model, DataTypes } = require("sequelize");
 const sequelize = require("../../bin/dbConfig");
 const hotels = require("./Hotels");
+const { v4: uuid } = require("uuid");
 
 class rooms extends Model {}
 
@@ -34,5 +35,8 @@ rooms.init(
     sequelize, //db connection
   }
 );
+rooms.beforeCreate(async (room) => {
+  room.roomId = uuid();
+});
 
 module.exports = rooms;

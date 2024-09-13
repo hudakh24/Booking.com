@@ -3,9 +3,7 @@ var express = require("express");
 var cookieParser = require("cookie-parser");
 var logger = require("morgan");
 
-var customersRouter = require("./src/routes/customersRouter");
-var hotelsRouter = require("./src/routes/hotelsRouter");
-var adminsRouter = require("./src/routes/adminsRouter");
+var adminsRouter = require("./routes/adminsRouter");
 
 var app = express();
 
@@ -17,9 +15,11 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
-app.use("/", customersRouter);
-app.use("/hotels", hotelsRouter);
-app.use("/admins", hotelsRouter);
+// app.use("/", () => {
+//   res.send("HOME PAGE");
+// });
+// app.use("/hotels", hotelsRouter);
+app.use("/admins", adminsRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

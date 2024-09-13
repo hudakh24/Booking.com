@@ -1,6 +1,7 @@
 const { Model, DataTypes } = require("sequelize");
 const sequelize = require("../../bin/dbConfig");
 const Sequelize = require("sequelize");
+const { v4: uuid } = require("uuid");
 
 class flights extends Model {}
 
@@ -44,5 +45,8 @@ flights.init(
     sequelize, //db connection
   }
 );
+flights.beforeCreate(async (flight) => {
+  flight.flightId = uuid();
+});
 
 module.exports = flights;
