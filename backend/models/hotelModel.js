@@ -98,7 +98,6 @@ module.exports = {
         where: {
           hotelId: hotelId,
         },
-        attributes: { exclude: ["password"] },
       });
       return {
         response: hotel,
@@ -121,6 +120,26 @@ module.exports = {
       console.error(error);
       return {
         error: error,
+      };
+    }
+  },
+  updateRoom: async ({ roomId, ...body }) => {
+    try {
+      const updatedRoom = await models.Rooms.update(
+        { ...body },
+        {
+          where: {
+            roomId: roomId,
+          },
+        }
+      );
+      return {
+        response: updatedRoom,
+      };
+    } catch (error) {
+      console.error(error);
+      return {
+        error: error.message,
       };
     }
   },

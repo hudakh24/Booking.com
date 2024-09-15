@@ -6,6 +6,7 @@ const {
   updateHotel,
   getHotel,
   createRoom,
+  updateRoom,
 } = require("../../models/hotelModel");
 const { getHotelId } = require("../../models/commonModel");
 module.exports = {
@@ -74,6 +75,16 @@ module.exports = {
       responseHandler(room, res);
     } catch (error) {
       return res.send({ error: error });
+    }
+  },
+  update_room: async (req, res) => {
+    try {
+      const room = await updateRoom(req.body);
+      responseHandler(room, res);
+    } catch (error) {
+      return res.send({
+        error: error.message,
+      });
     }
   },
 };
