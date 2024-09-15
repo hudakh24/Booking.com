@@ -5,8 +5,9 @@ const {
   deleteHotel,
   updateHotel,
   getHotel,
-  createRoom,
 } = require("../../models/hotelModel");
+
+const { createRoom, updateRoom } = require("../../models/roomModel");
 const { getHotelId } = require("../../models/commonModel");
 module.exports = {
   create_hotel: async (req, res) => {
@@ -40,6 +41,13 @@ module.exports = {
   },
   update_hotel: async (req, res) => {
     try {
+      const findHotelID = await getHotelId(req.body);
+      if (findHotelID.error) {
+        return res.send({
+          error: findHotelID.error.message,
+        });
+      }
+      req.body.hotelId = findHotelID.response.dataValues.hotelId;
       const hotel = await updateHotel(req.body);
       responseHandler(hotel, res);
     } catch (error) {
@@ -60,20 +68,37 @@ module.exports = {
   },
   create_room: async (req, res) => {
     try {
-      const hotel = await getHotelId(req.body);
-      if (hotel.error) {
+      const findHotelID = await getHotelId(req.body);
+      if (findHotelID.error) {
         return res.send({
-          error: hotel.error.message,
+          error: findHotelID.error.message,
         });
       }
-      console.log(hotel.response.dataValues);
-      delete req.body.hotel;
-      req.body.hotelId = hotel.response.dataValues.hotelId;
+      // console.log(hotel.response.dataValues);
+      // delete req.body.hotel;
 
+      req.body.hotelId = findHotelID.response.dataValues.hotelId;
       const room = await createRoom(req.body);
       responseHandler(room, res);
     } catch (error) {
       return res.send({ error: error });
+    }
+  },
+  update_room: async (req, res) => {
+    try {
+      const findHotelID = await getHotelId(req.body);
+      if (findHotelID.error) {
+        return res.send({
+          error: findHotelID.error.message,
+        });
+      }
+      req.body.hotelId = findHotelID.response.dataValues.hotelId;
+      const room = await updateRoom(req.body);
+      responseHandler(room, res);
+    } catch (error) {
+      return res.send({
+        error: error.message,
+      });
     }
   },
 };

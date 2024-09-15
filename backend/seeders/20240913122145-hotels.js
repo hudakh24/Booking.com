@@ -15,7 +15,6 @@ module.exports = {
       },
       {
         hotelId: uuid(),
-
         hotelName: "Hotel Margalla",
         location: "Islamabad",
         address:
@@ -27,7 +26,6 @@ module.exports = {
       },
       {
         hotelId: uuid(),
-
         hotelName: "Islamabad Marriott Hotel",
         location: "Islamabad",
         address:
@@ -39,7 +37,6 @@ module.exports = {
       },
       {
         hotelId: uuid(),
-
         hotelName: "Indigo Heights Hotel & Suites",
         location: "Lahore",
         address:
@@ -51,7 +48,6 @@ module.exports = {
       },
       {
         hotelId: uuid(),
-
         hotelName: "The Nishat Hotel",
         location: "Lahore",
         address: "Abdul Haque Road, Johar Town, 54600 Lahore, Pakistan",
@@ -62,7 +58,6 @@ module.exports = {
       },
       {
         hotelId: uuid(),
-
         hotelName: "Pearl Continental Hotel",
         location: "Lahore",
         address: "Shahrah-e-Quaid-e-Azam, The Mall, 54000 Lahore, Pakistan",
@@ -73,7 +68,6 @@ module.exports = {
       },
       {
         hotelId: uuid(),
-
         hotelName: "Ambiance Boutique Art Hotel",
         location: "Karachi",
         address: "F-177 Block 5 Clifton, Clifton, 74000 Karachi, Pakistan",
@@ -84,7 +78,6 @@ module.exports = {
       },
       {
         hotelId: uuid(),
-
         hotelName: "Karachi Marriott Hotel",
         location: "Karachi",
         address: "9 Abdullah Haroon Road, 75530 Karachi, Pakistan",
@@ -95,8 +88,7 @@ module.exports = {
       },
       {
         hotelId: uuid(),
-
-        hotelName: "Mövenpick Hotel Karachi",
+        hotelName: "Movenpick Hotel Karachi",
         location: "Karachi",
         address: "Club Road, 75530 Karachi, Pakistan",
         mobile: "+92 21 356 333 33",
@@ -106,7 +98,6 @@ module.exports = {
       },
       {
         hotelId: uuid(),
-
         hotelName: "Serena Hotel Peshawar",
         location: "Peshawar",
         address: "Khayber Road, Peshawar, 25000 Peshawar, Pakistan",
@@ -117,7 +108,6 @@ module.exports = {
       },
       {
         hotelId: uuid(),
-
         hotelName: "Shelton's Rezidor Peshawar",
         location: "Peshawar",
         address: "University Road, 25000 Peshawar, Pakistan ",
@@ -128,7 +118,6 @@ module.exports = {
       },
       {
         hotelId: uuid(),
-
         hotelName: "Peshawar Barracks",
         location: "Peshawar",
         address: "Khyber Road Peshawar cant, 24000 Peshawar, Pakistan",
@@ -139,7 +128,6 @@ module.exports = {
       },
       {
         hotelId: uuid(),
-
         hotelName: "Quetta Serena Hotel",
         location: "Quetta",
         address:
@@ -151,7 +139,6 @@ module.exports = {
       },
       {
         hotelId: uuid(),
-
         hotelName: "Grand Hotel Quetta",
         location: "Quetta",
         address:
@@ -163,7 +150,6 @@ module.exports = {
       },
       {
         hotelId: uuid(),
-
         hotelName: "White Hotel",
         location: "Quetta",
         address: "Gurdat Singh Road, 87300 Quetta, Pakistan",

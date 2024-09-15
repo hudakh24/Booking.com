@@ -6,7 +6,7 @@ module.exports = {
   createHotel: async (body) => {
     try {
       const hotel = await models.Hotels.create({ ...body });
-      //   const hotel = models.hotels.create({ hotelname: body.hotelname, password: body.password });
+      //   const hotel = models.hotels.create({ hotelName: body.hotelName, password: body.password });
       return {
         response: hotel,
       };
@@ -102,20 +102,6 @@ module.exports = {
       });
       return {
         response: hotel,
-      };
-    } catch (error) {
-      console.error(error);
-      return {
-        error: error,
-      };
-    }
-  },
-  createRoom: async (body) => {
-    try {
-      const room = await models.Rooms.create({ ...body });
-      //   const user = models.users.create({ username: body.username, password: body.password });
-      return {
-        response: room,
       };
     } catch (error) {
       console.error(error);

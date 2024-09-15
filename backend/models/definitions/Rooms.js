@@ -11,6 +11,10 @@ rooms.init(
       type: DataTypes.STRING(60),
       primaryKey: true,
     },
+    roomNo: {
+      type: DataTypes.STRING(),
+      allowNull: false,
+    },
     hotelId: {
       allowNull: false,
       type: DataTypes.STRING(),

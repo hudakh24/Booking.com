@@ -1,8 +1,8 @@
 const Joi = require("joi");
 
 module.exports = {
-  createHotel: async (req, res, next) => {
-    const CreateHotel = Joi.object({
+  createHotelValidation: async (req, res, next) => {
+    const createHotel = Joi.object({
       hotelName: Joi.string().min(3).max(34).required(),
       location: Joi.valid(
         "Islamabad",
@@ -17,7 +17,7 @@ module.exports = {
     });
 
     try {
-      await CreateHotel.validateAsync(req.body);
+      await createHotel.validateAsync(req.body);
       next();
     } catch (error) {
       return res.send({
@@ -26,7 +26,7 @@ module.exports = {
     }
   },
 
-  getAllHotel: async (req, res, next) => {
+  getAllHotelValidation: async (req, res, next) => {
     const getAllHotel = Joi.object({
       //pagination
       pageNo: Joi.number().required(),
@@ -63,7 +63,7 @@ module.exports = {
       });
     }
   },
-  hotelSchema: async (req, res, next) => {
+  hotelValidation: async (req, res, next) => {
     const hotel = Joi.object({
       hotelName: Joi.string(),
       hotelId: Joi.string(),
@@ -78,10 +78,10 @@ module.exports = {
       });
     }
   },
-  updateHotel: async (req, res, next) => {
+  updateHotelValidation: async (req, res, next) => {
     const updateHotel = Joi.object({
-      hotelId: Joi.string().required(),
-      hotelName: Joi.string(),
+      hotelId: Joi.string(),
+      hotelName: Joi.string().required(),
       address: Joi.string(),
       location: Joi.string(),
       mobile: Joi.string(),
