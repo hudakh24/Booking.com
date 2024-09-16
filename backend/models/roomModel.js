@@ -60,9 +60,7 @@ module.exports = {
       const rooms = await models.Rooms.findAll({
         where: {
           //checks firstName exists? if yes creates an object and then filer is performed on the firstName column
-          ...(query.hotelId
-            ? { hotelId: { [Op.substring]: query.hotelId } }
-            : true),
+          ...(query.hotelId ? { hotelId: query.hotelId } : true),
           ...(query.roomNo
             ? { roomNo: { [Op.substring]: query.roomNo } }
             : true),
