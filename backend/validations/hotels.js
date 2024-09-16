@@ -25,7 +25,6 @@ module.exports = {
       });
     }
   },
-
   getAllHotelValidation: async (req, res, next) => {
     const getAllHotel = Joi.object({
       //pagination

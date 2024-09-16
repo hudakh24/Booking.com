@@ -38,11 +38,11 @@ admins.init(
       unique: true,
       allowNull: false,
     },
-    // role: {
-    //   type: DataTypes.ENUM, //ENUM is a datatype that is strictly defined
-    //   values: ["Super Admin", "Hotel Admin", "Flight Admin"],
-    //   allowNull: false,
-    // },
+    role: {
+      type: DataTypes.ENUM, //ENUM is a datatype that is strictly defined
+      values: ["Super Admin", "Hotel Admin", "Flight Admin"],
+      allowNull: false,
+    },
   },
   {
     timestamps: true, //sets create time and update time

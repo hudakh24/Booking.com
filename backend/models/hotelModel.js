@@ -21,7 +21,7 @@ module.exports = {
     try {
       const hotels = await models.Hotels.findAll({
         where: {
-          //checks firstName exists? if yes creates an object and then filer is performed on the firstName column
+          //checks hotelName exists? if yes creates an object and then filer is performed on the hotelName column
           ...(query.hotelName
             ? { hotelName: { [Op.substring]: query.hotelName } }
             : true),
