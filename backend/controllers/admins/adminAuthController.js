@@ -2,6 +2,7 @@ const responseHandler = require("../../responseHandler");
 const { compare } = require("bcryptjs");
 const { sign } = require("jsonwebtoken");
 const { getAdmin } = require("../../models/adminModel");
+const bcrypt = require("bcryptjs");
 require("dotenv").config();
 module.exports = {
   login: async (req, res) => {
@@ -26,7 +27,7 @@ module.exports = {
       const admin = isAdmin.response.dataValues;
       delete admin.password;
       const token = sign(admin, process.env.SECRET, {
-        expiresIn: "1m",
+        expiresIn: "15m",
       });
       res.cookie("auth", token); //generating cookie
       return responseHandler({ response: token }, res);
@@ -37,4 +38,6 @@ module.exports = {
       });
     }
   },
+
+  logout: async (req, res) => {},
 };
