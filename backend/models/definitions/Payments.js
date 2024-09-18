@@ -19,22 +19,22 @@ payments.init(
         model: flightBookings,
         key: "flightBookingId",
       },
-      hotelBookingId: {
-        allowNull: false,
-        type: DataTypes.STRING(),
-        references: {
-          model: hotelBookings,
-          key: "hotelBookingId",
-        },
+    },
+    hotelBookingId: {
+      allowNull: false,
+      type: DataTypes.STRING(),
+      references: {
+        model: hotelBookings,
+        key: "hotelBookingId",
       },
-      grandTotal: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-      },
-      paymentStatus: {
-        type: DataTypes.ENUM, //ENUM is a datatype that is strictly defined
-        values: ["paid", "unpaid"],
-      },
+    },
+    grandTotal: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    },
+    paymentStatus: {
+      type: DataTypes.ENUM, //ENUM is a datatype that is strictly defined
+      values: ["paid", "unpaid"],
     },
   },
   {
