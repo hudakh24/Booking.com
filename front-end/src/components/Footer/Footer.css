@@ -1,0 +1,19 @@
+.footer {
+  @apply bg-cyan-800 text-white py-4; /* Background color, text color, padding */
+}
+
+.footerContainer {
+  @apply container mx-auto text-center; /* Center content */
+}
+
+.footerText {
+  @apply text-sm; /* Text size */
+}
+
+.footerLinks {
+  @apply flex justify-center space-x-4 mt-2; /* Flex layout for links */
+}
+
+.footerLink {
+  @apply text-gray-400 hover:text-white; /* Link color with hover effect */
+}

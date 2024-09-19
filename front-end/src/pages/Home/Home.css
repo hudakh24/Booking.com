@@ -1,0 +1,7 @@
+.home {
+  @apply flex flex-col min-h-screen; /* Tailwind utility classes */
+
+}
+.footer {
+  @apply mt-auto; /* This will push the footer to the bottom */
+}
