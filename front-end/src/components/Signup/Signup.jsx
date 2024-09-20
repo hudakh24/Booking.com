@@ -22,7 +22,7 @@ const SignupComponent = () => {
     lastName: Yup.string().required("Required"),
     userName: Yup.string().required("Required"),
     password: Yup.string().required("Required"),
-    mobile: Yup.string().required("Required"),
+    mobile: Yup.string().length(13).required("Required"),
     email: Yup.string().email("Invalid email address").required("Required"),
   });
 
@@ -146,7 +146,7 @@ const SignupComponent = () => {
                           ? "border-2 border-red-500"
                           : ""
                       }`}
-                      placeholder="Enter your mobile"
+                      placeholder="+92xxxxxxxxxx"
                     />
                     <p className="text-red-500">
                       <ErrorMessage name="mobile" />
