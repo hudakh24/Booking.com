@@ -20,7 +20,7 @@ module.exports = {
     try {
       if (req.user.role == "Hotel Admin" || req.user.role == "Super Admin") {
         const hotel = await createHotel(req.body);
-        console.log(hotel);
+        // console.log(hotel);
         responseHandler(hotel, res);
       } else {
         responseHandler({ response: "You don't have access" }, res);
@@ -31,13 +31,9 @@ module.exports = {
   },
   get_all_hotels: async (req, res) => {
     try {
-      if (req.user.role == "Hotel Admin" || req.user.role == "Super Admin") {
-        req.query.offset = (req.query.pageNo - 1) * req.query.limit;
-        const hotels = await getAllHotels(req.query);
-        responseHandler(hotels, res);
-      } else {
-        responseHandler({ response: "You don't have access" }, res);
-      }
+      req.query.offset = (req.query.pageNo - 1) * req.query.limit;
+      const hotels = await getAllHotels(req.query);
+      responseHandler(hotels, res);
     } catch (error) {
       return res.send({
         error: error.message,
@@ -81,21 +77,17 @@ module.exports = {
   },
   get_hotel: async (req, res) => {
     try {
-      if (req.user.role == "Hotel Admin" || req.user.role == "Super Admin") {
-        if (req.query.hotelName) {
-          const findHotelID = await getHotelId(req.query);
-          if (findHotelID.error) {
-            return res.send({
-              error: findHotelID.error.message,
-            });
-          }
-          req.query.hotelId = findHotelID.response.dataValues.hotelId;
+      if (req.query.hotelName) {
+        const findHotelID = await getHotelId(req.query);
+        if (findHotelID.error) {
+          return res.send({
+            error: findHotelID.error.message,
+          });
         }
-        const hotel = await getHotel(req.query);
-        responseHandler(hotel, res);
-      } else {
-        responseHandler({ response: "You don't have access" }, res);
+        req.query.hotelId = findHotelID.response.dataValues.hotelId;
       }
+      const hotel = await getHotel(req.query);
+      responseHandler(hotel, res);
     } catch (error) {
       return res.send({
         error: error.message,
@@ -170,23 +162,19 @@ module.exports = {
   },
   get_all_rooms: async (req, res) => {
     try {
-      if (req.user.role == "Hotel Admin" || req.user.role == "Super Admin") {
-        req.query.offset = (req.query.pageNo - 1) * req.query.limit;
-        if (req.query.hotelName) {
-          const findHotelID = await getHotelId(req.query);
-          if (findHotelID.error) {
-            return res.send({
-              error: findHotelID.error.message,
-            });
-          }
-          // delete req.query.hotelName;
-          req.query.hotelId = findHotelID.response.dataValues.hotelId;
+      req.query.offset = (req.query.pageNo - 1) * req.query.limit;
+      if (req.query.hotelName) {
+        const findHotelID = await getHotelId(req.query);
+        if (findHotelID.error) {
+          return res.send({
+            error: findHotelID.error.message,
+          });
         }
-        const rooms = await getAllRooms(req.query);
-        responseHandler(rooms, res);
-      } else {
-        responseHandler({ response: "You don't have access" }, res);
+        // delete req.query.hotelName;
+        req.query.hotelId = findHotelID.response.dataValues.hotelId;
       }
+      const rooms = await getAllRooms(req.query);
+      responseHandler(rooms, res);
     } catch (error) {
       return res.send({
         error: error.message,
@@ -195,22 +183,18 @@ module.exports = {
   },
   get_room: async (req, res) => {
     try {
-      if (req.user.role == "Hotel Admin" || req.user.role == "Super Admin") {
-        const findHotelID = await getHotelId(req.query);
-        if (findHotelID.error) {
-          return res.send({
-            error: findHotelID.error.message,
-          });
-        }
-        delete req.query.hotelName;
-        console.log(findHotelID);
-        req.query.hotelId = findHotelID.response.dataValues.hotelId;
-
-        const room = await getRoom(req.query);
-        responseHandler(room, res);
-      } else {
-        responseHandler({ response: "You don't have access" }, res);
+      const findHotelID = await getHotelId(req.query);
+      if (findHotelID.error) {
+        return res.send({
+          error: findHotelID.error.message,
+        });
       }
+      delete req.query.hotelName;
+      console.log(findHotelID);
+      req.query.hotelId = findHotelID.response.dataValues.hotelId;
+
+      const room = await getRoom(req.query);
+      responseHandler(room, res);
     } catch (error) {
       return res.send({
         error: error.message,

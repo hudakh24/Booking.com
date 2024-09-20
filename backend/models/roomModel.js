@@ -57,7 +57,6 @@ module.exports = {
     try {
       const rooms = await models.Rooms.findAll({
         where: {
-          //checks firstName exists? if yes creates an object and then filer is performed on the firstName column
           ...(query.hotelId ? { hotelId: query.hotelId } : true),
           ...(query.roomNo
             ? { roomNo: { [Op.substring]: query.roomNo } }
@@ -119,4 +118,22 @@ module.exports = {
       };
     }
   },
+
+  // checkAvailability: async ({ roomId }) => {
+  //   try {
+  //     const room = await models.HotelBookings.findOne({
+  //       where: {
+  //         roomId: roomId,
+  //       },
+  //     });
+  //     return {
+  //       response: room,
+  //     };
+  //   } catch (error) {
+  //     console.error(error);
+  //     return {
+  //       error: error,
+  //     };
+  //   }
+  // },
 };

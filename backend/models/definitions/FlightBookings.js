@@ -20,27 +20,27 @@ flightBookings.init(
         model: customers,
         key: "customerId",
       },
-      flightId: {
-        allowNull: false,
-        type: DataTypes.STRING(),
-        references: {
-          model: flights,
-          key: "flightId",
-        },
+    },
+    flightId: {
+      allowNull: false,
+      type: DataTypes.STRING(),
+      references: {
+        model: flights,
+        key: "flightId",
       },
-      flightBookingDate: {
-        type: DataTypes.DATE,
-        defaultValue: Sequelize.NOW,
-        allowNull: false,
-      },
-      totalPrice: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-      },
-      flightBookingStatus: {
-        type: DataTypes.ENUM, //ENUM is a datatype that is strictly defined
-        values: ["cancelled", "confirmed"],
-      },
+    },
+    flightBookingDate: {
+      type: DataTypes.DATE,
+      defaultValue: Sequelize.NOW,
+      allowNull: false,
+    },
+    totalPrice: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    },
+    flightBookingStatus: {
+      type: DataTypes.ENUM, //ENUM is a datatype that is strictly defined
+      values: ["cancelled", "confirmed"],
     },
   },
   {

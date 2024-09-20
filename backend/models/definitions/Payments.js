@@ -19,27 +19,27 @@ payments.init(
         model: flightBookings,
         key: "flightBookingId",
       },
-      hotelBookingId: {
-        allowNull: false,
-        type: DataTypes.STRING(),
-        references: {
-          model: hotelBookings,
-          key: "hotelBookingId",
-        },
+    },
+    hotelBookingId: {
+      allowNull: false,
+      type: DataTypes.STRING(),
+      references: {
+        model: hotelBookings,
+        key: "hotelBookingId",
       },
-      grandTotal: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-      },
-      paymentStatus: {
-        type: DataTypes.ENUM, //ENUM is a datatype that is strictly defined
-        values: ["paid", "unpaid"],
-      },
+    },
+    grandTotal: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    },
+    paymentStatus: {
+      type: DataTypes.ENUM, //ENUM is a datatype that is strictly defined
+      values: ["paid", "unpaid"],
     },
   },
   {
     timestamps: true, //sets create time and update time
-    paranoid: true, // gives delete time
+    // paranoid: true, // gives delete time
     modelName: "Payments", //table name
     sequelize, //db connection
   }

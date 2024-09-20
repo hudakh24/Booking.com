@@ -73,4 +73,23 @@ module.exports = {
       });
     }
   },
+  bookRoomValidation: async (req, res, next) => {
+    const bookRoom = Joi.object({
+      roomId: Joi.string().required(),
+      checkIn: Joi.date().required(),
+      checkOut: Joi.date().required(),
+      hotelBookingStatus: Joi.string()
+        .valid("cancelled", "confirmed")
+        .required(),
+    });
+
+    try {
+      await bookRoom.validateAsync(req.body);
+      next();
+    } catch (error) {
+      return res.send({
+        error: error,
+      });
+    }
+  },
 };

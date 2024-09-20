@@ -40,7 +40,7 @@ hotels.init(
   },
   {
     timestamps: true, //sets create time and update time
-    paranoid: true, // gives delete time
+    // paranoid: true, // gives delete time
     modelName: "Hotels", //table name
     sequelize, //db connection
   }

@@ -46,7 +46,7 @@ admins.init(
   },
   {
     timestamps: true, //sets create time and update time
-    paranoid: true, // gives delete time
+    // paranoid: true, // gives delete time
     modelName: "Admins", //table name
     sequelize, //db connection
   }

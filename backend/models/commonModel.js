@@ -18,4 +18,22 @@ module.exports = {
       };
     }
   },
+
+  getRoomPrice: async ({ roomId }) => {
+    try {
+      const room = await models.Rooms.findOne({
+        where: {
+          roomId: roomId,
+        },
+      });
+      return {
+        response: room,
+      };
+    } catch (error) {
+      console.log(error);
+      return {
+        error: error,
+      };
+    }
+  },
 };

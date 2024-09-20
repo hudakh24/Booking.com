@@ -20,37 +20,37 @@ hotelBookings.init(
         model: customers,
         key: "customerId",
       },
-      roomId: {
-        allowNull: false,
-        type: DataTypes.STRING(),
-        references: {
-          model: rooms,
-          key: "roomId",
-        },
+    },
+    roomId: {
+      allowNull: false,
+      type: DataTypes.STRING(),
+      references: {
+        model: rooms,
+        key: "roomId",
       },
-      checkIn: {
-        type: DataTypes.DATE,
-        defaultValue: Sequelize.NOW,
-        allowNull: false,
-      },
-      checkOut: {
-        type: DataTypes.DATE,
-        defaultValue: Sequelize.NOW,
-        allowNull: false,
-      },
-      totalAmount: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-      },
-      hotelBookingStatus: {
-        type: DataTypes.ENUM, //ENUM is a datatype that is strictly defined
-        values: ["cancelled", "confirmed"],
-      },
+    },
+    checkIn: {
+      type: DataTypes.DATE,
+      defaultValue: Sequelize.NOW,
+      allowNull: false,
+    },
+    checkOut: {
+      type: DataTypes.DATE,
+      // defaultValue: Sequelize.NOW,
+      allowNull: false,
+    },
+    totalAmount: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    },
+    hotelBookingStatus: {
+      type: DataTypes.ENUM, //ENUM is a datatype that is strictly defined
+      values: ["cancelled", "confirmed"],
     },
   },
   {
     timestamps: true, //sets create time and update time
-    paranoid: true, // gives delete time
+    // paranoid: true, // gives delete time
     modelName: "HotelBookings", //table name
     sequelize, //db connection
   }

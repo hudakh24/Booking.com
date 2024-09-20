@@ -5,6 +5,8 @@ var logger = require("morgan");
 
 var adminsRouter = require("./routes/adminsRouter");
 var adminsAuthRouter = require("./routes/adminAuthRouter");
+var customersRouter = require("./routes/customersRouter");
+var customersAuthRouter = require("./routes/customerAuthRouter");
 
 var app = express();
 
@@ -16,9 +18,10 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
-// app.use("/hotels", hotelsRouter);
 app.use("/admins", adminsRouter);
 app.use("/adminsAuth", adminsAuthRouter);
+app.use("/", customersAuthRouter);
+app.use("/customer", customersRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

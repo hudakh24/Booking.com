@@ -2,7 +2,7 @@
   "development": {
     "username": "postgres",
     "password": "admin1245",
-    "database": "HotelBooking",
+    "database": "Booking_Web_Application",
     "host": "localhost",
     "dialect": "postgres",
     "port": "5432"
