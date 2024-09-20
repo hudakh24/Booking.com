@@ -1,7 +1,11 @@
 import { Formik, Form, Field, ErrorMessage } from "formik";
+import { useNavigate } from "react-router-dom";
+
 import * as Yup from "yup";
+import axios from 'axios';
 
 const LoginComponent = () => {
+  const navigate = useNavigate();
   const initialValues = {
     userName: "",
     password: "",
@@ -13,9 +17,22 @@ const LoginComponent = () => {
     password: Yup.string().required("Required") 
   });
 
-  const handleSubmit = (values) => {
-    console.log(values);
+  const handleSubmit = async (values) => {
+    try {
+      const response = await axios.post('http://localhost:3000', values);
+      console.log('Login successful', response.data);
+      navigate("/");
+      // Handle the response (e.g., save the token, redirect, etc.)
+    } catch (error) {
+      console.error('Error during login:', error.response ? error.response.data.message : error.message);
+    }
   };
+
+
+
+  // const handleSubmit = (values) => {
+  //   console.log(values);
+  // };
   // Formik logic
   return (
     <>
@@ -33,8 +50,8 @@ const LoginComponent = () => {
             onSubmit={handleSubmit}
           >
             {({ errors, touched }) => (
-              console.log("Errors:", errors),
-              console.log("Touched:", touched),
+              // console.log("Errors:", errors),
+              // console.log("Touched:", touched),
               (
                 <Form>
                     <>

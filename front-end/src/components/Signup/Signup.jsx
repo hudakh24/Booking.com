@@ -1,7 +1,13 @@
 import { Formik, Form, Field, ErrorMessage } from "formik";
+import { useNavigate } from "react-router-dom";
+
 import * as Yup from "yup";
+import axios from 'axios';
+
 
 const SignupComponent = () => {
+  const navigate = useNavigate();
+
   const initialValues = {
     firstName: "",
     lastName: "",
@@ -20,8 +26,15 @@ const SignupComponent = () => {
     email: Yup.string().email("Invalid email address").required("Required"),
   });
 
-  const handleSubmit = (values) => {
-    console.log(values);
+  const handleSubmit = async (values) => {
+    try {
+      const response = await axios.post('http://localhost:3000/register', values);
+      console.log('Signup successful', response.data);
+      navigate("/login");
+      // Handle the response (e.g., save the token, redirect, etc.)
+    } catch (error) {
+      console.error('Error during login:', error.response ? error.response.data.message : error.message);
+    }
   };
 
   return (
