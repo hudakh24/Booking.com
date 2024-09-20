@@ -7,8 +7,13 @@ var adminsRouter = require("./routes/adminsRouter");
 var adminsAuthRouter = require("./routes/adminAuthRouter");
 var customersRouter = require("./routes/customersRouter");
 var customersAuthRouter = require("./routes/customerAuthRouter");
+const bodyParser = require("body-parser");
+const cors = require("cors");
 
 var app = express();
+
+app.use(cors()); //(cross origin resource sharing) Enables cross-origin requests from any domain.
+app.use(bodyParser.json()); //takes the incoming JSON data (which is just a string) from the request body and converting it into a JavaScript object
 
 // view engine setup
 app.set("view engine", "jade");
