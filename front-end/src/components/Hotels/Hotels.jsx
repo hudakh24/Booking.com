@@ -1,4 +1,4 @@
-
+import "./Hotels.css"
 import { useEffect, useState } from "react";
 import axios from "axios";
 
@@ -13,7 +13,7 @@ const StarRating = ({ rating }) => {
   return (
     <div className="flex justify-center">
       {stars.map((star, i) => (
-        <span key={i} className={star === '★' ? 'text-yellow-500' : 'text-gray-500'}>
+        <span key={i} className={star === '★' ? 'text-yellow-500' : 'text-gray-300'}>
           {star}
         </span>
       ))}
@@ -38,19 +38,19 @@ const Hotels = () => {
   }, []);
 
   return (
-    <div className="relative mx-auto text-center p-4">
+    <div className="hotels-container">
       <br />
       <br />
-      <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4">
+      <div className="hotels-grid ">
         {hotels.map((hotel) => (
           <div
             key={hotel.hotelId}
-            className="border p-3 rounded-md bg-gray-100 shadow-lg transition-transform duration-300 hover:scale-105 cursor-pointer"
+            className="hotel-card "
           >
-            <h2 className="text-blue-600 font-bold text-lg mb-1">{hotel.hotelName}</h2>
-            <p className="text-gray-600 mb-1">{hotel.address}</p>
-            <h3 className="text-md font-semibold text-gray-700 mb-1">{hotel.location}</h3>
-            <p className="text-gray-500">{hotel.mobile}</p>
+            <h2 className="hotel-name">{hotel.hotelName}</h2>
+            <p className="hotel-address">{hotel.address}</p>
+            <h3 className="hotel-location">{hotel.location}</h3>
+            <p className="hotel-mobile">{hotel.mobile}</p>
 
             {/* Display the rating as stars */}
             <StarRating rating={hotel.ratings} />

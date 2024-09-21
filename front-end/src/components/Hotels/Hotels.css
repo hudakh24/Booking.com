@@ -1,0 +1,27 @@
+.hotels-container {
+  @apply  relative mx-auto text-center p-4;
+}
+
+.hotels-grid {
+  @apply grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4;
+}
+
+.hotel-card {
+  @apply border p-3 rounded-md bg-gray-100 shadow-lg transition-transform duration-300 hover:scale-105 cursor-pointer;
+}
+
+.hotel-name {
+  @apply text-blue-600 font-bold text-lg mb-1;
+}
+
+.hotel-address {
+  @apply text-gray-600 mb-1;
+}
+
+.hotel-location {
+  @apply  font-semibold text-gray-700 mb-1;
+}
+
+.hotel-mobile {
+  @apply text-gray-500;
+}
