@@ -32,7 +32,14 @@ module.exports = {
             ? { location: { [Op.substring]: query.location } }
             : true),
         },
-        attributes: ["hotelId", "hotelName", "location", "address", "mobile"],
+        attributes: [
+          "hotelId",
+          "hotelName",
+          "location",
+          "address",
+          "mobile",
+          "ratings",
+        ],
         // attributes: { exclude: ["hotelId"] },
         // order:[["order", "by"]], order accepts two values
         order: [
