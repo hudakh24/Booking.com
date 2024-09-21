@@ -1,11 +1,15 @@
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { useNavigate } from "react-router-dom";
-
+import { useState, useContext } from "react";
+import { AuthContext } from "../../contexts/AuthContext";
 import * as Yup from "yup";
 import axios from 'axios';
 
 const LoginComponent = () => {
   const navigate = useNavigate();
+  const { login } = useContext(AuthContext);
+  const [error, setError] = useState("");
+
   const initialValues = {
     userName: "",
     password: "",
@@ -20,19 +24,33 @@ const LoginComponent = () => {
   const handleSubmit = async (values) => {
     try {
       const response = await axios.post('http://localhost:3000', values);
-      console.log('Login successful', response.data);
-      navigate("/");
+      
+      if (response.data.response.response && response.data.response.response!="Invalid User" && response.data.response.response!="Invalid Credentials" ) {
+        // Store the token in localStorage or sessionStorage
+        // localStorage.setItem("authToken", response.data.response.response);
+
+        login(response.data.response.response); // Call login from context to update global state
+        // Replace the current history state to prevent back navigation
+        window.history.replaceState(null, null, "/");
+
+        navigate("/");
+      } else {
+        // If no token, set an error message
+        setError("Invalid login credentials.");
+        // navigate("/login");
+
+      }
+      // if(response.data.response == "Invalid User" || response.data.response == "Invalid Credentials")
+      // {navigate("/Login");}
+      // else{navigate("/")}
       // Handle the response (e.g., save the token, redirect, etc.)
     } catch (error) {
       console.error('Error during login:', error.response ? error.response.data.message : error.message);
+      setError('Error during login', error.response ? error.response.data.message : error.message)
     }
   };
 
 
-
-  // const handleSubmit = (values) => {
-  //   console.log(values);
-  // };
   // Formik logic
   return (
     <>
@@ -50,8 +68,6 @@ const LoginComponent = () => {
             onSubmit={handleSubmit}
           >
             {({ errors, touched }) => (
-              // console.log("Errors:", errors),
-              // console.log("Touched:", touched),
               (
                 <Form>
                     <>
@@ -101,6 +117,7 @@ const LoginComponent = () => {
                     className="w-full rounded bg-yellow-600 py-2 text-white transition hover:bg-yellow-700"
                   >Log In
                   </button>
+                  {error && <p className="text-red-500 mt-4">{error}</p>}
                 </Form>
               )
             )}

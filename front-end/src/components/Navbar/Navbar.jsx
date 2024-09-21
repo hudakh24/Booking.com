@@ -1,9 +1,12 @@
 import "./Navbar.css";
 import { useNavigate } from "react-router-dom";
+import { useContext } from "react";
+import { AuthContext } from "../../contexts/AuthContext";
 // import { Login } from "../Login/Login"
 const Navbar = () => {
 
    const navigate = useNavigate(); // This hook is used to navigate programmatically
+   const { isLoggedIn, logout } = useContext(AuthContext);
 
   // const handleLoginClick = (mode) => {
   //   navigate(`/form?mode=${mode}`); // This will navigate to the /login route with the mode as a query parameter
@@ -16,6 +19,12 @@ const Navbar = () => {
   const handleSignupClick = () => {
     navigate("/register"); 
   };
+
+   const handleLogout = () => {
+    logout(); // Call the logout function from AuthContext
+    navigate("/");
+  };
+
   return (
     <>
     {/* <div className="navbar">
@@ -31,8 +40,16 @@ const Navbar = () => {
       <div className="navbar">
       <span className="websiteName">Booking.com</span>
       <div className="NavItems">
-          <button onClick={ handleSignupClick} className="navButton">Register</button>
+        {
+        isLoggedIn ? ( <>
+          <button onClick={ handleLogout} className="navButton">Logout</button>
+        </>) : (<>
+        <button onClick={ handleSignupClick} className="navButton">Register</button>
         <button onClick={handleLoginClick} className="navButton">Login</button>
+        </>
+      )
+        }
+        
       </div>
     </div>
       </>
