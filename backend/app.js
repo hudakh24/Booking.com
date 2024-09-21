@@ -9,8 +9,6 @@ var adminsRouter = require("./routes/adminsRouter");
 var adminsAuthRouter = require("./routes/adminAuthRouter");
 var customersRouter = require("./routes/customersRouter");
 var customersAuthRouter = require("./routes/customerAuthRouter");
-const bodyParser = require("body-parser");
-const cors = require("cors");
 
 var app = express();
 app.use(cors());
