@@ -8,10 +8,6 @@ const Navbar = () => {
    const navigate = useNavigate(); // This hook is used to navigate programmatically
    const { isLoggedIn, logout } = useContext(AuthContext);
 
-  // const handleLoginClick = (mode) => {
-  //   navigate(`/form?mode=${mode}`); // This will navigate to the /login route with the mode as a query parameter
-  // };
-
   const handleLoginClick = () => {
     navigate("/login"); 
   };
@@ -27,16 +23,7 @@ const Navbar = () => {
 
   return (
     <>
-    {/* <div className="navbar">
-      <span className="websiteName">Booking.com</span>
-      <div className="NavItems">
-          <button onClick={() => {
-            handleLoginClick("signup")
-        }} className="navButton">Register</button>
-        <button onClick={() =>{handleLoginClick("login")}} className="navButton">Login</button>
-      </div>
-    </div> */}
-      
+    
       <div className="navbar">
       <span className="websiteName">Booking.com</span>
       <div className="NavItems">
