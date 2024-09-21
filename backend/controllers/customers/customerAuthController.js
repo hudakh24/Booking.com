@@ -35,7 +35,7 @@ module.exports = {
         expiresIn: "2m",
       });
       res.cookie("userauth", token); //generating cookie
-      return responseHandler({ response: token }, res);
+      return responseHandler({ response: token, user: customer }, res);
     } catch (error) {
       console.log(error);
       return res.send({

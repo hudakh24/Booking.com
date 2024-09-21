@@ -2,6 +2,8 @@ var express = require("express");
 //var path = require('path');
 var cookieParser = require("cookie-parser");
 var logger = require("morgan");
+const bodyParser = require("body-parser");
+const cors = require("cors");
 
 var adminsRouter = require("./routes/adminsRouter");
 var adminsAuthRouter = require("./routes/adminAuthRouter");
@@ -9,6 +11,8 @@ var customersRouter = require("./routes/customersRouter");
 var customersAuthRouter = require("./routes/customerAuthRouter");
 
 var app = express();
+app.use(cors());
+app.use(bodyParser.json());
 
 // view engine setup
 app.set("view engine", "jade");

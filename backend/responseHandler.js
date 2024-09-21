@@ -6,7 +6,7 @@ const responseHandler = (data, res) => {
       });
     }
     return res.send({
-      response: data.response,
+      response: data,
     });
   } catch (error) {
     console.error(error.message);

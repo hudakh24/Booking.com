@@ -11,7 +11,7 @@ const {
 const protected = require("../middleware1");
 const { bookRoomValidation } = require("../validations/rooms");
 
-routes.get("/", get_all_hotels);
+routes.get("/get-all-hotels", get_all_hotels);
 routes.get("/get-hotel", get_hotel);
 routes.get("/get-all-rooms", get_all_rooms);
 routes.get("/get-room", get_room);
