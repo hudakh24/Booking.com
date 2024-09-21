@@ -53,8 +53,8 @@ module.exports = {
   getAllRoomsValidation: async (req, res, next) => {
     const getAllRooms = Joi.object({
       //pagination
-      pageNo: Joi.number().required(),
-      limit: Joi.number().valid(2, 4).required(), //valid tells no of records to be displayed 2/4
+      // pageNo: Joi.number().required(),
+      // limit: Joi.number().valid(2, 4).required(), //valid tells no of records to be displayed 2/4
       //sorting
       orderWith: Joi.string().valid("pricePerNight", "roomType", "roomNo"),
       orderBy: Joi.string().valid("ASC", "DESC"),

@@ -1,6 +1,8 @@
 const { getHotel } = require("./commonModel");
 const { models } = require("./index");
 const { Op } = require("sequelize");
+const sequelize = require("../bin/dbConfig");
+const responseHandler = require("../responseHandler");
 
 module.exports = {
   createHotel: async (body) => {
@@ -17,28 +19,47 @@ module.exports = {
       };
     }
   },
+
   getAllHotels: async (query) => {
     try {
+      const { location } = query;
+
+      // Define your valid ENUM values (you can also fetch them from the model)
+      const validLocations = [
+        "Islamabad",
+        "Lahore",
+        "Karachi",
+        "Peshawar",
+        "Quetta",
+      ];
+
+      if (location && !validLocations.includes(location)) {
+        return { response: "Invalid location value" };
+      }
+
       const hotels = await models.Hotels.findAll({
         where: {
-          //checks hotelName exists? if yes creates an object and then filer is performed on the hotelName column
+          ...(location ? { location } : true),
+
+          //checks hotelName exists? if yes creates an object and then filter is performed on the hotelName column
           ...(query.hotelName
             ? { hotelName: { [Op.substring]: query.hotelName } }
             : true),
-          ...(query.mobile
-            ? { mobile: { [Op.substring]: query.mobile } }
-            : true),
-          ...(query.location
-            ? { location: { [Op.substring]: query.location } }
-            : true),
         },
-        attributes: ["hotelId", "hotelName", "location", "address", "mobile"],
+        attributes: [
+          "hotelId",
+          "hotelName",
+          "location",
+          "address",
+          "mobile",
+          "ratings",
+        ],
         // attributes: { exclude: ["hotelId"] },
         // order:[["order", "by"]], order accepts two values
         order: [
           [
-            query.orderWith ? query.orderWith : "hotelName",
-            query.orderBy ? query.orderBy : "ASC",
+            query.orderWith ? query.orderWith : "ratings",
+            query.orderBy ? query.orderBy : "DESC",
           ],
         ],
         // offset: query.offset,
@@ -54,6 +75,7 @@ module.exports = {
       };
     }
   },
+
   deleteHotel: async ({ hotelName, hotelId }) => {
     try {
       const hotel = await models.Hotels.destroy({
@@ -72,6 +94,7 @@ module.exports = {
       };
     }
   },
+
   updateHotel: async ({ hotelId, ...body }) => {
     try {
       const hotel = await models.Hotels.update(
@@ -92,6 +115,7 @@ module.exports = {
       };
     }
   },
+
   getHotel: async ({ hotelId }) => {
     try {
       const hotel = await models.Hotels.findOne({

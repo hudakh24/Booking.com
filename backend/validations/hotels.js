@@ -25,11 +25,12 @@ module.exports = {
       });
     }
   },
+
   getAllHotelValidation: async (req, res, next) => {
     const getAllHotel = Joi.object({
       //pagination
-      pageNo: Joi.number().required(),
-      limit: Joi.number().valid(2, 4).required(), //valid tells no of records to be displayed 2/4
+      // pageNo: Joi.number().required(),
+      // limit: Joi.number().valid(2, 4).required(), //valid tells no of records to be displayed 2/4
       //sorting
       orderWith: Joi.string().valid(
         "hotelName",
@@ -62,6 +63,7 @@ module.exports = {
       });
     }
   },
+
   hotelValidation: async (req, res, next) => {
     const hotel = Joi.object({
       hotelName: Joi.string(),
@@ -77,6 +79,7 @@ module.exports = {
       });
     }
   },
+
   updateHotelValidation: async (req, res, next) => {
     const updateHotel = Joi.object({
       hotelId: Joi.string(),

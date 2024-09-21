@@ -32,6 +32,7 @@ module.exports = {
   get_all_hotels: async (req, res) => {
     try {
       // req.query.offset = (req.query.pageNo - 1) * req.query.limit;
+      console.log("--------", req.query);
       const hotels = await getAllHotels(req.query);
       responseHandler(hotels, res);
     } catch (error) {
@@ -162,7 +163,7 @@ module.exports = {
   },
   get_all_rooms: async (req, res) => {
     try {
-      req.query.offset = (req.query.pageNo - 1) * req.query.limit;
+      // req.query.offset = (req.query.pageNo - 1) * req.query.limit;
       if (req.query.hotelName) {
         const findHotelID = await getHotelId(req.query);
         if (findHotelID.error) {

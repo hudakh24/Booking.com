@@ -87,8 +87,8 @@ module.exports = {
             query.orderBy ? query.orderBy : "ASC",
           ],
         ],
-        offset: query.offset,
-        limit: query.limit,
+        // offset: query.offset,
+        // limit: query.limit,
       });
       return {
         response: rooms,
