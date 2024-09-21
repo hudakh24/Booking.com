@@ -7,7 +7,7 @@ const Hotels = () => {
   const fetchHotels = async () => {
     try {
       const response = await axios.get("http://localhost:3000/customer/get-all-hotels");
-      setHotels(response.data.response);
+      setHotels(response.data.response.response);
     } catch (error) {
       console.error("Error fetching data:", error);
     }
