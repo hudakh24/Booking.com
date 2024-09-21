@@ -1,19 +1,10 @@
+/* Footer.css */
 .footer {
-  @apply bg-cyan-800 text-white py-4; /* Background color, text color, padding */
+  @apply h-16 bg-gradient-to-r from-cyan-900 via-cyan-800 to-cyan-700 w-full flex items-center justify-center px-4 md:px-8; /* Same as navbar */
 }
 
-.footerContainer {
-  @apply container mx-auto text-center; /* Center content */
+.footer-content {
+  @apply text-white; /* Center the text color */
+  text-align: center; /* Center align the text */
 }
 
-.footerText {
-  @apply text-sm; /* Text size */
-}
-
-.footerLinks {
-  @apply flex justify-center space-x-4 mt-2; /* Flex layout for links */
-}
-
-.footerLink {
-  @apply text-gray-400 hover:text-white; /* Link color with hover effect */
-}

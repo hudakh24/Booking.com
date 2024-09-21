@@ -1,7 +1,10 @@
+/* Home.css */
 .home {
   @apply flex flex-col min-h-screen; /* Tailwind utility classes */
+}
 
-}
+/* Ensure that the footer stays at the bottom */
 .footer {
-  @apply mt-auto; /* This will push the footer to the bottom */
+  margin-top: auto; /* This will push the footer to the bottom */
 }
+

@@ -1,20 +1,25 @@
+/* Main header container */
 .header {
   @apply h-60 bg-gradient-to-r from-cyan-900 via-cyan-800 to-cyan-700 w-full flex flex-col px-4 py-1 md:px-8 relative;
 }
 
+/* Container holding header elements */
 .headerContainer {
   @apply w-full max-w-[1024px] my-5 mx-7;
 }
 
+/* Items like "Stays" and "Flights" */
 .headerItems {
-  @apply text-white flex gap-5 justify-start mt-5 mb-0 mx-0 relative; 
+  @apply text-white flex gap-5 justify-start mt-5 mb-0 mx-0 relative;
   top: -10px;
 }
 
+/* Styling for each item */
 .item {
   @apply flex items-center gap-2 p-1 cursor-pointer;
 }
 
+/* Active item styling */
 .item.active {
   @apply border-2 border-cyan-500 rounded-full bg-opacity-20 bg-white shadow-lg;
 }
@@ -23,6 +28,7 @@
   @apply bg-opacity-30 shadow-xl;
 }
 
+/* Text container below the items */
 .headerText {
   @apply text-left mt-2;
 }
@@ -35,25 +41,47 @@
   @apply text-lg text-white mt-1;
 }
 
+/* Main search container */
 .headerSearch {
   @apply h-16 bg-white border-2 border-cyan-500 flex items-center justify-between px-6 py-2 rounded-md mt-6 mx-20;
 }
 
+/* Individual search items inside search bar */
 .headerSearchItem {
-  @apply flex items-center space-x-2; /* Ensures space between icon and text/input */
+  @apply flex items-center space-x-2 relative; /* relative positioning for absolute children */
 }
 
-
-.headerSearchDate {
-  @apply cursor-pointer text-gray-400 
-}
-
+/* Search input styling */
 .headerSearchInput {
   @apply border-none outline-none;
 }
+
+/* Search date styling */
+.headerSearchDate {
+  @apply cursor-pointer text-gray-400;
+}
+
+/* Styling for the Search button */
 .searchButton {
   @apply px-6 py-2 bg-cyan-500 text-white font-semibold rounded-lg shadow-md transition-all duration-300 ease-in-out hover:bg-cyan-600 hover:shadow-lg;
 }
-.date{
-  @apply absolute z-10 border-2 border-cyan-500 bg-white top-full left-80 mt-2
+
+/* Date picker pop-up */
+.date {
+  @apply absolute z-10 border-2 border-cyan-500 bg-white mt-2;
+  top: 100%; /* Ensure calendar appears below the input */
+  left: 50px; /* Move the calendar slightly to the right */
+}
+
+/* Suggestions list for locations */
+.suggestionsList {
+  @apply absolute bg-white border-2 border-cyan-500 rounded-md max-h-40 overflow-y-auto z-20 mt-1;
+  top: 100%; /* Ensure it appears directly below the input field */
+  width: 100%; /* Match the input field's width */
+  left: 0; /* Align with the input field */
+}
+
+/* Individual suggestion items */
+.suggestionItem {
+  @apply px-4 py-2 cursor-pointer hover:bg-gray-200;
 }
