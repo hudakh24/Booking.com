@@ -31,7 +31,7 @@ module.exports = {
   },
   get_all_hotels: async (req, res) => {
     try {
-      req.query.offset = (req.query.pageNo - 1) * req.query.limit;
+      // req.query.offset = (req.query.pageNo - 1) * req.query.limit;
       const hotels = await getAllHotels(req.query);
       responseHandler(hotels, res);
     } catch (error) {
