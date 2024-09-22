@@ -28,7 +28,11 @@ HotelBookings.belongsTo(Customers, { foreignKey: "customerId" });
 Flights.hasMany(FlightBookings, { foreignKey: "flightId" });
 FlightBookings.belongsTo(Flights, { foreignKey: "flightId" });
 
-Hotels.hasMany(Rooms, { foreignKey: "hotelId", onDelete: "CASCADE" });
+Hotels.hasMany(Rooms, {
+  foreignKey: "hotelId",
+  onDelete: "CASCADE",
+  as: "rooms",
+});
 Rooms.belongsTo(Hotels, { foreignKey: "hotelId" });
 
 Rooms.hasMany(HotelBookings, { foreignKey: "roomId" });

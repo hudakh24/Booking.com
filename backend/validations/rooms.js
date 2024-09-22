@@ -92,4 +92,37 @@ module.exports = {
       });
     }
   },
+  availableRoomsValidation: async (req, res, next) => {
+    const availableRooms = Joi.object({
+      //pagination
+      // pageNo: Joi.number().required(),
+      // limit: Joi.number().valid(2, 4).required(), //valid tells no of records to be displayed 2/4
+      //sorting
+      orderWith: Joi.string().valid("pricePerNight", "roomType"),
+      orderBy: Joi.string().valid("ASC", "DESC"),
+      //filter
+      hotelName: Joi.string(),
+      roomNo: Joi.string().min(2).max(4),
+      roomType: Joi.valid("single", "double", "suite"),
+      pricePerNight: Joi.number(),
+
+      checkIn: Joi.date().required(),
+      checkOut: Joi.date().required(),
+      location: Joi.valid(
+        "Islamabad",
+        "Lahore",
+        "Karachi",
+        "Peshawar",
+        "Quetta"
+      ).required(),
+    });
+    try {
+      await availableRooms.validateAsync(req.query);
+      next();
+    } catch (error) {
+      return res.send({
+        error: error,
+      });
+    }
+  },
 };

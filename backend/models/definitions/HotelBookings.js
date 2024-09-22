@@ -36,7 +36,7 @@ hotelBookings.init(
     },
     checkOut: {
       type: DataTypes.DATE,
-      // defaultValue: Sequelize.NOW,
+      defaultValue: Sequelize.NOW,
       allowNull: false,
     },
     totalAmount: {
