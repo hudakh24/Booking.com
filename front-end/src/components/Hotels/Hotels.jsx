@@ -13,7 +13,7 @@ const StarRating = ({ rating }) => {
   return (
     <div className="flex justify-center">
       {stars.map((star, i) => (
-        <span key={i} className={star === '★' ? 'text-yellow-500' : 'text-gray-300'}>
+        <span key={i} className={star === '★' ? 'text-yellow-500' : 'text-gray-500'}>
           {star}
         </span>
       ))}
