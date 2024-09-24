@@ -6,21 +6,19 @@ import { DateRange } from 'react-date-range';
 import 'react-date-range/dist/styles.css'; 
 import 'react-date-range/dist/theme/default.css'; 
 import { format } from "date-fns"; 
+import { useLocation } from "react-router-dom";
 
 const suggestions = ["Islamabad", "Karachi", "Lahore", "Peshawar", "Quetta"];
 
 const SidebarSearch = () => {
+  const location = useLocation();
+  console.log("sideBarLocation-->", location)
+
   const [showSuggestions, setShowSuggestions] = useState(false);
-  const [inputValue, setInputValue] = useState("");
+  const [inputValue, setInputValue] = useState(location.state.inputValue);
   const [hotelInput, setHotelInput] = useState("");
   const [openDate, setOpenDate] = useState(false);
-  const [date, setDate] = useState([
-    {
-      startDate: new Date(),
-      endDate: new Date(),
-      key: "selection",
-    },
-  ]);
+  const [date, setDate] = useState(location.state.date);
 
   const handleInputChange = (e) => {
     setInputValue(e.target.value);
@@ -35,7 +33,7 @@ const SidebarSearch = () => {
     setShowSuggestions(false);
   };
 
- 
+  
 
   return (
     <div className="sidebarSearch">
