@@ -1,3 +1,33 @@
+.mainContainer{
+   @apply flex px-4 py-2
+}
 
+.sideBar{
+   @apply relative mt-16 h-60 w-1/4 p-4 bg-gray-100 rounded-md
+}
 
+.roomsList{
+    @apply flex-grow w-3/4 p-4
+}
 
+.heading{
+    @apply text-3xl font-extrabold text-cyan-800 mb-6 shadow-md p-2 bg-white rounded-md
+}
+
+.roomsCard{
+    @apply flex justify-between items-center p-4 border bg-gray-100 rounded-md shadow-lg mb-4
+}
+
+.button{
+    @apply px-4 py-2 bg-cyan-800 text-white font-semibold rounded-lg shadow-md transition-all duration-300 ease-in-out mt-5 hover:bg-cyan-600 hover:shadow-lg
+}
+.cardHeading{
+    @apply text-lg text-cyan-600 font-bold
+}
+
+.location{
+@apply  text-gray-600
+}
+.cardSubHeading{
+    @apply font-bold text-gray-700
+}

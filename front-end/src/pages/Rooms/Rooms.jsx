@@ -6,53 +6,80 @@ import SideBarSearch from "../../components/SideBarSearch/SideBarSearch";
 import Footer from "../../components/Footer/Footer"; 
 import { useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
+import axios from "axios";
+import { useContext } from "react";
 
 const Rooms = () => {
   const location = useLocation();
   console.log("roomsLoc-->", location.state);
+  const token = localStorage.getItem("authToken")
+  console.log("token----->",token)
+  
 
   const [rooms, setRooms] = useState([]);
   
   useEffect(() => {
     setRooms(location.state.availableRooms.response);
   }, [location.state]);
+  
+  // Updated bookHandler to accept room data
+  const bookHandler = async ({roomId}) => {
+    console.log( location.state.date[0].startDate,location.state.date[0].endDate );
+
+    // console.log("----------->",rooms[0].roomId);
+    try {
+      const check = await axios.post("http://localhost:3000/customer/book-room", {
+        roomId: roomId,                              // Pass roomId dynamically
+        checkIn: location.state.date[0].startDate,      // Use the check-in date from state
+        checkOut: location.state.date[0].endDate,       // Use the check-out date from state
+        hotelBookingStatus: "confirmed"
+      },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,  // Include Bearer token in the header
+          }
+        });
+      console.log(check)
+      if(check.data.error != "forbidden")
+      {console.log("Room booked successfully!");}
+      
+    } catch (error) {
+      console.error("Error booking the room:", error);
+    }
+  };
 
   return (
     <>
-      <div className="home"> 
+      <div className="home">
         <Navbar />
         <Header />
         
         {/* Main Flex container for sidebar and rooms */}
-        <div className="flex px-4 py-2">
-          <div className="sidebar relative mt-16 h-60 w-1/4 p-4 bg-gray-100 rounded-md">
+        <div className="mainContainer">
+          <div className="sideBar">
             <SideBarSearch />
           </div>
 
-          <div className="roomsList flex-grow w-3/4 p-4">
-          <h2 className="text-3xl font-extrabold text-cyan-800 mb-6 shadow-md p-2 bg-white rounded-md">
-  Available Rooms
-</h2>
+          <div className="roomsList ">
+            <h2 className="heading">Available Rooms</h2>
             
             {rooms.map((room) => (
-              <div
-                key={room.roomId}
-                className="roomItem flex justify-between items-center p-4 border bg-gray-100 rounded-md shadow-lg mb-4"
-              >
-                <div className="roomDetails">
-                  <h2 className="text-lg text-cyan-600 font-bold">{room.Hotel.hotelName}</h2>
-                  <h3 className="text-md text-gray-600">{room.Hotel.location}</h3>
-                  <p className="font-bold mt-2 text-gray-700">
+              <div key={room.roomId} className="roomsCard">
+                <div>
+                  <h2 className="cardHeading">{room.Hotel.hotelName}</h2>
+                  <h3 className="location">{room.Hotel.location}</h3>
+                  <p className="cardSubHeading mt-2">
                     Room Type: <span className="font-normal">{room.roomType}</span>
                   </p>
-                  <p className="font-bold text-gray-700">
+                  <p className="cardSubHeading">
                     Room Number: <span className="font-normal">{room.roomNo}</span>
                   </p>
-                  <p className="font-bold text-gray-700">
+                  <p className="cardSubHeading">
                     Price per night: <span className="font-normal">Rs. {room.pricePerNight}</span>
                   </p>
                 </div>
-                 <button className="px-4 py-2 bg-cyan-800 text-white font-semibold rounded-lg shadow-md transition-all duration-300 ease-in-out mt-5 hover:bg-cyan-600 hover:shadow-lg">
+                {/* Call bookHandler with roomId when clicked */}
+                <button onClick={() => bookHandler(room)} className="button">
                   Book
                 </button>
               </div>
@@ -60,10 +87,10 @@ const Rooms = () => {
           </div>
         </div>
 
-        <Footer /> 
+        <Footer />
       </div>
     </>
   );
-};
+}
 
 export default Rooms;

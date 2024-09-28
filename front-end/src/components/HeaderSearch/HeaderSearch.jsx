@@ -25,7 +25,7 @@ const HeaderSearch = () => {
       key: "selection",
     },
   ]);
-   // console.log("HomeLoc-->",location)
+   //console.log("HomeLoc-->",location)
   // If the current location is not the home page, don't show the search
   if (location.pathname === '/rooms') {
     return null; // Do not render HeaderSearch if on the rooms page
@@ -46,11 +46,11 @@ const HeaderSearch = () => {
     try {
       if (inputValue && date) {
         const response = await axios.get("http://localhost:3000/customer/available-rooms", {
-        params: {
+      params: {
           location: inputValue,
           checkIn: date[0].startDate,  // Format startDate
           checkOut: date[0].endDate    // Format endDate
-        }
+      }
       });
         //console.log("---------->", response.data)
         const availableRooms=response.data //did because large datas (nested objects etc) be send like response directly
