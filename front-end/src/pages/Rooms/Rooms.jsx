@@ -90,7 +90,7 @@ const Rooms = () => {
             ))}
           </div>
         </div>
-
+            <br/>
         <Footer />
       </div>
     </>
