@@ -12,7 +12,7 @@ const suggestions = ["Islamabad", "Karachi", "Lahore", "Peshawar", "Quetta"];
 
 const SidebarSearch = () => {
   const location = useLocation();
-  console.log("sideBarLocation-->", location)
+  //console.log("sideBarLocation-->", location)
 
   const [showSuggestions, setShowSuggestions] = useState(false);
   const [inputValue, setInputValue] = useState(location.state.inputValue);
