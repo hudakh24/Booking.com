@@ -1,23 +1,22 @@
 import { Routes, Route } from "react-router-dom";
 import Home from "./pages/Home/Home.jsx";
-// import Hotels from "./pages/Hotels/Hotels.jsx";
-// import Form from "./pages/Form.jsx"; 
-import Login from "./components/Login/Login.jsx"
-import "./index.css";
+import LoginComponent from "./components/Login/Login.jsx"; // Ensure the import is correct
 import Signup from "./components/Signup/Signup.jsx";
 import Rooms from "./pages/Rooms/Rooms.jsx";
+import AdminHome from "./pages/AdminHome/AdminHome.jsx";
+import "./index.css";
+
 const App = () => {
   return (
     <>
       <Routes>
-        <Route path="/" element={<Home />}/>
+        <Route path="/" element={<Home />} />
         <Route path="/rooms" element={<Rooms />} />
-        <Route path="/login" element={<Login />} />
+        <Route path="/login" element={<LoginComponent isAdmin={false} />} /> {/* Customer Login */}
         <Route path="/register" element={<Signup />} />
-        <Route path="/admin-login" element={<Login />}>
-          
-          
-        </Route>
+        {/* Admin route with nested AdminHome */}
+        <Route path="/admin" element={<LoginComponent isAdmin={true} />}/>
+        <Route path="/admin-home" element={<AdminHome />} /> 
       </Routes>
     </>
   );

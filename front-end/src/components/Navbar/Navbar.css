@@ -1,5 +1,5 @@
 .navbar {
-  @apply h-16 bg-gradient-to-r from-cyan-900 via-cyan-800 to-cyan-700 w-full flex items-center justify-between px-4 md:px-8;
+  @apply  h-20  bg-gradient-to-r from-cyan-900 via-cyan-800 to-cyan-700 w-full flex items-start justify-between px-4 md:px-8;
 }
 
 .websiteName {
