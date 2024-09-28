@@ -3,11 +3,16 @@ require("dotenv").config;
 const middleware = (req, res, next) => {
   try {
     // console.log(req.cookies); //when getting cookies that plural when creating then singular i-e res.cookie
-    const { userauth } = req.cookies;
-    if (userauth === "undefined") {
+
+    const authHeader = req.headers["authorization"];
+    const token = authHeader && authHeader.split(" ")[1]; // Extract token from 'Bearer <token>'
+
+    // const { userauth } = req.cookies;
+    // if (userauth === "undefined")
+    if (!token) {
       return res.send({ error: "Unauthorized" });
     }
-    verify(userauth, process.env.SECRET, (error, data) => {
+    verify(token, process.env.SECRET, (error, data) => {
       if (error) {
         return res.send({ error: "forbidden" });
       }
