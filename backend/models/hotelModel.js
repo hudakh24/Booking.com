@@ -6,8 +6,18 @@ const responseHandler = require("../responseHandler");
 
 module.exports = {
   createHotel: async (body) => {
+    console.log("------------>>>>", body.files);
+    let fileNames;
+    if (body.files && body.files.length > 0) {
+      fileNames = body.files.map((file) => file.path);
+    }
+    console.log(fileNames);
+    // req.fileNames = fileNames;
     try {
-      const hotel = await models.Hotels.create({ ...body });
+      const hotel = await models.Hotels.create({
+        images: fileNames,
+        ...body.body,
+      });
       //   const hotel = models.hotels.create({ hotelName: body.hotelName, password: body.password });
       return {
         response: hotel,
@@ -15,7 +25,7 @@ module.exports = {
     } catch (error) {
       console.error(error);
       return {
-        error: error,
+        error: error.message,
       };
     }
   },
@@ -53,6 +63,7 @@ module.exports = {
           "address",
           "mobile",
           "ratings",
+          "images",
         ],
         // attributes: { exclude: ["hotelId"] },
         // order:[["order", "by"]], order accepts two values

@@ -22,16 +22,29 @@ const {
   delete_room,
   get_all_rooms,
   get_room,
+  upload,
 } = require("../controllers/admins/adminHotelController");
 const protected = require("../middleware");
 
-routes.post("/add-hotel", protected, createHotelValidation, create_hotel);
+routes.post(
+  "/add-hotel",
+  protected,
+  // createHotelValidation,
+  upload,
+  create_hotel
+);
 routes.patch("/update-hotel", protected, updateHotelValidation, update_hotel);
 routes.delete("/delete-hotel", protected, hotelValidation, delete_hotel);
 routes.get("/get-all-hotels", protected, getAllHotelValidation, get_all_hotels);
 routes.get("/get-hotel", protected, hotelValidation, get_hotel);
 
-routes.post("/create-room", protected, createRoomValidation, create_room);
+routes.post(
+  "/create-room",
+  protected,
+  // createRoomValidation,
+  upload,
+  create_room
+);
 routes.patch("/update-room", protected, updateRoomValidation, update_room);
 routes.delete("/delete-room", protected, roomValidation, delete_room);
 routes.get("/get-all-rooms", protected, getAllRoomsValidation, get_all_rooms);

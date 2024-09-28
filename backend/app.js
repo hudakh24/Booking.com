@@ -1,5 +1,5 @@
 var express = require("express");
-//var path = require('path');
+var path = require("path");
 var cookieParser = require("cookie-parser");
 var logger = require("morgan");
 const bodyParser = require("body-parser");
@@ -9,8 +9,11 @@ var adminsRouter = require("./routes/adminsRouter");
 var adminsAuthRouter = require("./routes/adminAuthRouter");
 var customersRouter = require("./routes/customersRouter");
 var customersAuthRouter = require("./routes/customerAuthRouter");
+// var h = require("./uploads/images")
 
 var app = express();
+// app.use("/uploads", express.static("./uploads"));
+app.use(express.static(path.join(__dirname, "./uploads/images")));
 app.use(cors());
 app.use(bodyParser.json());
 

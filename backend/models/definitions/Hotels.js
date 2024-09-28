@@ -10,6 +10,10 @@ hotels.init(
       type: DataTypes.STRING(60),
       primaryKey: true,
     },
+    images: {
+      type: DataTypes.ARRAY(DataTypes.STRING),
+      allowNull: true,
+    },
     hotelName: {
       type: DataTypes.STRING(34),
       unique: true,
