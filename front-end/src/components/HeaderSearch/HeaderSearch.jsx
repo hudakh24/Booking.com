@@ -7,6 +7,8 @@ import 'react-date-range/dist/styles.css';
 import 'react-date-range/dist/theme/default.css'; 
 import { format } from "date-fns"; 
 import { useNavigate, useLocation } from "react-router-dom"; // Import useLocation
+import axios from 'axios';
+
 
 const suggestions = ["Islamabad", "Karachi", "Lahore", "Peshawar", "Quetta"];
 
@@ -23,7 +25,7 @@ const HeaderSearch = () => {
       key: "selection",
     },
   ]);
-    console.log("---->",location)
+   // console.log("HomeLoc-->",location)
   // If the current location is not the home page, don't show the search
   if (location.pathname === '/rooms') {
     return null; // Do not render HeaderSearch if on the rooms page
@@ -38,16 +40,31 @@ const HeaderSearch = () => {
     setShowSuggestions(false);
   };
 
-  const handleSearch = () => {
-   // if (inputValue && (date[0].startDate && date[0].endDate)) {
-      navigate("/rooms"); // Navigate to the rooms page
-   // }
+  const handleSearch = async() => {
+    // console.log("inputValue-->",inputValue)
+    // console.log("date-->",date)
+    try {
+      if (inputValue && date) {
+        const response = await axios.get("http://localhost:3000/customer/available-rooms", {
+        params: {
+          location: inputValue,
+          checkIn: date[0].startDate,  // Format startDate
+          checkOut: date[0].endDate    // Format endDate
+        }
+      });
+        //console.log("---------->", response.data)
+        const availableRooms=response.data //did because large datas (nested objects etc) be send like response directly
+        navigate("/rooms", { state: {availableRooms,inputValue, date } }); // Navigate to the rooms page
+      }
+    } catch (error) {
+      console.error("Error fetching unbooked rooms:", error);
+    }
   };
 
   return (
     <div className="headerSearch">
       <div className="headerSearchItem relative">
-        <FontAwesomeIcon icon={faBed} className="text-gray-400" />
+        <FontAwesomeIcon onClick={() => setShowSuggestions(!showSuggestions)} icon={faBed} className="text-gray-400" />
         <input
           className="headerSearchInput"
           type="text"
@@ -87,7 +104,8 @@ const HeaderSearch = () => {
         >{`${format(date[0].startDate, "MM/dd/yyyy")} to ${format(
           date[0].endDate,
           "MM/dd/yyyy"
-        )}`}</span>
+          )}`}</span>
+        
         {openDate && (
           <DateRange
             editableDateInputs={true}
