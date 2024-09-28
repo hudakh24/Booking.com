@@ -32,7 +32,7 @@ module.exports = {
       const customer = isCustomer.response.dataValues;
       delete customer.password;
       const token = sign(customer, process.env.SECRET, {
-        expiresIn: "2m",
+        expiresIn: "24h",
       });
       res.cookie("userauth", token); //generating cookie
       return responseHandler({ response: token, user: customer }, res);
