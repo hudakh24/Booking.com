@@ -1,3 +1,5 @@
+const multer = require("multer");
+const path = require("path");
 const responseHandler = require("../../responseHandler");
 const {
   createHotel,
@@ -6,7 +8,7 @@ const {
   updateHotel,
   getHotel,
 } = require("../../models/hotelModel");
-
+// const hello = require()
 const {
   createRoom,
   updateRoom,
@@ -15,11 +17,37 @@ const {
   getRoom,
 } = require("../../models/roomModel");
 const { getHotelId } = require("../../models/commonModel");
+
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, `${process.cwd()}/uploads/images/`);
+    // console.log(`${process.cwd()}/uploads/images/`);
+  },
+  filename: (req, file, cb) => {
+    cb(null, file.originalname);
+  },
+});
+
+const upload = multer({
+  storage: storage,
+  // limits: { fileSize: "10000000" },
+  // fileFilter: (req, file, cb) => {
+  //   const fileTypes = /jpeg|jpg|png|gif/;
+  //   const mimeType = fileTypes.test(file.mimetype);
+  //   const extname = fileTypes.test(path.extname(file.originalname));
+
+  //   if (mimeType && extname) {
+  //     return cb(null, true);
+  //   }
+  //   cb("Give proper files format to upload");
+  // },
+}).array("images", 2);
+
 module.exports = {
   create_hotel: async (req, res) => {
     try {
       if (req.user.role == "Hotel Admin" || req.user.role == "Super Admin") {
-        const hotel = await createHotel(req.body);
+        const hotel = await createHotel(req);
         // console.log(hotel);
         responseHandler(hotel, res);
       } else {
@@ -201,4 +229,5 @@ module.exports = {
       });
     }
   },
+  upload,
 };

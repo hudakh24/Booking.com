@@ -4,47 +4,51 @@ import Navbar from "../../components/Navbar/Navbar";
 import Header from "../../components/Header/Header"; 
 import SideBarSearch from "../../components/SideBarSearch/SideBarSearch"; 
 import Footer from "../../components/Footer/Footer"; 
-import { useLocation } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
+import { useState, useEffect, useContext } from "react";
 import axios from "axios";
-import { useContext } from "react";
+import { AuthContext } from "../../contexts/AuthContext";
 
 const Rooms = () => {
   const location = useLocation();
-  console.log("roomsLoc-->", location.state);
   const token = localStorage.getItem("authToken")
-  console.log("token----->",token)
-  
-
   const [rooms, setRooms] = useState([]);
-  
+  const {isLoggedIn} = useContext(AuthContext);
+  const navigate = useNavigate();
+
   useEffect(() => {
     setRooms(location.state.availableRooms.response);
   }, [location.state]);
   
   // Updated bookHandler to accept room data
-  const bookHandler = async ({roomId}) => {
-    console.log( location.state.date[0].startDate,location.state.date[0].endDate );
 
-    // console.log("----------->",rooms[0].roomId);
-    try {
-      const check = await axios.post("http://localhost:3000/customer/book-room", {
-        roomId: roomId,                              // Pass roomId dynamically
-        checkIn: location.state.date[0].startDate,      // Use the check-in date from state
-        checkOut: location.state.date[0].endDate,       // Use the check-out date from state
-        hotelBookingStatus: "confirmed"
-      },
+  
+  const bookHandler = async ({roomId}) => {
+    if(isLoggedIn){
+      try {
+        const check = await axios.post("http://localhost:3000/customer/book-room", {
+          roomId: roomId,                              // Pass roomId dynamically
+          checkIn: location.state.date[0].startDate,      // Use the check-in date from state
+          checkOut: location.state.date[0].endDate,       // Use the check-out date from state
+          hotelBookingStatus: "confirmed"
+        },
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,  // Include Bearer token in the header
+            }
+          });
+  
+        if(check.data.error != "forbidden")
         {
-          headers: {
-            Authorization: `Bearer ${token}`,  // Include Bearer token in the header
-          }
-        });
-      console.log(check)
-      if(check.data.error != "forbidden")
-      {console.log("Room booked successfully!");}
-      
-    } catch (error) {
-      console.error("Error booking the room:", error);
+          console.log("Room booked successfully!");
+        }
+        
+      } catch (error) {
+        console.error("Error booking the room:", error);
+      }
+    }
+    else{
+      navigate("/login");
     }
   };
 

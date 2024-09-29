@@ -14,6 +14,7 @@ module.exports = {
       address: Joi.string().required(),
       mobile: Joi.string().min(1).max(17).required(),
       ratings: Joi.number().min(0.0).max(5.0).required(),
+      images: Joi.string(),
     });
 
     try {
@@ -59,7 +60,7 @@ module.exports = {
       next();
     } catch (error) {
       return res.send({
-        error: error,
+        error: error.message,
       });
     }
   },
