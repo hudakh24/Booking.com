@@ -9,11 +9,11 @@ const Navbar = () => {
    const { isLoggedIn, logout } = useContext(AuthContext);
 
   const handleLoginClick = () => {
-    navigate("/user-auth/login"); 
+    navigate("/login"); 
   };
 
   const handleSignupClick = () => {
-    navigate("/user-auth/register"); 
+    navigate("/register"); 
   };
 
    const handleLogout = () => {

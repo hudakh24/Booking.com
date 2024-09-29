@@ -45,7 +45,7 @@ const Rooms = () => {
       }
     }
     else{
-      navigate("/user-auth/login");
+      navigate("/login");
     }
   };
 
