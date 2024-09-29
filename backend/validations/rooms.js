@@ -75,12 +75,10 @@ module.exports = {
   },
   bookRoomValidation: async (req, res, next) => {
     const bookRoom = Joi.object({
-      roomId: Joi.string().required(),
-      checkIn: Joi.date().required(),
-      checkOut: Joi.date().required(),
-      hotelBookingStatus: Joi.string()
-        .valid("cancelled", "confirmed")
-        .required(),
+      roomId: Joi.string(),
+      checkIn: Joi.date(),
+      checkOut: Joi.date(),
+      hotelBookingStatus: Joi.string().valid("cancelled", "confirmed"),
     });
 
     try {

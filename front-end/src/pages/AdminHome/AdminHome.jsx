@@ -13,9 +13,6 @@ const AdminHome = () => {
       <Navbar /> 
       <div className="midContainer">
         <SideBar/>
-        <div className=" rightContainer"> 
-          <h2 className="text-center">Right Container</h2>
-        </div>
         </div>
       <Footer /> 
     </div>

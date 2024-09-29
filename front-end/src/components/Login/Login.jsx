@@ -27,10 +27,11 @@ const LoginComponent = ({ isAdmin }) => { // Accept isAdmin prop
       const apiUrl = isAdmin ? 'http://localhost:3000/adminsAuth/login-admin' : 'http://localhost:3000'; // Different APIs for admin and customer
 
       const response = await axios.post(apiUrl, values);
+     // console.log("response--->", response)
 
       if (response.data.response.response && 
-          response.data.response.response !== "Invalid User" && 
-          response.data.response.response !== "Invalid Admin"  && 
+        response.data.response.response !== "Invalid User" && 
+        response.data.response.response !== "Invalid Admin" && 
           response.data.response.response !== "Invalid Credentials") {
         
         login(response.data.response.response); // Call login from context to update global state

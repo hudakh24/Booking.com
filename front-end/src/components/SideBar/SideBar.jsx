@@ -1,12 +1,14 @@
 import "./SideBar.css"
 import { useState } from "react";
+import HotelsTable from "../Hotels/HotelsTable";
 
 const SideBar = () => {
   const [isHotelsOpen, setIsHotelsOpen] = useState(false);
   const [isRoomsOpen, setIsRoomsOpen] = useState(false);
+  const [showHotelsTable, setShowHotelsTable] = useState(false);
 
-
-    return (
+  return (
+      <>
         <div className="sidebar"> 
            <h2 className="sidebarHeading ">Admin Name</h2>
           <hr className="line" />
@@ -31,7 +33,11 @@ const SideBar = () => {
                 <li className="listItem">
                     Delete Hotels
                 </li>
-                <li className="listItem">
+                <li className="listItem"
+                onClick={() => {
+                    setShowHotelsTable(true); 
+                    setIsHotelsOpen(false); 
+                  }}>
                     All Hotels
                   </li>
                 </ul>
@@ -45,7 +51,6 @@ const SideBar = () => {
                 onClick={() => setIsRoomsOpen(!isRoomsOpen)}
               >
                 <span>Rooms</span>
-                {/* Display arrow icons based on the state */}
                 <span>{isRoomsOpen ? "▲" : "▼"}</span>
               </div>
               {isRoomsOpen && (
@@ -66,8 +71,12 @@ const SideBar = () => {
               )}
             </li>
           </ul>
-        </div>
-        
+      </div>
+      
+      <div className=" outputContainer"> 
+         {showHotelsTable && <HotelsTable />}
+      </div>
+    </>
     );
 };
 export default SideBar

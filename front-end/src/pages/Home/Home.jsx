@@ -1,7 +1,7 @@
 import "./Home.css";
 import Navbar from "../../components/Navbar/Navbar";
 import Header from "../../components/Header/Header";
-import Hotels from "../../components/Hotels/Hotels";
+import HotelsCard from "../../components/Hotels/HotelsCard";
 import Footer from "../../components/Footer/Footer"; 
 const Home = () => {
   return (
@@ -9,7 +9,7 @@ const Home = () => {
       <div className="home">
         <Navbar />
         <Header />
-        <Hotels />
+        <HotelsCard />
         <Footer/> 
       </div>
     </>
