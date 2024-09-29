@@ -9,11 +9,11 @@ const Navbar = () => {
    const { isLoggedIn, logout } = useContext(AuthContext);
 
   const handleLoginClick = () => {
-    navigate("/login"); 
+    navigate("/user-auth/login"); 
   };
 
   const handleSignupClick = () => {
-    navigate("/register"); 
+    navigate("/user-auth/register"); 
   };
 
    const handleLogout = () => {
@@ -25,7 +25,7 @@ const Navbar = () => {
     <>
     
       <div className="navbar">
-      <span className="websiteName">Booking.com</span>
+      <span className="websiteName" style={{cursor:"pointer"}}>Booking.com</span>
       <div className="NavItems">
         {
         isLoggedIn ? ( <>

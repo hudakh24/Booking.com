@@ -10,24 +10,21 @@ import axios from "axios";
 import { AuthContext } from "../../contexts/AuthContext";
 
 const Rooms = () => {
-  const location = useLocation();
-  const token = localStorage.getItem("authToken")
   const [rooms, setRooms] = useState([]);
   const {isLoggedIn} = useContext(AuthContext);
+  const location = useLocation();
   const navigate = useNavigate();
+  const token = localStorage.getItem("authToken")
 
   useEffect(() => {
     setRooms(location.state.availableRooms.response);
   }, [location.state]);
   
-  // Updated bookHandler to accept room data
-
-  
   const bookHandler = async ({roomId}) => {
     if(isLoggedIn){
       try {
         const check = await axios.post("http://localhost:3000/customer/book-room", {
-          roomId: roomId,                              // Pass roomId dynamically
+          roomId: roomId,                                 // Pass roomId dynamically
           checkIn: location.state.date[0].startDate,      // Use the check-in date from state
           checkOut: location.state.date[0].endDate,       // Use the check-out date from state
           hotelBookingStatus: "confirmed"
@@ -48,7 +45,7 @@ const Rooms = () => {
       }
     }
     else{
-      navigate("/login");
+      navigate("/user-auth/login");
     }
   };
 

@@ -10,13 +10,22 @@ const App = () => {
   return (
     <>
       <Routes>
+
         <Route path="/" element={<Home />} />
+
         <Route path="/rooms" element={<Rooms />} />
-        <Route path="/login" element={<LoginComponent isAdmin={false} />} /> {/* Customer Login */}
-        <Route path="/register" element={<Signup />} />
+
+        <Route path="/user-auth">
+          <Route path="login" element={<LoginComponent isAdmin={false} />} /> {/* Customer Login */}
+          <Route path="register" element={<Signup />} />
+        </Route>
+
+
         {/* Admin route with nested AdminHome */}
-        <Route path="/admin" element={<LoginComponent isAdmin={true} />}/>
-        <Route path="/admin-home" element={<AdminHome />} /> 
+        <Route path = "/admin">
+          <Route index={true} element={<LoginComponent isAdmin={true} />}/>
+          <Route path="home" element={<AdminHome />} /> 
+        </Route>
       </Routes>
     </>
   );
