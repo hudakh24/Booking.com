@@ -6,12 +6,10 @@ const responseHandler = require("../responseHandler");
 
 module.exports = {
   createHotel: async (body) => {
-    console.log("------------>>>>", body.files);
     let fileNames;
     if (body.files && body.files.length > 0) {
       fileNames = body.files.map((file) => file.path);
     }
-    console.log(fileNames);
     // req.fileNames = fileNames;
     try {
       const hotel = await models.Hotels.create({

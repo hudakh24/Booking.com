@@ -21,7 +21,6 @@ const { getHotelId } = require("../../models/commonModel");
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
     cb(null, `${process.cwd()}/uploads/images/`);
-    // console.log(`${process.cwd()}/uploads/images/`);
   },
   filename: (req, file, cb) => {
     cb(null, file.originalname);
@@ -48,7 +47,6 @@ module.exports = {
     try {
       if (req.user.role == "Hotel Admin" || req.user.role == "Super Admin") {
         const hotel = await createHotel(req);
-        // console.log(hotel);
         responseHandler(hotel, res);
       } else {
         responseHandler({ response: "You don't have access" }, res);
@@ -131,8 +129,6 @@ module.exports = {
             error: findHotelID.error.message,
           });
         }
-        console.log(findHotelID.response.dataValues);
-        // delete req.body.hotel;
 
         req.body.hotelId = findHotelID.response.dataValues.hotelId;
         const room = await createRoom(req.body);
@@ -218,7 +214,6 @@ module.exports = {
         });
       }
       delete req.query.hotelName;
-      console.log(findHotelID);
       req.query.hotelId = findHotelID.response.dataValues.hotelId;
 
       const room = await getRoom(req.query);

@@ -2,12 +2,10 @@ const { models } = require("./index");
 
 module.exports = {
   createRoom: async (body) => {
-    console.log("------------>>>>", body.files);
     let fileNames;
     if (body.files && body.files.length > 0) {
       fileNames = body.files.map((file) => file.path);
     }
-    console.log(fileNames);
     try {
       const room = await models.Rooms.create({
         images: fileNames,

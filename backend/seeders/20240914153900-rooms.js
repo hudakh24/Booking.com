@@ -361,7 +361,6 @@ module.exports = {
       const roomEntries = await Promise.all(
         roomDetails.map(async (room) => {
           const hotel = await getHotelId({ hotelName: room.hotelName });
-          // console.log(hotel);
           return {
             roomId: uuid(),
             hotelId: hotel.response.dataValues.hotelId,
