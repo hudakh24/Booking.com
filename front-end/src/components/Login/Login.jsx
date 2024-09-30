@@ -8,6 +8,7 @@ import axios from 'axios';
 const LoginComponent = ({ isAdmin }) => { // Accept isAdmin prop
   const navigate = useNavigate();
   const { login } = useContext(AuthContext);
+  
   const [error, setError] = useState("");
 
   const initialValues = {
@@ -27,7 +28,7 @@ const LoginComponent = ({ isAdmin }) => { // Accept isAdmin prop
       const apiUrl = isAdmin ? 'http://localhost:3000/adminsAuth/login-admin' : 'http://localhost:3000'; // Different APIs for admin and customer
 
       const response = await axios.post(apiUrl, values);
-     // console.log("response--->", response)
+    // console.log("response--->", response)
 
       if (response.data.response.response && 
         response.data.response.response !== "Invalid User" && 
@@ -38,7 +39,7 @@ const LoginComponent = ({ isAdmin }) => { // Accept isAdmin prop
         
         // Navigate based on isAdmin
         if (isAdmin) {
-          navigate("/admin");
+          navigate("/admin/home");
         } else {
           window.history.replaceState(null, null, "/");
           navigate("/"); 

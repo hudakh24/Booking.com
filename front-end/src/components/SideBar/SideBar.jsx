@@ -1,82 +1,89 @@
-import "./SideBar.css"
+import "./SideBar.css";
 import { useState } from "react";
 import HotelsTable from "../Hotels/HotelsTable";
+import RoomsTable from "../RoomsTable";
+import AddForm from "../Form/AddForm"
 
 const SideBar = () => {
-  const [isHotelsOpen, setIsHotelsOpen] = useState(false);
+  // State to manage open sections
+  const [isHotelsOpen, setIsHotelsOpen] = useState(false);  //needs to make this generic
   const [isRoomsOpen, setIsRoomsOpen] = useState(false);
-  const [showHotelsTable, setShowHotelsTable] = useState(false);
+
+  // State to manage which option is selected (like All Hotels or All Rooms)
+  const [selectedOption, setSelectedOption] = useState(null);
 
   return (
-      <>
-        <div className="sidebar"> 
-           <h2 className="sidebarHeading ">Admin Name</h2>
-          <hr className="line" />
-            <ul className="space-y-1">
-            {/* Hotels Option with Nested Items */}
-            <li className="sidebarOption">
-              <div
-                className="optionSpan"
-                onClick={() => setIsHotelsOpen(!isHotelsOpen)}
-              >
-                <span>Hotels</span>
-                <span>{isHotelsOpen ? "▲" : "▼"}</span>
-              </div>
-              {isHotelsOpen && (
-                <ul className="optionList">
-                  <li className=" listItem ">
-                    Add Hotel
-                  </li>
-                  <li className="listItem">
-                    Update Hotels
-                </li>
-                <li className="listItem">
-                    Delete Hotels
-                </li>
-                <li className="listItem"
-                onClick={() => {
-                    setShowHotelsTable(true); 
-                    setIsHotelsOpen(false); 
-                  }}>
-                    All Hotels
-                  </li>
-                </ul>
-              )}
-            </li>
+    <>
+      <div className="sidebar">
+        <h2 className="sidebarHeading">Admin</h2>
+        <hr className="line" />
+        <ul className="space-y-1">
 
-            {/* Rooms Option with Nested Items */}
-            <li className="sidebarOption">
-              <div
-                className="optionSpan"
-                onClick={() => setIsRoomsOpen(!isRoomsOpen)}
-              >
-                <span>Rooms</span>
-                <span>{isRoomsOpen ? "▲" : "▼"}</span>
-              </div>
-              {isRoomsOpen && (
-                <ul className="optionList">
-                 <li className=" listItem ">
-                    Add Room
-                  </li>
-                  <li className="listItem">
-                    Update Room
+          {/* Hotels Option */}
+          <li className="sidebarOption">
+            <div
+              className="optionSpan"
+              onClick={() => setIsHotelsOpen(!isHotelsOpen)}
+            >
+              <span>Hotels</span>
+              <span>{isHotelsOpen ? "▲" : "▼"}</span>
+            </div>
+
+            {/* Nested list for Hotels */}
+            {isHotelsOpen && (
+              <ul className="optionList">
+                <li className="listItem"
+                  onClick={() => setSelectedOption("AddHotel")}
+                >Add Hotel</li>
+                {/* <li className="listItem">Update Hotels</li> */}
+                {/* <li className="listItem">Delete Hotels</li> */}
+                <li
+                  className="listItem"
+                  onClick={() => setSelectedOption("AllHotels")}
+                >
+                  All Hotels
                 </li>
-                <li className="listItem">
-                    Delete Room
+              </ul>
+            )}
+          </li>
+
+          {/* Rooms Option */}
+          <li className="sidebarOption">
+            <div
+              className="optionSpan"
+              onClick={() => setIsRoomsOpen(!isRoomsOpen)}
+            >
+              <span>Rooms</span>
+              <span>{isRoomsOpen ? "▲" : "▼"}</span>
+            </div>
+
+            {/* Nested list for Rooms */}
+            {isRoomsOpen && (
+              <ul className="optionList">
+                <li className="listItem">Add Room</li>
+                <li className="listItem">Update Room</li>
+                <li className="listItem">Delete Room</li>
+                <li
+                  className="listItem"
+                  onClick={() => setSelectedOption("AllRooms")}
+                >
+                  All Rooms
                 </li>
-                <li className="listItem">
-                    All Room
-                  </li>
-                </ul>
-              )}
-            </li>
-          </ul>
+              </ul>
+            )}
+          </li>
+
+        </ul>
       </div>
-      
-      <div className=" outputContainer"> 
-         {showHotelsTable && <HotelsTable />}
+
+      {/* Conditionally render the selected table */}
+      <div className="outputContainer">
+        {selectedOption === "AllHotels" && <HotelsTable />}
+        {selectedOption === "AllRooms" && <RoomsTable />}
+        {selectedOption === "AddHotel" && <AddForm/>}
       </div>
     </>
-    );
+  );
 };
-export default SideBar
+
+export default SideBar;

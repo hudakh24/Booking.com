@@ -101,7 +101,7 @@ const SidebarSearch = () => {
       </div>
 
       <div className="sidebarSearchItem">
-        <button className="searchButton" >Search</button>
+        <button className="searchButton">Search</button>
       </div>
     </div>
   );
