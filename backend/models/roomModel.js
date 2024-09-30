@@ -85,7 +85,7 @@ module.exports = {
         include: [
           {
             model: models.Hotels, // Reference to the Hotels model
-            attributes: ["hotelName"], // Include hotelName from Hotels table
+            attributes: ["hotelName", "location"], // Include hotelName from Hotels table
           },
         ],
         order: [

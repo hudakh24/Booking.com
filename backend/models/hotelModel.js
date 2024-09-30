@@ -67,8 +67,8 @@ module.exports = {
         // order:[["order", "by"]], order accepts two values
         order: [
           [
-            query.orderWith ? query.orderWith : "ratings",
-            query.orderBy ? query.orderBy : "DESC",
+            query.orderWith ? query.orderWith : "location",
+            query.orderBy ? query.orderBy : "ASC",
           ],
         ],
         // offset: query.offset,

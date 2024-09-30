@@ -27,7 +27,7 @@ module.exports = {
       const admin = isAdmin.response.dataValues;
       delete admin.password;
       const token = sign(admin, process.env.SECRET, {
-        expiresIn: "1h",
+        expiresIn: "24h",
       });
       res.cookie("auth", token); //generating cookie
       return responseHandler({ response: token }, res);

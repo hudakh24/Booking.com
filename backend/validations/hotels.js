@@ -88,7 +88,7 @@ module.exports = {
       address: Joi.string(),
       location: Joi.string(),
       mobile: Joi.string(),
-      rating: Joi.number(),
+      ratings: Joi.number(),
     });
 
     try {
