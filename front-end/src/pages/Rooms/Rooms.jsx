@@ -38,6 +38,7 @@ const Rooms = () => {
         if(check.data.error != "forbidden")
         {
           console.log("Room booked successfully!");
+          alert("Your Room has been successfully booked")
         }
         
       } catch (error) {
@@ -45,7 +46,7 @@ const Rooms = () => {
       }
     }
     else{
-      navigate("/user-auth/login");
+      navigate("/login");
     }
   };
 

@@ -5,8 +5,10 @@ import Signup from "./components/Signup/Signup.jsx";
 import Rooms from "./pages/Rooms/Rooms.jsx";
 import AdminHome from "./pages/AdminHome/AdminHome.jsx";
 import "./index.css";
+import PrivateRoute from "./components/protectedRoute.jsx";
 
 const App = () => {
+
   return (
     <>
       <Routes>
@@ -15,16 +17,14 @@ const App = () => {
 
         <Route path="/rooms" element={<Rooms />} />
 
-        <Route path="/user-auth">
-          <Route path="login" element={<LoginComponent isAdmin={false} />} /> {/* Customer Login */}
-          <Route path="register" element={<Signup />} />
-        </Route>
+        <Route path="/login" element={<LoginComponent isAdmin={false} />} /> {/* Customer Login */}
+        <Route path="/register" element={<Signup />} />
 
 
         {/* Admin route with nested AdminHome */}
         <Route path = "/admin">
           <Route index={true} element={<LoginComponent isAdmin={true} />}/>
-          <Route path="home" element={<AdminHome />} /> 
+          <Route path="home" element={<PrivateRoute ><AdminHome/></PrivateRoute>} /> 
         </Route>
       </Routes>
     </>

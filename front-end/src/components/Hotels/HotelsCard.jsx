@@ -26,7 +26,7 @@ const Hotels = () => {
   const fetchHotels = async () => {
     try {
       const response = await axios.get("http://localhost:3000/customer/get-all-hotels");
-      console.log(response.data)
+      console.log(response.data.response.response)
       setHotels(response.data.response.response);
     } catch (error) {
       console.error("Error fetching data:", error);
@@ -42,11 +42,19 @@ const Hotels = () => {
       <br />
       <br />
       <div className="hotels-grid ">
+        
         {hotels.map((hotel) => (
+          
           <div
             key={hotel.hotelId}
             className="hotel-card "
           >
+            <div className="hotel-image-container">
+            <img 
+              src={`http://localhost:3000/${hotel.images[0]}`} 
+              className="hotel-image"
+            />
+            </div>
             <h2 className="hotel-name">{hotel.hotelName}</h2>
             <p className="hotel-address">{hotel.address}</p>
             <h3 className="hotel-location">{hotel.location}</h3>

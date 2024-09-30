@@ -6,12 +6,14 @@ import { DateRange } from 'react-date-range';
 import 'react-date-range/dist/styles.css'; 
 import 'react-date-range/dist/theme/default.css'; 
 import { format } from "date-fns"; 
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
+import axios from "axios"
 
 const suggestions = ["Islamabad", "Karachi", "Lahore", "Peshawar", "Quetta"];
 
 const SidebarSearch = () => {
   const location = useLocation();
+  const navigate = useNavigate();
 
   const [showSuggestions, setShowSuggestions] = useState(false);
   const [inputValue, setInputValue] = useState(location.state.inputValue);
@@ -31,6 +33,24 @@ const SidebarSearch = () => {
     setInputValue(suggestion);
     setShowSuggestions(false);
   };
+
+  const searchHotels = async () => {
+    try {
+      if (inputValue && date) {
+        const response = await axios.get("http://localhost:3000/customer/available-rooms", {
+      params: {
+          location: inputValue,
+          checkIn: date[0].startDate,  // Format startDate
+          checkOut: date[0].endDate    // Format endDate
+      }
+      });
+        const availableRooms=response.data //did because large datas (nested objects etc) be send like response directly
+        navigate("/rooms", { state: {availableRooms,inputValue, date } }); // Navigate to the rooms page
+      }
+    } catch (error) {
+      console.error("Error fetching unbooked rooms:", error);
+    }
+  }
 
   
 
@@ -89,7 +109,7 @@ const SidebarSearch = () => {
           />
         )}
       </div>
-      <div className="sidebarSearchItem">
+      {/* <div className="sidebarSearchItem">
          <FontAwesomeIcon icon={faHotel} className="text-gray-400" />
         <input
           className="sidebarSearchInput"
@@ -98,10 +118,10 @@ const SidebarSearch = () => {
           value={hotelInput}
           onChange={handleHotelInputChange}
         />
-      </div>
+      </div> */}
 
       <div className="sidebarSearchItem">
-        <button className="searchButton" >Search</button>
+        <button className="searchButton" onClick={searchHotels}>Search</button>
       </div>
     </div>
   );

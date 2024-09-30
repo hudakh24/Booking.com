@@ -29,7 +29,7 @@ const SignupComponent = () => {
   const handleSubmit = async (values) => {
     try {
       await axios.post('http://localhost:3000/register', values);
-      navigate("/user-auth/login");
+      navigate("/login");
       // Handle the response (e.g., save the token, redirect, etc.)
     } catch (error) {
       console.error('Error during login:', error.response ? error.response.data.message : error.message);

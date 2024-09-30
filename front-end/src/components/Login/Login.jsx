@@ -1,14 +1,15 @@
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { useNavigate } from "react-router-dom";
-import { useState, useContext } from "react";
+import { useState, useContext} from "react";
 import { AuthContext } from "../../contexts/AuthContext";
 import * as Yup from "yup";
 import axios from 'axios';
 
 const LoginComponent = ({ isAdmin }) => { // Accept isAdmin prop
   const navigate = useNavigate();
-  const { login } = useContext(AuthContext);
+  const { login, loginAdmin } = useContext(AuthContext);
   const [error, setError] = useState("");
+  var pathh;
 
   const initialValues = {
     userName: "",
@@ -34,14 +35,17 @@ const LoginComponent = ({ isAdmin }) => { // Accept isAdmin prop
         response.data.response.response !== "Invalid Admin" && 
           response.data.response.response !== "Invalid Credentials") {
         
-        login(response.data.response.response); // Call login from context to update global state
+        isAdmin ? loginAdmin(response.data.response.response) : login(response.data.response.response); // Call login from context to update global state
         
         // Navigate based on isAdmin
         if (isAdmin) {
-          navigate("/admin");
+          pathh = "/admin/home"
+          window.history.replaceState(window.history.state, "", pathh);
+          navigate(pathh);
         } else {
-          window.history.replaceState(null, null, "/");
-          navigate("/"); 
+          pathh = "/"
+          window.history.replaceState(null, null, pathh);
+          navigate(pathh); 
         }
       } else {
         setError("Invalid login credentials.");
@@ -51,6 +55,7 @@ const LoginComponent = ({ isAdmin }) => { // Accept isAdmin prop
       setError('Error during login: ' + (error.response ? error.response.data.message : error.message));
     }
   };
+  
 
   // Formik logic
   return (
