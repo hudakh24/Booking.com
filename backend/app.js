@@ -13,7 +13,11 @@ var customersAuthRouter = require("./routes/customerAuthRouter");
 
 var app = express();
 // app.use("/uploads", express.static("./uploads"));
-app.use(express.static(path.join(__dirname, "./uploads/images")));
+// app.use(express.static(path.join(__dirname, "./uploads/images")));
+
+// Serve static files from the public directory
+app.use("/uploads", express.static(path.join(__dirname, "uploads")));
+
 app.use(cors());
 app.use(bodyParser.json());
 

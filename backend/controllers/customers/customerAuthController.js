@@ -18,14 +18,14 @@ module.exports = {
         isCustomer.error
           ? (isCustomer.error = "Invalid User")
           : (isCustomer.response = "Invalid User");
-        res.cookie("userauth", "undefined");
+        // res.cookie("userauth", "undefined");
         return responseHandler(isCustomer, res);
       }
       //get password from isCustomer and compare
       const password = isCustomer.response.dataValues.password;
       const isValid = await compare(req.body.password, password);
       if (!isValid) {
-        res.cookie("userauth", "undefined"); //generating cookie
+        // res.cookie("userauth", "undefined"); //generating cookie
         return responseHandler({ response: "Invalid Credentials" }, res);
       }
       // now add token if user exists
@@ -34,7 +34,7 @@ module.exports = {
       const token = sign(customer, process.env.SECRET, {
         expiresIn: "24h",
       });
-      res.cookie("userauth", token); //generating cookie
+      // res.cookie("userauth", token); //generating cookie
       return responseHandler({ response: token, user: customer }, res);
     } catch (error) {
       console.log(error);
