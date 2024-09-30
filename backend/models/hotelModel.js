@@ -8,7 +8,7 @@ module.exports = {
   createHotel: async (body) => {
     let fileNames;
     if (body.files && body.files.length > 0) {
-      fileNames = body.files.map((file) => `/uploads/${file.filename}`);
+      fileNames = body.files.map((file) => `uploads\\images\\${file.filename}`);
     }
     // req.fileNames = fileNames;
     try {

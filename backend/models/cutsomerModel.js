@@ -105,7 +105,7 @@ module.exports = {
 
       const price_per_night = roomDetails.response.dataValues.pricePerNight;
 
-      const daysdiff = differenceInDays(body.checkOut, body.checkIn);
+      let daysdiff = differenceInDays(body.checkOut, body.checkIn);
       if (daysdiff === 0) {
         daysdiff = 1;
       }

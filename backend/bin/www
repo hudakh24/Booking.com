@@ -27,7 +27,7 @@ var server = http.createServer(app);
  */
 
 db.sequelize
-  .sync({ alter: true, logging: false })
+  .sync({ alter: true, logging: false, force: false })
   .then(() => {
     server.listen(port);
     server.on("error", onError);
