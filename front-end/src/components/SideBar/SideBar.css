@@ -27,5 +27,5 @@
 }
 
 .outputContainer{
-   @apply  flex-1 p-4
+   @apply  flex-1 flex p-4 justify-center items-center
 }

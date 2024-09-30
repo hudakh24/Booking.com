@@ -24,7 +24,8 @@ const {
   get_room,
   upload,
 } = require("../controllers/admins/adminHotelController");
-const protected = require("../middleware");
+const protected = require("../middleware1");
+const testProtected = require("../middleware");
 
 routes.post(
   "/add-hotel",
