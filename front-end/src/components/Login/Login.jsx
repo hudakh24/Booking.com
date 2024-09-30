@@ -39,7 +39,7 @@ const LoginComponent = ({ isAdmin }) => { // Accept isAdmin prop
         
         // Navigate based on isAdmin
         if (isAdmin) {
-          navigate("/admin");
+          navigate("/admin/home");
         } else {
           pathh = "/"
           window.history.replaceState(null, null, pathh);

@@ -17,7 +17,7 @@ const SidebarSearch = () => {
 
   const [showSuggestions, setShowSuggestions] = useState(false);
   const [inputValue, setInputValue] = useState(location.state.inputValue);
-  const [hotelInput, setHotelInput] = useState("");
+  //const [hotelInput, setHotelInput] = useState("");
   const [openDate, setOpenDate] = useState(false);
   const [date, setDate] = useState(location.state.date);
 
@@ -25,9 +25,9 @@ const SidebarSearch = () => {
     setInputValue(e.target.value);
   };
 
-  const handleHotelInputChange = (e) => {
-    setHotelInput(e.target.value);
-  };
+  // const handleHotelInputChange = (e) => {
+  //   setHotelInput(e.target.value);
+  // };
 
   const handleSuggestionClick = (suggestion) => {
     setInputValue(suggestion);

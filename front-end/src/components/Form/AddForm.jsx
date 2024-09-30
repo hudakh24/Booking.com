@@ -4,12 +4,12 @@ import axios from 'axios';
 import { useContext } from "react";
 import { AuthContext } from "../../contexts/AuthContext";
 import './Form.css'; // Import the CSS file
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 
 const AddForm = () => {
-  const { isLoggedIn } = useContext(AuthContext);
-  const token = localStorage.getItem("authToken");
-  const navigate = useNavigate();
+  const { isAdminLoggedIn } = useContext(AuthContext);
+  const token = localStorage.getItem("authAdminToken");
+  // const navigate = useNavigate();
 
   const initialValues = {
     hotelName: "",
@@ -28,17 +28,17 @@ const AddForm = () => {
       .matches(/^\+92 \d{2} \d{3} \d{3} \d{3}$/, "Mobile number must be in the format +92 42 111 505 505")
       .required("Mobile number is required"),
     ratings: Yup.string().required("Rating is required"),
-    imagess: Yup.mixed()
+    images: Yup.mixed()
       .test("fileSize", "File too large", (value) => {
         return !value || (value && value.size <= 2 * 1024 * 1024);
       })
       .test("fileType", "Unsupported File Format", (value) => {
-        return !value || (value && (value.type === "imagess/jpeg" || value.type === "imagess/png"));
+        return !value || (value && (value.type === "image/jpg" ||value.type === "image/jpeg" || value.type === "image/png"));
       }),
   });
 
   const handleSubmit = async (values, { resetForm }) => { //resetForm-> Helper Function of formik
-    if (isLoggedIn) {
+    if (isAdminLoggedIn) {
       try {
         const formData = new FormData();
         formData.append("hotelName", values.hotelName);
@@ -47,8 +47,8 @@ const AddForm = () => {
         formData.append("mobile", values.mobile);
         formData.append("ratings", values.ratings);
 
-        if (values.imagess) {
-          formData.append("imagess", values.imagess);
+        if (values.images) {
+          formData.append("images", values.images);
         }
 
         const response = await axios.post('http://localhost:3000/admins/add-hotel', formData, {
@@ -60,7 +60,6 @@ const AddForm = () => {
         // Check if there is no error in the response
         if (!response.data.error) {
           resetForm(); // Reset the form fields
-          navigate(-1);
           alert("Hotel Added Successfully"); 
           
         } else {
@@ -173,19 +172,19 @@ const AddForm = () => {
               </p>
             </div>
 
-            {/* imagess Upload Field */}
+            {/* image Upload Field */}
             <div className="form-field">
               <input
                 type="file"
-                name="imagess"
-                accept="imagess/jpeg, imagess/png"
+                name="images"
+                accept="image/jpeg, image/png. image/jpg"
                 onChange={(event) => {
-                  setFieldValue("imagess", event.currentTarget.files[0]);
+                  setFieldValue("images", event.currentTarget.files[0]);
                 }}
                 className="input-field"
               />
               <p className="error-message">
-                <ErrorMessage name="imagess" />
+                <ErrorMessage name="images" />
               </p>
             </div>
 

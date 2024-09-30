@@ -6,11 +6,11 @@ import { AuthContext } from "../contexts/AuthContext";
 
 const RoomsTable = () => {
   const [Rooms, setRooms] = useState([]);
-  const { isLoggedIn } = useContext(AuthContext);
-   const token = localStorage.getItem("authToken")
+  const { isAdminLoggedIn } = useContext(AuthContext);
+   const token = localStorage.getItem("authAdminToken")
 
   const fetchRooms = async () => {
-    if (isLoggedIn) {
+    if (isAdminLoggedIn) {
       try {
         const response = await axios.get("http://localhost:3000/admins/get-all-Rooms",  {
             headers: {

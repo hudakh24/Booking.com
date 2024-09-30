@@ -34,11 +34,14 @@ const Rooms = () => {
               Authorization: `Bearer ${token}`,  // Include Bearer token in the header
             }
           });
+
+          console.log(check)
   
         if(check.data.error != "forbidden")
         {
           console.log("Room booked successfully!");
           alert("Your Room has been successfully booked")
+          setRooms((prevRooms) => prevRooms.filter(room => room.roomId !== roomId));
         }
         
       } catch (error) {

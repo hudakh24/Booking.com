@@ -6,8 +6,8 @@ import { AuthContext } from "../../contexts/AuthContext";
 import './Form.css'; // Import the CSS file
 
 const UpdateForm = ({ hotelName }) => {
-  const { isLoggedIn } = useContext(AuthContext);
-  const token = localStorage.getItem("authToken");
+  const { isAdminLoggedIn } = useContext(AuthContext);
+  const token = localStorage.getItem("authAdminToken");
 
   // State to store initial form data
   const [initialValues, setInitialValues] = useState({
@@ -63,7 +63,7 @@ const UpdateForm = ({ hotelName }) => {
   });
 
  const handleSubmit = async (values, { resetForm }) => {
-  if (isLoggedIn) {
+  if (isAdminLoggedIn) {
     try {
       // Prepare the request body data
       const data = {

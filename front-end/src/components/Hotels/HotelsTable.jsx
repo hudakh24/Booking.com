@@ -9,11 +9,11 @@ import UpdateForm from "../Form/UpdateForm";
 const HotelsTable = () => {
   const [hotels, setHotels] = useState([]);
   const [selectedHotel, setSelectedHotel] = useState(null); // State for selected hotel to edit
-  const { isLoggedIn } = useContext(AuthContext);
-  const token = localStorage.getItem("authToken");
+  const { isAdminLoggedIn } = useContext(AuthContext);
+  const token = localStorage.getItem("authAdminToken");
   
   const fetchHotels = async () => {
-    if (isLoggedIn) {
+    if (isAdminLoggedIn) {
       try {
         const response = await axios.get("http://localhost:3000/admins/get-all-hotels",  {
             headers: {
@@ -32,7 +32,7 @@ const HotelsTable = () => {
   }, []);
 
   const handleDeleteHotel = async (hotelId) => {
-    if (isLoggedIn) {
+    if (isAdminLoggedIn) {
       try {
         const response = await axios.delete(`http://localhost:3000/admins/delete-hotel`, {
           headers: {
