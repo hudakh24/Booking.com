@@ -10,7 +10,7 @@ const Home = () => {
         <Navbar />
         <Header />
         <HotelsCard />
-        <Footer/> 
+        <Footer/>   
       </div>
     </>
   );
