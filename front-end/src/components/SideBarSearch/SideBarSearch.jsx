@@ -17,7 +17,7 @@ const SidebarSearch = () => {
 
   const [showSuggestions, setShowSuggestions] = useState(false);
   const [inputValue, setInputValue] = useState(location.state.inputValue);
-  //const [hotelInput, setHotelInput] = useState("");
+  const [hotelInput, setHotelInput] = useState("");
   const [openDate, setOpenDate] = useState(false);
   const [date, setDate] = useState(location.state.date);
 
@@ -25,9 +25,9 @@ const SidebarSearch = () => {
     setInputValue(e.target.value);
   };
 
-  // const handleHotelInputChange = (e) => {
-  //   setHotelInput(e.target.value);
-  // };
+  const handleHotelInputChange = (e) => {
+    setHotelInput(e.target.value);
+  };
 
   const handleSuggestionClick = (suggestion) => {
     setInputValue(suggestion);
@@ -41,7 +41,8 @@ const SidebarSearch = () => {
       params: {
           location: inputValue,
           checkIn: date[0].startDate,  // Format startDate
-          checkOut: date[0].endDate    // Format endDate
+          checkOut: date[0].endDate,    // Format endDate
+          hotelName: (hotelInput ? hotelInput : true)
       }
       });
         const availableRooms=response.data //did because large datas (nested objects etc) be send like response directly
@@ -109,7 +110,7 @@ const SidebarSearch = () => {
           />
         )}
       </div>
-      {/* <div className="sidebarSearchItem">
+       <div className="sidebarSearchItem">
          <FontAwesomeIcon icon={faHotel} className="text-gray-400" />
         <input
           className="sidebarSearchInput"
@@ -118,7 +119,7 @@ const SidebarSearch = () => {
           value={hotelInput}
           onChange={handleHotelInputChange}
         />
-      </div> */}
+      </div> 
 
       <div className="sidebarSearchItem">
         <button className="searchButton" onClick={searchHotels}>Search</button>
