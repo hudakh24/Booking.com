@@ -64,7 +64,7 @@ const AddForm = () => {
           
         } else {
           alert("Error in adding Hotel");
-          console.log("Error: " + response.data.error); 
+          console.log("Error: " + response.data.error.message); 
         }
 
       } catch (error) {
