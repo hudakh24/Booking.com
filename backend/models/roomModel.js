@@ -42,12 +42,13 @@ module.exports = {
       };
     }
   },
-  deleteRoom: async ({ hotelId, roomNo }) => {
+  deleteRoom: async ({ roomId, hotelId, roomNo }) => {
     try {
       const room = await models.Rooms.destroy({
         where: {
-          hotelId: hotelId,
-          roomNo: roomNo,
+          ...(roomId
+            ? { roomId: roomId }
+            : { hotelId: hotelId, roomNo: roomNo }),
         },
       });
       return {

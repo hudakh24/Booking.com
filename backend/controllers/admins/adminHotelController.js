@@ -131,7 +131,7 @@ module.exports = {
         }
 
         req.body.hotelId = findHotelID.response.dataValues.hotelId;
-        const room = await createRoom(req.body);
+        const room = await createRoom(req);
         responseHandler(room, res);
       } else {
         responseHandler({ response: "You don't have access" }, res);
@@ -164,14 +164,16 @@ module.exports = {
   delete_room: async (req, res) => {
     try {
       if (req.user.role == "Hotel Admin" || req.user.role == "Super Admin") {
-        const findHotelID = await getHotelId(req.query);
-        if (findHotelID.error) {
-          return res.send({
-            error: findHotelID.error.message,
-          });
+        if (req.query.hotelName && req.query.roomNo) {
+          const findHotelID = await getHotelId(req.query);
+          if (findHotelID.error) {
+            return res.send({
+              error: findHotelID.error.message,
+            });
+          }
+          delete req.query.hotelName;
+          req.query.hotelId = findHotelID.response.dataValues.hotelId;
         }
-        delete req.query.hotelName;
-        req.query.hotelId = findHotelID.response.dataValues.hotelId;
 
         const room = await deleteRoom(req.query);
         responseHandler(room, res);
