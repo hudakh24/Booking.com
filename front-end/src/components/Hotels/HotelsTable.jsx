@@ -60,13 +60,10 @@ const HotelsTable = () => {
 
   return (
     <div className="hotelsTableContainer">
-      
-
       {/* Conditionally render the UpdateForm if a hotel is selected for editing */}
       {selectedHotel ? (
-        <UpdateForm hotelName={selectedHotel}  />
-      ) : (
-          
+        <UpdateForm hotelName={selectedHotel} isHotel={true}  />
+      ) : (    
           <>
             <h3 className="tittle">Hotels List</h3>
           {hotels.length > 0 ? (
