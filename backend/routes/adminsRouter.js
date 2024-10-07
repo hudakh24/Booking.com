@@ -42,7 +42,7 @@ routes.get("/get-hotel", protected, hotelValidation, get_hotel);
 routes.post(
   "/create-room",
   protected,
-  // createRoomValidation,
+  //createRoomValidation,
   upload,
   create_room
 );

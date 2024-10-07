@@ -84,7 +84,7 @@ module.exports = {
   updateHotelValidation: async (req, res, next) => {
     const updateHotel = Joi.object({
       hotelId: Joi.string(),
-      hotelName: Joi.string().required(),
+      hotelName: Joi.string(),
       address: Joi.string(),
       location: Joi.string(),
       mobile: Joi.string(),

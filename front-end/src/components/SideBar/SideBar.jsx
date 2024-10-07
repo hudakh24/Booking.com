@@ -1,7 +1,7 @@
 import "./SideBar.css";
 import { useState } from "react";
 import HotelsTable from "../Hotels/HotelsTable";
-import RoomsTable from "../RoomsTable";
+import RoomsTable from "../RoomsTable/RoomsTable";
 import AddForm from "../Form/AddForm"
 
 const SideBar = () => {
@@ -35,8 +35,6 @@ const SideBar = () => {
                 <li className="listItem"
                   onClick={() => setSelectedOption("AddHotel")}
                 >Add Hotel</li>
-                {/* <li className="listItem">Update Hotels</li> */}
-                {/* <li className="listItem">Delete Hotels</li> */}
                 <li
                   className="listItem"
                   onClick={() => setSelectedOption("AllHotels")}
@@ -60,9 +58,10 @@ const SideBar = () => {
             {/* Nested list for Rooms */}
             {isRoomsOpen && (
               <ul className="optionList">
-                <li className="listItem">Add Room</li>
-                <li className="listItem">Update Room</li>
-                <li className="listItem">Delete Room</li>
+                <li className="listItem"
+                  onClick={() => setSelectedOption("AddRoom")}>
+                  Add Room
+                </li>
                 <li
                   className="listItem"
                   onClick={() => setSelectedOption("AllRooms")}
@@ -80,7 +79,8 @@ const SideBar = () => {
       <div className="outputContainer">
         {selectedOption === "AllHotels" && <HotelsTable />}
         {selectedOption === "AllRooms" && <RoomsTable />}
-        {selectedOption === "AddHotel" && <AddForm/>}
+        {selectedOption === "AddHotel" && <AddForm isHotel={true} />}
+        {selectedOption === "AddRoom" && <AddForm isHotel={false} />}
       </div>
     </>
   );

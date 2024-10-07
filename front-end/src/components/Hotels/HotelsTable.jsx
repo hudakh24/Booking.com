@@ -53,20 +53,17 @@ const HotelsTable = () => {
     }
   };
 
-  const handleEditHotel = (hotelName) => {
-    setSelectedHotel(hotelName); // Set the selected hotel for editing
+  const handleEditHotel = (hotelId) => {
+    setSelectedHotel(hotelId); // Set the selected hotel for editing
   }
 
 
   return (
     <div className="hotelsTableContainer">
-      
-
       {/* Conditionally render the UpdateForm if a hotel is selected for editing */}
       {selectedHotel ? (
-        <UpdateForm hotelName={selectedHotel}  />
-      ) : (
-          
+        <UpdateForm hotelId={selectedHotel} isHotel={true}  />
+      ) : (    
           <>
             <h3 className="tittle">Hotels List</h3>
           {hotels.length > 0 ? (
@@ -96,7 +93,7 @@ const HotelsTable = () => {
                       <FontAwesomeIcon
                         icon={faEdit}
                         className="text-blue-500 cursor-pointer hover:text-blue-800"
-                        onClick={() => handleEditHotel(hotel.hotelName)} // Call handleEditHotel on click
+                        onClick={() => handleEditHotel(hotel.hotelId)} // Call handleEditHotel on click
                       />
                     </td>
                     <td className="tableItems">

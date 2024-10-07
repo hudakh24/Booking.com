@@ -20,8 +20,9 @@ module.exports = {
   },
   updateRoomValidation: async (req, res, next) => {
     const updateRoom = Joi.object({
-      hotelName: Joi.string().required(),
-      roomNo: Joi.string().min(2).max(4).required(),
+      roomId: Joi.string().required(),
+      hotelName: Joi.string(),
+      roomNo: Joi.string().min(2).max(4),
       roomType: Joi.valid("single", "double", "suite"),
       pricePerNight: Joi.number(),
     });
@@ -37,8 +38,9 @@ module.exports = {
   },
   roomValidation: async (req, res, next) => {
     const room = Joi.object({
-      hotelName: Joi.string().required(),
-      roomNo: Joi.string().min(2).max(4).required(),
+      // hotelName: Joi.string(),
+      // roomNo: Joi.string().min(2).max(4),
+      roomId: Joi.string().required(),
     });
 
     try {
@@ -56,7 +58,11 @@ module.exports = {
       // pageNo: Joi.number().required(),
       // limit: Joi.number().valid(2, 4).required(), //valid tells no of records to be displayed 2/4
       //sorting
-      orderWith: Joi.string().valid("pricePerNight", "roomType", "roomNo"),
+      orderWith: Joi.string().valid(
+        "pricePerNight",
+        "roomType",
+        "roomNo, hotelName"
+      ),
       orderBy: Joi.string().valid("ASC", "DESC"),
       //filter
       hotelName: Joi.string(),

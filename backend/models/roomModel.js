@@ -21,14 +21,15 @@ module.exports = {
       };
     }
   },
-  updateRoom: async ({ hotelId, roomNo, ...body }) => {
+  updateRoom: async ({ roomId, ...body }) => {
     try {
       const room = await models.Rooms.update(
         { ...body },
         {
           where: {
-            hotelId: hotelId,
-            roomNo: roomNo,
+            // hotelId: hotelId,
+            // roomNo: roomNo,
+            roomId: roomId,
           },
         }
       );
@@ -42,12 +43,13 @@ module.exports = {
       };
     }
   },
-  deleteRoom: async ({ hotelId, roomNo }) => {
+  deleteRoom: async ({ roomId, hotelId, roomNo }) => {
     try {
       const room = await models.Rooms.destroy({
         where: {
-          hotelId: hotelId,
-          roomNo: roomNo,
+          ...(roomId
+            ? { roomId: roomId }
+            : { hotelId: hotelId, roomNo: roomNo }),
         },
       });
       return {
@@ -107,13 +109,20 @@ module.exports = {
       };
     }
   },
-  getRoom: async ({ hotelId, roomNo }) => {
+  getRoom: async ({ roomId }) => {
     try {
       const room = await models.Rooms.findOne({
         where: {
-          hotelId: hotelId,
-          roomNo: roomNo,
+          // hotelId: hotelId,
+          // roomNo: roomNo,
+          roomId: roomId,
         },
+        include: [
+          {
+            model: models.Hotels, // Reference to the Hotels model
+            attributes: ["hotelName"], // Include hotelName from Hotels table
+          },
+        ],
       });
       return {
         response: room,
