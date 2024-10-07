@@ -4,10 +4,14 @@ import axios from 'axios';
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../contexts/AuthContext";
 import './Form.css'; // Import the CSS file
+import { useNavigate } from "react-router-dom";
+//import AdminHome from "../../pages/AdminHome/AdminHome";
 
-const UpdateForm = ({ hotelName }) => {
+const UpdateForm = ({ isHotel, hotelId, roomId }) => {
   const { isAdminLoggedIn } = useContext(AuthContext);
   const token = localStorage.getItem("authAdminToken");
+  const navigate = useNavigate();
+  let response;
 
   // State to store initial form data
   const [initialValues, setInitialValues] = useState({
@@ -21,33 +25,60 @@ const UpdateForm = ({ hotelName }) => {
     roomType: "", 
     pricePerNight: "", 
   });
-
   // Fetch the hotel details using the passed hotelName to pre-populate the form
+  const fetchHotelDetails = async () => {
+    try {
+      const response = await axios.get(`http://localhost:3000/admins/get-hotel?hotelId=${hotelId}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+     console.log("ftech-hotel-response---->", response)
+      const hotelData = response.data.response.response;
+      setInitialValues({
+        hotelName: hotelData.hotelName,
+        location: hotelData.location,
+        address: hotelData.address,
+        mobile: hotelData.mobile,
+        ratings: hotelData.ratings,
+       // images: hotelData.images[0],
+      });
+    } catch (error) {
+      console.error('Error fetching hotel details:', error);
+    }
+  };
+
+  const fetchRoomDetails = async () => {
+    try {
+      response = await axios.get(`http://localhost:3000/admins/get-room?roomId=${roomId}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+     console.log("ftech-room-response---->", response)
+      const roomData = response.data.response.response;
+      setInitialValues({
+        hotelName: roomData.Hotel.hotelName,
+        roomNo: roomData.roomNo, 
+        roomType: roomData.roomType, 
+        pricePerNight: roomData.pricePerNight, 
+        
+      });
+    } catch (error) {
+      console.error('Error fetching room details:', error.message);
+    }
+  };
+
   useEffect(() => {
-    const fetchHotelDetails = async () => {
-      try {
-        const response = await axios.get(`http://localhost:3000/admins/get-hotel?hotelName=${hotelName}`, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
-        const hotelData = response.data.response.response;
-        setInitialValues({
-          hotelName: hotelData.hotelName,
-          location: hotelData.location,
-          address: hotelData.address,
-          mobile: hotelData.mobile,
-          ratings: hotelData.ratings,
-          images: hotelData.images, // Leave empty initially for new images upload
-        });
-      } catch (error) {
-        console.error('Error fetching hotel details:', error);
-      }
-    };
-    if (hotelName) {
+
+    if (isHotel && hotelId) {
       fetchHotelDetails();
     }
-  }, [hotelName, token]);
+
+    if (!isHotel && roomId) {
+      fetchRoomDetails();
+    }
+  }, [hotelId, roomId, token]);
 
   const validationSchema = Yup.object({
     hotelName: Yup.string().required("Hotel name is required"), 
@@ -70,42 +101,68 @@ const UpdateForm = ({ hotelName }) => {
   });
 
 
- const handleSubmit = async (values, { resetForm }) => {
+const handleSubmit = async (values, { resetForm }) => {
   if (isAdminLoggedIn) {
     try {
-      // Prepare the request body data
-      const data = {
-        hotelName: values.hotelName,
-        location: values.location,
-        address: values.address,
-        mobile: values.mobile,
-        ratings: values.ratings,
-        // Optionally handle the images field as a Base64 string, if necessary:
-        //images: values.images ? await toBase64(values.images) : null,
-      };
+      let data = {}; // Initialize the data object
+      if (isHotel) {
+        data = {
+          hotelId: hotelId,
+          hotelName: values.hotelName,
+          location: values.location,
+          address: values.address,
+          mobile: values.mobile,
+          ratings: values.ratings,
+          // Optionally handle images as a Base64 string:
+          // images: values.images ? await toBase64(values.images) : null,
+        };
 
-      const response = await axios.patch('http://localhost:3000/admins/update-hotel', data, {
-        headers: {
-          'Content-Type': 'application/json', // Set the content type to JSON
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      //console.log("---->", response)
-      if (!response.data.error) {
-        resetForm(); // Reset the form fields
-        alert("Hotel Updated Successfully");
+        const response = await axios.patch('http://localhost:3000/admins/update-hotel', data, {
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        console.log("updateHotel response-->", response)
+        if (!response.data.error) {
+          navigate("/admin/home")
+          alert("Hotel Updated Successfully");
+          resetForm(); // Reset the form fields
+        } else {
+          alert("Error in updating hotel");
+          console.log("Error: " + response.data.error.message);
+        }
       } else {
-        alert("Error in updating hotel");
-        console.log("Error: " + response.data.error.message);
-      }
+        // Handle room update logic here, if needed
+        data = {
+          roomId: roomId,
+          roomNo: values.roomNo,
+          roomType: values.roomType,
+          pricePerNight: values.pricePerNight,
+        };
 
+        const response = await axios.patch(`http://localhost:3000/admins/update-room`, data, {
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        console.log("room update response====>", response)
+        if (!response.data.error) {
+          alert("Room Updated Successfully");
+          navigate("/admin/home")
+          resetForm(); // Reset the form fields
+        } else {
+          alert("Error in updating room");
+          console.log("Error: " + response.data.error.message);
+        }
+      }
     } catch (error) {
-      alert("Error in updating hotel");
+      alert("Error during submission");
       console.log('Error during submission: ' + (error.response ? error.response.data.message : error.message));
     }
   }
 };
-
 
   const locations = [
     { value: "", label: "Select Location" },
@@ -116,18 +173,24 @@ const UpdateForm = ({ hotelName }) => {
     { value: "Quetta", label: "Quetta" },
   ];
 
-  
+ const roomTypes = [
+    { value: "", label: "Select Room Type" },
+    { value: "suite", label: "Suite" },
+    { value: "single", label: "Single" },
+    { value: "double", label: "Double" },
+  ];  
 
   return (
     <div className="add-form-container">
       <h1 className="add-form-title">{isHotel ? "Edit Hotel" : "Edit Room"}</h1>
       <Formik
         initialValues={initialValues}
+        enableReinitialize={true}  // Enable reinitializing of the form when initialValues change
         validationSchema={validationSchema}
         onSubmit={handleSubmit}
       >
         {({ setFieldValue }) => (
-          <Form className="add-form">
+          <Form className="add-form" >
             {/* Hotel Name Field (Only for hotels) */}
             <div className="form-field">
               <Field
@@ -135,6 +198,8 @@ const UpdateForm = ({ hotelName }) => {
                 name="hotelName"
                 placeholder="Enter hotel name"
                 className="input-field"
+                disabled={!isHotel && roomId}
+              // value={!isHotel ? initialValues.hotelName : ""}
               />
               <p className="error-message">
                 <ErrorMessage name="hotelName" />
@@ -260,7 +325,7 @@ const UpdateForm = ({ hotelName }) => {
             <button type="submit" className="submit-button">Update</button>
           </Form>
         )}
-      </Formik>
+      </Formik> 
     </div>
   );
 };

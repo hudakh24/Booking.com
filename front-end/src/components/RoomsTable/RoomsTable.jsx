@@ -66,7 +66,7 @@ const RoomsTable = () => {
   return (
     <div className="RoomsTableContainer">
       {selectedRoom ? (
-        <UpdateForm roomId={selectedRoom} /> //onCancel={handleCancelEdit} />
+        <UpdateForm roomId={selectedRoom} isHotel={false} /> //onCancel={handleCancelEdit} />
       ) : (
         <>
           <h3 className="tittle">Rooms List</h3>
