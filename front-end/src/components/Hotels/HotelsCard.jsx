@@ -62,7 +62,7 @@ const Hotels = () => {
           >
             <div className="hotel-image-container">
             <img 
-              src={`http://localhost:3000/${hotel.images[0]}`} 
+              src={`http://localhost:3000/${hotel.images}`} 
               className="hotel-image"
             />
             </div>
