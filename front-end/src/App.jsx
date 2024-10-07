@@ -20,8 +20,8 @@ const App = () => {
 
         {/* Admin route with nested AdminHome */}
         <Route path = "/admin">
-          <Route index={true} element={<LoginComponent isAdmin={true} />}/>
-          <Route path="home" element={<PrivateRoute ><AdminHome/></PrivateRoute>} /> 
+          <Route path="login" element={<LoginComponent isAdmin={true} />}/>
+          <Route index element={<PrivateRoute ><AdminHome/></PrivateRoute>} /> 
         </Route>
       <Route path="*" element={<ErrorPage />} />
       </Routes>

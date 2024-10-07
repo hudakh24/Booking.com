@@ -125,7 +125,7 @@ const handleSubmit = async (values, { resetForm }) => {
         });
         console.log("updateHotel response-->", response)
         if (!response.data.error) {
-          navigate("/admin/home")
+          navigate(-1)
           alert("Hotel Updated Successfully");
           resetForm(); // Reset the form fields
         } else {
@@ -150,7 +150,7 @@ const handleSubmit = async (values, { resetForm }) => {
         console.log("room update response====>", response)
         if (!response.data.error) {
           alert("Room Updated Successfully");
-          navigate("/admin/home")
+          navigate(-1)
           resetForm(); // Reset the form fields
         } else {
           alert("Error in updating room");

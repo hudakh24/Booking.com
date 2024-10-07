@@ -39,9 +39,9 @@ const LoginComponent = ({ isAdmin }) => { // Accept isAdmin prop
         
         // Navigate based on isAdmin
         if (isAdmin) {
-          navigate("/admin/home");
+          navigate("/admin");
         } else {
-          pathh = "/"
+          pathh = "/admin/login"
           window.history.replaceState(null, null, pathh);
           navigate(pathh); 
         }

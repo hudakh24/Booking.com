@@ -22,7 +22,7 @@ const Navbar = () => {
   };
    const handleAdminLogout = () => {
     logoutAdmin() ; // Call the logout function from AuthContext
-    navigate("/admin") ;
+    navigate("/admin/login") ;
   };
 
   const showHome = () => {

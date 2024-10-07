@@ -5,7 +5,7 @@ import { AuthContext } from "../contexts/AuthContext";
 const PrivateRoute = (props) => {
     const {isAdminLoggedIn} = useContext(AuthContext);
   return (
-    <>{isAdminLoggedIn ? props.children : <Navigate to={"/admin"} />}</>
+    <>{isAdminLoggedIn ? props.children : <Navigate to={"/admin/login"} />}</>
   );
 };
 
