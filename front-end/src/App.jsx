@@ -6,13 +6,13 @@ import Rooms from "./pages/Rooms/Rooms.jsx";
 import AdminHome from "./pages/AdminHome/AdminHome.jsx";
 import "./index.css";
 import PrivateRoute from "./components/protectedRoute.jsx";
+import ErrorPage from "./pages/ErrorPage.jsx";
 
 const App = () => {
 
   return (
     <>
-      <Routes>
-
+    <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/rooms" element={<Rooms />} />
         <Route path="login" element={<LoginComponent isAdmin={false} />} /> {/* Customer Login */}
@@ -23,6 +23,7 @@ const App = () => {
           <Route index={true} element={<LoginComponent isAdmin={true} />}/>
           <Route path="home" element={<PrivateRoute ><AdminHome/></PrivateRoute>} /> 
         </Route>
+      <Route path="*" element={<ErrorPage />} />
       </Routes>
     </>
   );

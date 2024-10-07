@@ -1,6 +1,7 @@
 import "./HotelsCard.css"
 import { useEffect, useState } from "react";
 import axios from "axios";
+import ShowHotelsRooms from "../ShowHotelsRooms";
 
 
 const StarRating = ({ rating }) => {
@@ -22,20 +23,29 @@ const StarRating = ({ rating }) => {
 };
 const Hotels = () => {
   const [hotels, setHotels] = useState([]);
+  const [selectedHotel, setSelectedHotel] = useState(null);
 
   const fetchHotels = async () => {
     try {
       const response = await axios.get("http://localhost:3000/customer/get-all-hotels");
-      console.log(response.data.response.response)
       setHotels(response.data.response.response);
     } catch (error) {
       console.error("Error fetching data:", error);
     }
   };
 
+  const showRooms = (hotelName) => {
+    setSelectedHotel(hotelName);
+  };
+
+  
   useEffect(() => {
     fetchHotels();
   }, []);
+  
+  if (selectedHotel) {
+    return <ShowHotelsRooms hotelName={selectedHotel} />;
+  }
 
   return (
     <div className="hotels-container">
@@ -48,6 +58,7 @@ const Hotels = () => {
           <div
             key={hotel.hotelId}
             className="hotel-card "
+            onClick={() => showRooms(hotel.hotelName)}
           >
             <div className="hotel-image-container">
             <img 
