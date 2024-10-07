@@ -11,7 +11,7 @@ hotels.init(
       primaryKey: true,
     },
     images: {
-      type: DataTypes.ARRAY(DataTypes.STRING),
+      type: DataTypes.STRING,
       allowNull: true,
     },
     hotelName: {

@@ -40,12 +40,14 @@ const upload = multer({
   //   }
   //   cb("Give proper files format to upload");
   // },
-}).array("images", 2);
+}).single("images");
 
 module.exports = {
   create_hotel: async (req, res) => {
     try {
       if (req.user.role == "Hotel Admin" || req.user.role == "Super Admin") {
+        console.log(req.body);
+        console.log(req.file.filename);
         const hotel = await createHotel(req);
         responseHandler(hotel, res);
       } else {
@@ -90,7 +92,7 @@ module.exports = {
         //   });
         // }
         // req.body.hotelId = findHotelID.response.dataValues.hotelId;
-        const hotel = await updateHotel(req.body);
+        const hotel = await updateHotel(req);
         responseHandler(hotel, res);
       } else {
         responseHandler({ response: "You don't have access" }, res);

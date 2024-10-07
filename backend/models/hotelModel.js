@@ -3,17 +3,19 @@ const { models } = require("./index");
 const { Op } = require("sequelize");
 const sequelize = require("../bin/dbConfig");
 const responseHandler = require("../responseHandler");
+const fs = require("fs");
 
 module.exports = {
   createHotel: async (body) => {
-    let fileNames;
-    if (body.files && body.files.length > 0) {
-      fileNames = body.files.map((file) => `uploads\\images\\${file.filename}`);
-    }
+    let fileName = `uploads\\images\\${body.file.filename}`;
+    console.log("filename----->", fileName);
+    // if (body.file) {
+    //   fileName = `uploads\\images\\${body.file.filename}`;
+    // }
     // req.fileNames = fileNames;
     try {
       const hotel = await models.Hotels.create({
-        images: fileNames,
+        images: fileName,
         ...body.body,
       });
       //   const hotel = models.hotels.create({ hotelName: body.hotelName, password: body.password });
@@ -104,13 +106,16 @@ module.exports = {
     }
   },
 
-  updateHotel: async ({ hotelId, ...body }) => {
+  updateHotel: async (body) => {
+    // console.log("filename previous ---->", body.file.path);
+    // fs.unlinkSync(body.file.path);
+    let fileName = `uploads\\images\\${body.file.filename}`;
     try {
       const hotel = await models.Hotels.update(
-        { ...body },
+        { images: fileName, ...body.body },
         {
           where: {
-            hotelId: hotelId,
+            hotelId: body.body.hotelId,
           },
         }
       );

@@ -34,7 +34,13 @@ routes.post(
   upload,
   create_hotel
 );
-routes.patch("/update-hotel", protected, updateHotelValidation, update_hotel);
+routes.patch(
+  "/update-hotel",
+  protected,
+  upload,
+  //  updateHotelValidation,
+  update_hotel
+);
 routes.delete("/delete-hotel", protected, hotelValidation, delete_hotel);
 routes.get("/get-all-hotels", protected, getAllHotelValidation, get_all_hotels);
 routes.get("/get-hotel", protected, hotelValidation, get_hotel);
