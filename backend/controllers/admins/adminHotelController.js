@@ -83,13 +83,13 @@ module.exports = {
   update_hotel: async (req, res) => {
     try {
       if (req.user.role == "Hotel Admin" || req.user.role == "Super Admin") {
-        const findHotelID = await getHotelId(req.body);
-        if (findHotelID.error) {
-          return res.send({
-            error: findHotelID.error.message,
-          });
-        }
-        req.body.hotelId = findHotelID.response.dataValues.hotelId;
+        // const findHotelID = await getHotelId(req.body);
+        // if (findHotelID.error) {
+        //   return res.send({
+        //     error: findHotelID.error.message,
+        //   });
+        // }
+        // req.body.hotelId = findHotelID.response.dataValues.hotelId;
         const hotel = await updateHotel(req.body);
         responseHandler(hotel, res);
       } else {

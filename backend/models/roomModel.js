@@ -4,12 +4,12 @@ module.exports = {
   createRoom: async (body) => {
     let fileNames;
     if (body.files && body.files.length > 0) {
-      fileNames = body.files.map((file) => file.path);
+      fileNames = body.files.map((file) => `uploads\\images\\${file.filename}`);
     }
     try {
       const room = await models.Rooms.create({
         images: fileNames,
-        ...body.body,
+        ...body,
       });
       return {
         response: room,
