@@ -20,8 +20,9 @@ module.exports = {
   },
   updateRoomValidation: async (req, res, next) => {
     const updateRoom = Joi.object({
-      hotelName: Joi.string().required(),
-      roomNo: Joi.string().min(2).max(4).required(),
+      roomId: Joi.string().required(),
+      hotelName: Joi.string(),
+      roomNo: Joi.string().min(2).max(4),
       roomType: Joi.valid("single", "double", "suite"),
       pricePerNight: Joi.number(),
     });
@@ -37,9 +38,9 @@ module.exports = {
   },
   roomValidation: async (req, res, next) => {
     const room = Joi.object({
-      hotelName: Joi.string(),
-      roomNo: Joi.string().min(2).max(4),
-      roomId: Joi.string(),
+      // hotelName: Joi.string(),
+      // roomNo: Joi.string().min(2).max(4),
+      roomId: Joi.string().required(),
     });
 
     try {

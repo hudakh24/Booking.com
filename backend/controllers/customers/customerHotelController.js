@@ -89,6 +89,7 @@ module.exports = {
     const hotels = await models.Hotels.findAll({
       where: {
         ...(location ? { location } : true),
+        ...(hotelName ? { hotelName } : true),
       },
       attributes: [
         "hotelId",

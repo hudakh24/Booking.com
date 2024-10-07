@@ -83,13 +83,13 @@ module.exports = {
   update_hotel: async (req, res) => {
     try {
       if (req.user.role == "Hotel Admin" || req.user.role == "Super Admin") {
-        const findHotelID = await getHotelId(req.body);
-        if (findHotelID.error) {
-          return res.send({
-            error: findHotelID.error.message,
-          });
-        }
-        req.body.hotelId = findHotelID.response.dataValues.hotelId;
+        // const findHotelID = await getHotelId(req.body);
+        // if (findHotelID.error) {
+        //   return res.send({
+        //     error: findHotelID.error.message,
+        //   });
+        // }
+        // req.body.hotelId = findHotelID.response.dataValues.hotelId;
         const hotel = await updateHotel(req.body);
         responseHandler(hotel, res);
       } else {
@@ -143,13 +143,13 @@ module.exports = {
   update_room: async (req, res) => {
     try {
       if (req.user.role == "Hotel Admin" || req.user.role == "Super Admin") {
-        const findHotelID = await getHotelId(req.body);
-        if (findHotelID.error) {
-          return res.send({
-            error: findHotelID.error.message,
-          });
-        }
-        req.body.hotelId = findHotelID.response.dataValues.hotelId;
+        // const findHotelID = await getHotelId(req.body);
+        // if (findHotelID.error) {
+        //   return res.send({
+        //     error: findHotelID.error.message,
+        //   });
+        // }
+        // req.body.hotelId = findHotelID.response.dataValues.hotelId;
         const room = await updateRoom(req.body);
         responseHandler(room, res);
       } else {
@@ -209,14 +209,14 @@ module.exports = {
   },
   get_room: async (req, res) => {
     try {
-      const findHotelID = await getHotelId(req.query);
-      if (findHotelID.error) {
-        return res.send({
-          error: findHotelID.error.message,
-        });
-      }
-      delete req.query.hotelName;
-      req.query.hotelId = findHotelID.response.dataValues.hotelId;
+      // const findHotelID = await getHotelId(req.query);
+      // if (findHotelID.error) {
+      //   return res.send({
+      //     error: findHotelID.error.message,
+      //   });
+      // }
+      // delete req.query.hotelName;
+      // req.query.hotelId = findHotelID.response.dataValues.hotelId;
 
       const room = await getRoom(req.query);
       responseHandler(room, res);
