@@ -1,15 +1,14 @@
 import { Formik, Form, Field, ErrorMessage } from "formik";
-import { useNavigate } from "react-router-dom";
 import { useState, useContext} from "react";
 import { AuthContext } from "../../contexts/AuthContext";
+import { useNavigate } from "react-router-dom";
 import * as Yup from "yup";
 import axios from 'axios';
 
-const LoginComponent = ({ isAdmin }) => { // Accept isAdmin prop
-  const navigate = useNavigate();
-  const { login, loginAdmin } = useContext(AuthContext);
+const LoginComponent = () => {
+  const { login } = useContext(AuthContext);
   const [error, setError] = useState("");
-  var pathh;
+  const navigate = useNavigate();
 
   const initialValues = {
     userName: "",
@@ -23,29 +22,20 @@ const LoginComponent = ({ isAdmin }) => { // Accept isAdmin prop
 
   const handleSubmit = async (values) => {
     try {
-      // Choose the API based on isAdmin prop
-
-      const apiUrl = isAdmin ? 'http://localhost:3000/adminsAuth/login-admin' : 'http://localhost:3000'; // Different APIs for admin and customer
+      const apiUrl ='http://localhost:3000';
 
       const response = await axios.post(apiUrl, values);
     // console.log("response--->", response)
 
       if (response.data.response.response && 
-        response.data.response.response !== "Invalid User" && 
-        response.data.response.response !== "Invalid Admin" && 
-          response.data.response.response !== "Invalid Credentials") {
-        
-        isAdmin ? loginAdmin(response.data.response.response) : login(response.data.response.response); // Call login from context to update global state
-        
-        // Navigate based on isAdmin
-        if (isAdmin) {
-          navigate("/admin");
-        } else {
-          pathh = "/admin/login"
-          window.history.replaceState(null, null, pathh);
-          navigate(pathh); 
-        }
-      } else {
+          response.data.response.response !== "Invalid User" &&
+          response.data.response.response !== "Invalid Credentials") 
+      {
+          login(response.data.response.response); // Call login from context to update global state
+          navigate("/")
+      } 
+      else 
+      {
         setError("Invalid login credentials.");
       }
     } catch (error) {

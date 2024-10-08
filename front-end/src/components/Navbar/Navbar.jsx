@@ -6,7 +6,7 @@ import { AuthContext } from "../../contexts/AuthContext";
 const Navbar = () => {
 
    const navigate = useNavigate(); // This hook is used to navigate programmatically
-   const { isLoggedIn, logout, isAdminLoggedIn, logoutAdmin} = useContext(AuthContext);
+   const { isLoggedIn, logout} = useContext(AuthContext);
 
   const handleLoginClick = () => {
     navigate("/login"); 
@@ -20,10 +20,6 @@ const Navbar = () => {
     logout(); // Call the logout function from AuthContext
     navigate("/");
   };
-   const handleAdminLogout = () => {
-    logoutAdmin() ; // Call the logout function from AuthContext
-    navigate("/admin/login") ;
-  };
 
   const showHome = () => {
     navigate("/")
@@ -36,8 +32,8 @@ const Navbar = () => {
       <span className="websiteName" style={{cursor:"pointer"}} onClick={showHome}>Booking.com</span>
       <div className="NavItems">
         {
-        isLoggedIn || isAdminLoggedIn ? ( <>
-          <button onClick={ isAdminLoggedIn ? handleAdminLogout : handleLogout} className="navButton">Logout</button>
+        isLoggedIn  ? ( <>
+          <button onClick={handleLogout} className="navButton">Logout</button>
         </>) : (<>
         <button onClick={ handleSignupClick} className="navButton">Register</button>
         <button onClick={handleLoginClick} className="navButton">Login</button>
