@@ -10,21 +10,43 @@ import { useNavigate } from "react-router-dom";
 const UpdateForm = ({ isHotel, hotelId, roomId }) => {
   const { isAdminLoggedIn } = useContext(AuthContext);
   const token = localStorage.getItem("authAdminToken");
+  const [isUpload, setIsUpload] = useState(false);
   const navigate = useNavigate();
   let response;
 
   // State to store initial form data
   const [initialValues, setInitialValues] = useState({
-    hotelName: "", 
+    hotelName: "",
     location: "",
     address: "",
     mobile: "",
     ratings: "",
-    images: "",
+   images: "",
     roomNo: "", 
     roomType: "", 
     pricePerNight: "", 
   });
+
+  const validationSchema = Yup.object({
+    hotelName: Yup.string().required("Hotel name is required"), 
+    location: isHotel ? Yup.string() : Yup.string(), 
+    address: isHotel ? Yup.string(): Yup.string(), 
+    mobile: isHotel ? Yup.string()
+          .matches(/^\+92 \d{2} \d{3} \d{3} \d{3}$/, "Mobile number must be in the format +92 42 111 505 505")
+          : Yup.string(), 
+    ratings: isHotel ? Yup.string(): Yup.string(), 
+    images: isHotel ? Yup.mixed()
+          .test("fileSize", "File too large", (value) => {
+            return !value || (value && value.size <= 2 * 1024 * 1024);
+          })
+          .test("fileType", "Unsupported File Format", (value) => {
+            return !value || (value && (value.type === "image/jpg" || value.type === "image/jpeg" || value.type === "image/png"));
+          }) : Yup.mixed(), 
+    roomNo: isHotel ? Yup.string() : Yup.string(),
+    roomType: isHotel ? Yup.string() : Yup.string(),  
+    pricePerNight: isHotel ? Yup.string() : Yup.number().positive(),
+  });
+
   // Fetch the hotel details using the passed hotelName to pre-populate the form
   const fetchHotelDetails = async () => {
     try {
@@ -41,8 +63,10 @@ const UpdateForm = ({ isHotel, hotelId, roomId }) => {
         address: hotelData.address,
         mobile: hotelData.mobile,
         ratings: hotelData.ratings,
-       // images: hotelData.images[0],
+        // images: hotelData.images,
       });
+
+      console.log("Ivaluess-->", initialValues)
     } catch (error) {
       console.error('Error fetching hotel details:', error);
     }
@@ -80,52 +104,98 @@ const UpdateForm = ({ isHotel, hotelId, roomId }) => {
     }
   }, [hotelId, roomId, token]);
 
-  const validationSchema = Yup.object({
-    hotelName: Yup.string().required("Hotel name is required"), 
-    location: isHotel ? Yup.string() : Yup.string(), 
-    address: isHotel ? Yup.string(): Yup.string(), 
-    mobile: isHotel ? Yup.string()
-          .matches(/^\+92 \d{2} \d{3} \d{3} \d{3}$/, "Mobile number must be in the format +92 42 111 505 505")
-          : Yup.string(), 
-    ratings: isHotel ? Yup.string(): Yup.string(), 
-    images: isHotel ? Yup.mixed()
-          .test("fileSize", "File too large", (value) => {
-            return !value || (value && value.size <= 2 * 1024 * 1024);
-          })
-          .test("fileType", "Unsupported File Format", (value) => {
-            return !value || (value && (value.type === "image/jpg" || value.type === "image/jpeg" || value.type === "image/png"));
-          }) : Yup.mixed(), 
-    roomNo: isHotel ? Yup.string() : Yup.string(),
-    roomType: isHotel ? Yup.string() : Yup.string(),  
-    pricePerNight: isHotel ? Yup.string() : Yup.number().positive(),
-  });
+  
+// const handleSubmit = async (values, { resetForm }) => {
+//   if (isAdminLoggedIn) {
+//     try {
+//       let data = {}; // Initialize the data object
+//       if (isHotel) {
+//         data = {
+//           hotelId: hotelId,
+//           hotelName: values.hotelName,
+//           location: values.location,
+//           address: values.address,
+//           mobile: values.mobile,
+//           ratings: values.ratings,
+//           // Optionally handle images as a Base64 string:
+//           // images: values.images ? await toBase64(values.images) : null,
+//         };
 
+//         const response = await axios.patch('http://localhost:3000/admins/update-hotel', data, {
+//           headers: {
+//             'Content-Type': 'application/json',
+//             Authorization: `Bearer ${token}`,
+//           },
+//         });
+//         console.log("updateHotel response-->", response)
+//         if (!response.data.error) {
+//           navigate(-1)
+//           alert("Hotel Updated Successfully");
+//           resetForm(); // Reset the form fields
+//         } else {
+//           alert("Error in updating hotel");
+//           console.log("Error: " + response.data.error.message);
+//         }
+//       } else {
+//         // Handle room update logic here, if needed
+//         data = {
+//           roomId: roomId,
+//           roomNo: values.roomNo,
+//           roomType: values.roomType,
+//           pricePerNight: values.pricePerNight,
+//         };
 
-const handleSubmit = async (values, { resetForm }) => {
+//         const response = await axios.patch(`http://localhost:3000/admins/update-room`, data, {
+//           headers: {
+//             'Content-Type': 'application/json',
+//             Authorization: `Bearer ${token}`,
+//           },
+//         });
+//         console.log("room update response====>", response)
+//         if (!response.data.error) {
+//           alert("Room Updated Successfully");
+//           navigate(-1)
+//           resetForm(); // Reset the form fields
+//         } else {
+//           alert("Error in updating room");
+//           console.log("Error: " + response.data.error.message);
+//         }
+//       }
+//     } catch (error) {
+//       alert("Error during submission");
+//       console.log('Error during submission: ' + (error.response ? error.response.data.message : error.message));
+//     }
+//   }
+// };
+
+  const handleSubmit = async (values, { resetForm }) => {
+    console.log("submit form entered")
   if (isAdminLoggedIn) {
     try {
-      let data = {}; // Initialize the data object
+      let data = new FormData(); // Use FormData for file uploads
+      
       if (isHotel) {
-        data = {
-          hotelId: hotelId,
-          hotelName: values.hotelName,
-          location: values.location,
-          address: values.address,
-          mobile: values.mobile,
-          ratings: values.ratings,
-          // Optionally handle images as a Base64 string:
-          // images: values.images ? await toBase64(values.images) : null,
-        };
-
-        const response = await axios.patch('http://localhost:3000/admins/update-hotel', data, {
+        data.append("hotelId", hotelId);
+        data.append("hotelName", values.hotelName);
+        data.append("location", values.location);
+        data.append("address", values.address);
+        data.append("mobile", values.mobile);
+        data.append("ratings", values.ratings);
+        
+        // Append the images only if there's an image selected
+        if (values.images) {
+          data.append("images", values.images); // Add the image file
+        }
+        const api = isUpload ? "http://localhost:3000/admins/update-hotel-image" : 'http://localhost:3000/admins/update-hotel';
+        const response = await axios.patch(api, data, {
           headers: {
-            'Content-Type': 'application/json',
             Authorization: `Bearer ${token}`,
           },
         });
-        console.log("updateHotel response-->", response)
+
+        console.log("updateHotel response-->", response);
         if (!response.data.error) {
-          navigate(-1)
+          navigate(-1);
           alert("Hotel Updated Successfully");
           resetForm(); // Reset the form fields
         } else {
@@ -134,23 +204,22 @@ const handleSubmit = async (values, { resetForm }) => {
         }
       } else {
         // Handle room update logic here, if needed
-        data = {
-          roomId: roomId,
-          roomNo: values.roomNo,
-          roomType: values.roomType,
-          pricePerNight: values.pricePerNight,
-        };
+        data.append("roomId", roomId);
+        data.append("roomNo", values.roomNo);
+        data.append("roomType", values.roomType);
+        data.append("pricePerNight", values.pricePerNight);
 
         const response = await axios.patch(`http://localhost:3000/admins/update-room`, data, {
           headers: {
-            'Content-Type': 'application/json',
+            'Content-Type': 'multipart/form-data',
             Authorization: `Bearer ${token}`,
           },
         });
-        console.log("room update response====>", response)
+
+        console.log("room update response====>", response);
         if (!response.data.error) {
           alert("Room Updated Successfully");
-          navigate(-1)
+         // navigate(-1);
           resetForm(); // Reset the form fields
         } else {
           alert("Error in updating room");
@@ -261,21 +330,24 @@ const handleSubmit = async (values, { resetForm }) => {
                   </p>
                 </div>
 
+                <button onClick={() =>setIsUpload(!isUpload)} type="button" className="submit-button" >Upload File</button>
                 {/* Image Upload Field */}
-                <div className="form-field">
-                  <input
-                    type="file"
-                    name="images"
-                    accept="image/jpeg, image/png, image/jpg"
-                    onChange={(event) => {
-                      setFieldValue("images", event.currentTarget.files[0]);
-                    }}
-                    className="input-field"
-                  />
-                  <p className="error-message">
-                    <ErrorMessage name="images" />
-                  </p>
-                </div>
+                {isUpload &&
+                  (<div className="form-field">
+                    <input
+                      type="file"
+                      name="images"
+                      accept="image/jpeg, image/png, image/jpg"
+                      onChange={(event) => {
+                        setFieldValue("images", event.currentTarget.files);
+                      }}
+                      className="input-field"
+                    />
+                    <p className="error-message">
+                      <ErrorMessage name="images" />
+                    </p>
+                  </div>)
+                }
               </>
             )}
 

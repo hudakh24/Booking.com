@@ -1,13 +1,15 @@
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import axios from 'axios';
-import { useContext } from "react";
+import { useContext, useRef } from "react";
 import { AuthContext } from "../../contexts/AuthContext";
 import './Form.css'; // Import the CSS file
+
 
 const AddForm = ({ isHotel }) => {  
   const { isAdminLoggedIn } = useContext(AuthContext);
   const token = localStorage.getItem("authAdminToken");
+  const fileInputRef = useRef(null);   // Ref to capture the file input
 
   const initialValues = {
     hotelName: "", 
@@ -62,9 +64,11 @@ const AddForm = ({ isHotel }) => {
               Authorization: `Bearer ${token}`,
             }
           });
-
           if (!response.data.error) {
             resetForm(); 
+             if (fileInputRef.current) {
+              fileInputRef.current.value = "";
+            }
             alert("Hotel Added Successfully"); 
           } else {
             alert("Error in adding Hotel");
@@ -208,6 +212,7 @@ const AddForm = ({ isHotel }) => {
                       setFieldValue("images", event.currentTarget.files[0]);
                     }}
                     className="input-field"
+                     ref={fileInputRef}  // Attach ref here
                   />
                   <p className="error-message">
                     <ErrorMessage name="images" />

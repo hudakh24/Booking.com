@@ -23,7 +23,7 @@ const storage = multer.diskStorage({
     cb(null, "uploads/images/");
   },
   filename: (req, file, cb) => {
-    cb(null, file.originalname);
+    cb(null, file.originalname ? file.originalname : null);
   },
 });
 
@@ -92,6 +92,10 @@ module.exports = {
         //   });
         // }
         // req.body.hotelId = findHotelID.response.dataValues.hotelId;
+        console.log("----------", req);
+        const hotelDetails = await getHotel(req);
+        // const hotelImage = hotelDetails.response.dataValues
+        console.log("hotelDetails ----> ", hotelDetails);
         const hotel = await updateHotel(req);
         responseHandler(hotel, res);
       } else {
@@ -105,15 +109,15 @@ module.exports = {
   },
   get_hotel: async (req, res) => {
     try {
-      if (req.query.hotelName) {
-        const findHotelID = await getHotelId(req.query);
-        if (findHotelID.error) {
-          return res.send({
-            error: findHotelID.error.message,
-          });
-        }
-        req.query.hotelId = findHotelID.response.dataValues.hotelId;
-      }
+      // if (req.query.hotelName) {
+      //   const findHotelID = await getHotelId(req.query);
+      //   if (findHotelID.error) {
+      //     return res.send({
+      //       error: findHotelID.error.message,
+      //     });
+      //   }
+      //   req.query.hotelId = findHotelID.response.dataValues.hotelId;
+      // }
       const hotel = await getHotel(req.query);
       responseHandler(hotel, res);
     } catch (error) {
