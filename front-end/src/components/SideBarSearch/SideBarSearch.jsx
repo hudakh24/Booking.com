@@ -113,7 +113,7 @@ const SidebarSearch = () => {
        <div className="sidebarSearchItem">
          <FontAwesomeIcon icon={faHotel} className="text-gray-400" />
         <input
-          className="sidebarSearchInput"
+          className="sidebarSearchInput hotelInput"
           type="text"
           placeholder="Enter Hotel Name"
           value={hotelInput}
