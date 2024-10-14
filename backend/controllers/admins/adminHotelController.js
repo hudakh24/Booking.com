@@ -92,10 +92,18 @@ module.exports = {
         //   });
         // }
         // req.body.hotelId = findHotelID.response.dataValues.hotelId;
-        console.log("----------", req);
-        const hotelDetails = await getHotel(req);
-        // const hotelImage = hotelDetails.response.dataValues
-        console.log("hotelDetails ----> ", hotelDetails);
+        if (!req.file) {
+          console.log("----------", req.body);
+          const hotelDetails = await getHotel(req.body);
+          console.log("hotelDetails ----> ", hotelDetails);
+          const hotelImage = hotelDetails.response.dataValues.images;
+          const imageName = path.basename(hotelImage);
+          req.file = req.file || {};
+          req.file.filename = imageName;
+          console.log("IMAGE NAME", imageName);
+          console.log("----REQ FILE----->>>", req.file);
+        }
+        console.log("--------->>>", req.file);
         const hotel = await updateHotel(req);
         responseHandler(hotel, res);
       } else {

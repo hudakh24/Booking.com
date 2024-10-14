@@ -1,10 +1,10 @@
-import "../Hotels/table.css";
+import "../../Pages/HotelTable/index.css";
 import { useEffect, useState, useContext } from "react";
 import axios from "axios";
-import { AuthContext } from "../../contexts/AuthContext";
+import { AuthContext } from "../../contexts/authContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash, faEdit } from "@fortawesome/free-solid-svg-icons";
-import UpdateForm from "../Form/UpdateForm";
+import UpdateForm from "../../Forms/UpdateForm";
 
 const RoomsTable = () => {
   const [Rooms, setRooms] = useState([]);
@@ -16,11 +16,14 @@ const RoomsTable = () => {
   const fetchRooms = async () => {
     if (isAdminLoggedIn) {
       try {
-        const response = await axios.get("http://localhost:3000/admins/get-all-Rooms", {
-          headers: {
-            Authorization: `Bearer ${token}`, // Include Bearer token in the header
-          },
-        });
+        const response = await axios.get(
+          "http://localhost:3000/admins/get-all-Rooms",
+          {
+            headers: {
+              Authorization: `Bearer ${token}`, // Include Bearer token in the header
+            },
+          }
+        );
         setRooms(response.data.response.response);
       } catch (error) {
         console.error("Error fetching Rooms:", error);
@@ -36,14 +39,17 @@ const RoomsTable = () => {
   const handleDeleteRoom = async (roomId) => {
     if (isAdminLoggedIn) {
       try {
-        const response = await axios.delete(`http://localhost:3000/admins/delete-room`, {
-          headers: {
-            Authorization: `Bearer ${token}`, // Include Bearer token in the header
-          },
-          params: {
-            roomId: roomId, // Send room as a query parameter
-          },
-        });
+        const response = await axios.delete(
+          `http://localhost:3000/admins/delete-room`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`, // Include Bearer token in the header
+            },
+            params: {
+              roomId: roomId, // Send room as a query parameter
+            },
+          }
+        );
 
         if (!response.data.error) {
           setRooms(Rooms.filter((room) => room.roomId !== roomId));

@@ -1,47 +1,73 @@
 import { Formik, Form, Field, ErrorMessage } from "formik";
-import * as Yup from "yup";
-import axios from 'axios';
 import { useContext, useRef } from "react";
-import { AuthContext } from "../../contexts/AuthContext";
-import './Form.css'; // Import the CSS file
+import { AuthContext } from "../contexts/authContext";
+import * as Yup from "yup";
+import axios from "axios";
+import PropTypes from "prop-types";
 
+import "./index.css"; // Import the CSS file
 
-const AddForm = ({ isHotel }) => {  
+const AddForm = ({ isHotel }) => {
   const { isAdminLoggedIn } = useContext(AuthContext);
   const token = localStorage.getItem("authAdminToken");
-  const fileInputRef = useRef(null);   // Ref to capture the file input
+  const fileInputRef = useRef(null); // Ref to capture the file input
 
   const initialValues = {
-    hotelName: "", 
+    hotelName: "",
     location: "",
     address: "",
     mobile: "",
     ratings: "",
     images: "",
-    roomNo: "", 
-    roomType: "", 
-    pricePerNight: "", 
+    roomNo: "",
+    roomType: "",
+    pricePerNight: "",
   };
 
   const validationSchema = Yup.object({
-    hotelName: Yup.string().required("Hotel name is required"), 
-    location: isHotel ? Yup.string().required("Location is required") : Yup.string(), 
-    address: isHotel ? Yup.string().required("Address is required") : Yup.string(), 
-    mobile: isHotel ? Yup.string()
-          .matches(/^\+92 \d{2} \d{3} \d{3} \d{3}$/, "Mobile number must be in the format +92 42 111 505 505")
-          .required("Mobile number is required") : Yup.string(), 
-    ratings: isHotel ? Yup.string().required("Rating is required") : Yup.string(), 
-    images: isHotel ? Yup.mixed()
+    hotelName: Yup.string().required("Hotel name is required"),
+    location: isHotel
+      ? Yup.string().required("Location is required")
+      : Yup.string(),
+    address: isHotel
+      ? Yup.string().required("Address is required")
+      : Yup.string(),
+    mobile: isHotel
+      ? Yup.string()
+          .matches(
+            /^\+92 \d{2} \d{3} \d{3} \d{3}$/,
+            "Mobile number must be in the format +92 42 111 505 505"
+          )
+          .required("Mobile number is required")
+      : Yup.string(),
+    ratings: isHotel
+      ? Yup.string().required("Rating is required")
+      : Yup.string(),
+    images: isHotel
+      ? Yup.mixed()
           .test("fileSize", "File too large", (value) => {
             return !value || (value && value.size <= 2 * 1024 * 1024);
           })
           .test("fileType", "Unsupported File Format", (value) => {
-            return !value || (value && (value.type === "image/jpg" || value.type === "image/jpeg" || value.type === "image/png"));
+            return (
+              !value ||
+              (value &&
+                (value.type === "image/jpg" ||
+                  value.type === "image/jpeg" ||
+                  value.type === "image/png"))
+            );
           })
-          .required("Image is required") : Yup.mixed(), 
-    roomNo: isHotel ? Yup.string() : Yup.string().required("Room number is required"),
-    roomType: isHotel ? Yup.string() : Yup.string().required("Room type is required"),  
-    pricePerNight: isHotel ? Yup.string() : Yup.number().required("Price per night is required").positive(),
+          .required("Image is required")
+      : Yup.mixed(),
+    roomNo: isHotel
+      ? Yup.string()
+      : Yup.string().required("Room number is required"),
+    roomType: isHotel
+      ? Yup.string()
+      : Yup.string().required("Room type is required"),
+    pricePerNight: isHotel
+      ? Yup.string()
+      : Yup.number().required("Price per night is required").positive(),
   });
 
   const handleSubmit = async (values, { resetForm }) => {
@@ -57,53 +83,64 @@ const AddForm = ({ isHotel }) => {
         if (values.images) {
           formData.append("images", values.images);
         }
-        
+
         if (isHotel) {
-          const response = await axios.post('http://localhost:3000/admins/add-hotel', formData, {
-            headers: {
-              Authorization: `Bearer ${token}`,
+          const response = await axios.post(
+            "http://localhost:3000/admins/add-hotel",
+            formData,
+            {
+              headers: {
+                Authorization: `Bearer ${token}`,
+              },
             }
-          });
+          );
           if (!response.data.error) {
-            resetForm(); 
-             if (fileInputRef.current) {
+            resetForm();
+            if (fileInputRef.current) {
               fileInputRef.current.value = "";
             }
-            alert("Hotel Added Successfully"); 
+            alert("Hotel Added Successfully");
           } else {
             alert("Error in adding Hotel");
-            console.log("Error: " + response.data.error.message); 
+            console.log("Error: " + response.data.error.message);
           }
         } else {
-           const roomData = {
-    roomNo: values.roomNo,
-    roomType: values.roomType,
-    pricePerNight: values.pricePerNight,
-    hotelName: values.hotelName,
-  };
+          const roomData = {
+            roomNo: values.roomNo,
+            roomType: values.roomType,
+            pricePerNight: values.pricePerNight,
+            hotelName: values.hotelName,
+          };
           // formData.append("roomNo", values.roomNo);
           // formData.append("roomType", values.roomType);
           // formData.append("pricePerNight", values.pricePerNight);
-        //formData.append("hotelName", values.hotelName);
+          //formData.append("hotelName", values.hotelName);
 
-            console.log("values", values)
-          const response = await axios.post('http://localhost:3000/admins/create-room', roomData, {
-            headers: {
-              Authorization: `Bearer ${token}`,
+          console.log("values", values);
+          const response = await axios.post(
+            "http://localhost:3000/admins/create-room",
+            roomData,
+            {
+              headers: {
+                Authorization: `Bearer ${token}`,
+              },
             }
-          });
-           console.log("rooms response--->", response.data)
+          );
+          console.log("rooms response--->", response.data);
           if (!response.data.error) {
-            resetForm(); 
-            alert("Room Added Successfully"); 
+            resetForm();
+            alert("Room Added Successfully");
           } else {
             alert("Error in adding Room");
-            console.log("Error: " + response.data.error.message); 
+            console.log("Error: " + response.data.error.message);
           }
         }
       } catch (error) {
         alert("Error in adding item");
-        console.log('Error during submission: ' + (error.response ? error.response.data.message : error.message));
+        console.log(
+          "Error during submission: " +
+            (error.response ? error.response.data.message : error.message)
+        );
       }
     }
   };
@@ -146,7 +183,7 @@ const AddForm = ({ isHotel }) => {
                 <ErrorMessage name="hotelName" />
               </p>
             </div>
-            
+
             {isHotel && (
               <>
                 {/* Location Dropdown */}
@@ -192,9 +229,13 @@ const AddForm = ({ isHotel }) => {
                 {/* Ratings Dropdown (Only for hotels) */}
                 <div className="form-field">
                   <Field as="select" name="ratings" className="select-field">
-                    <option value="" disabled>Select your ratings</option>
+                    <option value="" disabled>
+                      Select your ratings
+                    </option>
                     {[1, 2, 3, 4, 5].map((rate) => (
-                      <option key={rate} value={rate}>{rate}</option>
+                      <option key={rate} value={rate}>
+                        {rate}
+                      </option>
                     ))}
                   </Field>
                   <p className="error-message">
@@ -212,7 +253,7 @@ const AddForm = ({ isHotel }) => {
                       setFieldValue("images", event.currentTarget.files[0]);
                     }}
                     className="input-field"
-                     ref={fileInputRef}  // Attach ref here
+                    ref={fileInputRef} // Attach ref here
                   />
                   <p className="error-message">
                     <ErrorMessage name="images" />
@@ -264,12 +305,18 @@ const AddForm = ({ isHotel }) => {
             )}
 
             {/* Submit Button */}
-            <button type="submit" className="submit-button">Submit</button>
+            <button type="submit" className="submit-button">
+              Submit
+            </button>
           </Form>
         )}
       </Formik>
     </div>
   );
+};
+
+AddForm.propTypes = {
+  isHotel: PropTypes.bool,
 };
 
 export default AddForm;

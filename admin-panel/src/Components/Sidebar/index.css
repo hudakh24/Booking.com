@@ -1,0 +1,31 @@
+.sidebar {
+  @apply flex-none w-1/6 p-4 bg-gray-300;
+}
+
+.sidebarHeading {
+  @apply text-center text-lg font-bold mb-2;
+}
+
+.line {
+  @apply border-t border-gray-400 mb-4;
+}
+
+.sidebarOption {
+  @apply p-2 cursor-pointer hover:bg-gray-500 hover:text-white;
+}
+
+.optionSpan {
+  @apply flex justify-between items-center;
+}
+
+.optionList {
+  @apply ml-4 mt-1 space-y-1;
+}
+
+.listItem {
+  @apply p-1 hover:bg-cyan-500 cursor-pointer;
+}
+
+.outputContainer {
+  @apply flex-1 flex p-4 justify-center items-center;
+}

@@ -1,12 +1,12 @@
-import "./SideBar.css";
+import "./index.css";
 import { useState } from "react";
-import HotelsTable from "../Hotels/HotelsTable";
-import RoomsTable from "../RoomsTable/RoomsTable";
-import AddForm from "../Form/AddForm"
+import HotelsTable from "../../Pages/HotelTable/index";
+import RoomsTable from "../RoomsTable";
+import AddForm from "../../Forms/AddForm";
 
 const SideBar = () => {
   // State to manage open sections
-  const [isHotelsOpen, setIsHotelsOpen] = useState(false);  //needs to make this generic
+  const [isHotelsOpen, setIsHotelsOpen] = useState(false); //needs to make this generic
   const [isRoomsOpen, setIsRoomsOpen] = useState(false);
 
   // State to manage which option is selected (like All Hotels or All Rooms)
@@ -18,7 +18,6 @@ const SideBar = () => {
         <h2 className="sidebarHeading">Admin</h2>
         <hr className="line" />
         <ul className="space-y-1">
-
           {/* Hotels Option */}
           <li className="sidebarOption">
             <div
@@ -32,9 +31,12 @@ const SideBar = () => {
             {/* Nested list for Hotels */}
             {isHotelsOpen && (
               <ul className="optionList">
-                <li className="listItem"
+                <li
+                  className="listItem"
                   onClick={() => setSelectedOption("AddHotel")}
-                >Add Hotel</li>
+                >
+                  Add Hotel
+                </li>
                 <li
                   className="listItem"
                   onClick={() => setSelectedOption("AllHotels")}
@@ -58,8 +60,10 @@ const SideBar = () => {
             {/* Nested list for Rooms */}
             {isRoomsOpen && (
               <ul className="optionList">
-                <li className="listItem"
-                  onClick={() => setSelectedOption("AddRoom")}>
+                <li
+                  className="listItem"
+                  onClick={() => setSelectedOption("AddRoom")}
+                >
                   Add Room
                 </li>
                 <li
@@ -71,7 +75,6 @@ const SideBar = () => {
               </ul>
             )}
           </li>
-
         </ul>
       </div>
 

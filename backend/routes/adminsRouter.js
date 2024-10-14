@@ -42,8 +42,8 @@ routes.patch(
 );
 routes.patch(
   "/update-hotel-image",
-  protected,
   upload,
+  protected,
   //  updateHotelValidation,
   update_hotel
 );

@@ -1,25 +1,28 @@
-import "./table.css"
+import "./index.css";
 import { useEffect, useState, useContext } from "react";
 import axios from "axios";
-import { AuthContext } from "../../contexts/AuthContext";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTrash, faEdit } from '@fortawesome/free-solid-svg-icons';
-import UpdateForm from "../Form/UpdateForm";
+import { AuthContext } from "../../contexts/authContext";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTrash, faEdit } from "@fortawesome/free-solid-svg-icons";
+import UpdateForm from "../../Forms/UpdateForm";
 
 const HotelsTable = () => {
   const [hotels, setHotels] = useState([]);
   const [selectedHotel, setSelectedHotel] = useState(null); // State for selected hotel to edit
   const { isAdminLoggedIn } = useContext(AuthContext);
   const token = localStorage.getItem("authAdminToken");
-  
+
   const fetchHotels = async () => {
     if (isAdminLoggedIn) {
       try {
-        const response = await axios.get("http://localhost:3000/admins/get-all-hotels",  {
+        const response = await axios.get(
+          "http://localhost:3000/admins/get-all-hotels",
+          {
             headers: {
-              Authorization: `Bearer ${token}`,  // Include Bearer token in the header
-            }
-        });
+              Authorization: `Bearer ${token}`, // Include Bearer token in the header
+            },
+          }
+        );
         setHotels(response.data.response.response);
       } catch (error) {
         console.error("Error fetching hotels:", error);
@@ -34,15 +37,18 @@ const HotelsTable = () => {
   const handleDeleteHotel = async (hotelId) => {
     if (isAdminLoggedIn) {
       try {
-        const response = await axios.delete(`http://localhost:3000/admins/delete-hotel`, {
-          headers: {
-            Authorization: `Bearer ${token}`, // Include Bearer token in the header
-          },
-          params: {
-            hotelId: hotelId, // Send hotelId as a query parameter
-          },
-        });
-        
+        const response = await axios.delete(
+          `http://localhost:3000/admins/delete-hotel`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`, // Include Bearer token in the header
+            },
+            params: {
+              hotelId: hotelId, // Send hotelId as a query parameter
+            },
+          }
+        );
+
         if (!response.data.error) {
           setHotels(hotels.filter((hotel) => hotel.hotelId !== hotelId));
         }
@@ -55,17 +61,16 @@ const HotelsTable = () => {
 
   const handleEditHotel = (hotelId) => {
     setSelectedHotel(hotelId); // Set the selected hotel for editing
-  }
-
+  };
 
   return (
     <div className="hotelsTableContainer">
       {/* Conditionally render the UpdateForm if a hotel is selected for editing */}
       {selectedHotel ? (
-        <UpdateForm hotelId={selectedHotel} isHotel={true}  />
-      ) : (    
-          <>
-            <h3 className="tittle">Hotels List</h3>
+        <UpdateForm hotelId={selectedHotel} isHotel={true} />
+      ) : (
+        <>
+          <h3 className="tittle">Hotels List</h3>
           {hotels.length > 0 ? (
             <table className="table-auto w-full">
               <thead>
