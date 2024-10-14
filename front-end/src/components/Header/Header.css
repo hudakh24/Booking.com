@@ -1,27 +1,71 @@
 /* Main header container */
-.header {
+/* .header {
   @apply h-60 bg-gradient-to-r from-cyan-900 via-cyan-800 to-cyan-700 w-full flex flex-col px-4 py-1 md:px-8 relative;
+} */
+
+/* Container holding header elements */
+/* .headerContainer {
+  @apply w-full max-w-[1024px] my-5 mx-7;
+} */
+
+/* Items like "Stays" and "Flights" */
+/* .headerItems {
+  @apply text-white flex gap-5 justify-start mt-5 mb-0 mx-0 relative;
+  top: -10px;
+} */
+
+/* Styling for each item */
+/* .item {
+  @apply flex items-center gap-2 p-1 cursor-pointer;
+} */
+
+/* Active item styling */
+/* .item.active {
+  @apply border-2 border-cyan-500 rounded-full bg-opacity-20 bg-white shadow-lg;
+} */
+
+/* .item.active:hover {
+  @apply bg-opacity-30 shadow-xl;
+} */
+
+/* Text container below the items */
+/* .headerText {
+  @apply text-left mt-2;
+} */
+
+/* .headerTitle {
+  @apply text-4xl font-bold text-white;
+} */
+
+/* .headerDesc {
+  @apply text-lg text-white mt-1;
+} */
+
+
+/* Main header container */
+.header {
+  @apply h-52 bg-black bg-opacity-70 w-full flex flex-col px-4 py-1 md:px-8 relative;
 }
 
 /* Container holding header elements */
 .headerContainer {
-  @apply w-full max-w-[1024px] my-5 mx-7;
+  @apply w-full max-w-[1024px] my-1 mx-7;
 }
 
 /* Items like "Stays" and "Flights" */
 .headerItems {
-  @apply text-white flex gap-5 justify-start mt-5 mb-0 mx-0 relative;
+  @apply text-white flex gap-5 justify-start mt-2 mb-3 mx-0 relative;
   top: -10px;
 }
 
 /* Styling for each item */
 .item {
-  @apply flex items-center gap-2 p-1 cursor-pointer;
+  @apply flex items-center gap-2 p-2 cursor-pointer;
 }
 
 /* Active item styling */
 .item.active {
-  @apply border-2 border-cyan-500 rounded-full bg-opacity-20 bg-white shadow-lg;
+  @apply border-b-2 border-yellow-600 rounded-full bg-opacity-30 bg-black shadow-lg;
 }
 
 .item.active:hover {
@@ -30,7 +74,7 @@
 
 /* Text container below the items */
 .headerText {
-  @apply text-left mt-2;
+  @apply text-left mt-5;
 }
 
 .headerTitle {
@@ -40,3 +84,4 @@
 .headerDesc {
   @apply text-lg text-white mt-1;
 }
+

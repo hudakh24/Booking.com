@@ -14,7 +14,7 @@ const StarRating = ({ rating }) => {
   return (
     <div className="flex justify-center">
       {stars.map((star, i) => (
-        <span key={i} className={star === '★' ? 'text-yellow-500' : 'text-gray-500'}>
+        <span key={i} className={star === '★' ? 'text-yellow-500' : 'text-gray-900'}>
           {star}
         </span>
       ))}
@@ -50,7 +50,6 @@ const Hotels = () => {
   return (
     <div className="hotels-container">
       <br />
-      <br />
       <div className="hotels-grid ">
         
         {hotels.map((hotel) => (
@@ -76,6 +75,7 @@ const Hotels = () => {
           </div>
         ))}
       </div>
+      <br/>
     </div>
   );
 };

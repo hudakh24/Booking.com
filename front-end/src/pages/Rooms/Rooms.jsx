@@ -10,6 +10,7 @@ import axios from "axios";
 import { AuthContext } from "../../contexts/AuthContext";
 
 const Rooms = () => {
+  const [activeItem, setActiveItem] = useState("stays");
   const [rooms, setRooms] = useState([]);
   const {isLoggedIn} = useContext(AuthContext);
   const location = useLocation();
@@ -57,40 +58,41 @@ const Rooms = () => {
     <>
       <div className="home">
         <Navbar />
-        <Header />
-        
+        <Header activeItem={activeItem} setActiveItem={setActiveItem} />        
         {/* Main Flex container for sidebar and rooms */}
-        <div className="mainContainer">
-          <div className="sideBar">
-            <SideBarSearch />
-          </div>
+        {activeItem == "stays" && (
+          <div className="mainContainer">
+            <div className="sideBar">
+              <SideBarSearch />
+            </div>
 
-          <div className="roomsList ">
-            <h2 className="heading">Available Rooms</h2>
+            <div className="roomsList ">
+              <h2 className="heading">Available Rooms</h2>
             
-            {rooms.map((room) => (
-              <div key={room.roomId} className="roomsCard">
-                <div>
-                  <h2 className="cardHeading">{room.Hotel.hotelName}</h2>
-                  <h3 className="location">{room.Hotel.location}</h3>
-                  <p className="cardSubHeading mt-2">
-                    Room Type: <span className="font-normal">{room.roomType}</span>
-                  </p>
-                  <p className="cardSubHeading">
-                    Room Number: <span className="font-normal">{room.roomNo}</span>
-                  </p>
-                  <p className="cardSubHeading">
-                    Price per night: <span className="font-normal">Rs. {room.pricePerNight}</span>
-                  </p>
+              {rooms.map((room) => (
+                <div key={room.roomId} className="roomsCard">
+                  <div>
+                    <h2 className="cardHeading">{room.Hotel.hotelName}</h2>
+                    <h3 className="location">{room.Hotel.location}</h3>
+                    <p className="cardSubHeading mt-2">
+                      Room Type: <span className="font-normal">{room.roomType}</span>
+                    </p>
+                    <p className="cardSubHeading">
+                      Room Number: <span className="font-normal">{room.roomNo}</span>
+                    </p>
+                    <p className="cardSubHeading">
+                      Price per night: <span className="font-normal">Rs. {room.pricePerNight}</span>
+                    </p>
+                  </div>
+                  {/* Call bookHandler with roomId when clicked */}
+                  <button onClick={() => bookHandler(room)} className="button">
+                    Book
+                  </button>
                 </div>
-                {/* Call bookHandler with roomId when clicked */}
-                <button onClick={() => bookHandler(room)} className="button">
-                  Book
-                </button>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
-        </div>
+        )}
             <br/>
         <Footer />
       </div>

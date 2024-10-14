@@ -3,7 +3,7 @@
 }
 
 .sideBar{
-   @apply relative mt-16 h-60 w-1/4 p-4 bg-gray-100 rounded-md
+   @apply relative mt-16 h-60 w-1/4 p-4  rounded-md
 }
 
 .roomsList{

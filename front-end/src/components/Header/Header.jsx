@@ -1,12 +1,10 @@
-import { useState } from "react";
+// import { useState } from "react";
 import "./Header.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBed, faPlane } from "@fortawesome/free-solid-svg-icons";
 import HeaderSearch from "../HeaderSearch/HeaderSearch"
 
-const Header = () => {
-  const [activeItem, setActiveItem] = useState("stays");
-
+const Header = ({ activeItem, setActiveItem }) => {
   return (
     <>
     <div className="header">
@@ -41,8 +39,10 @@ const Header = () => {
             </>
           )}
         </div>
-      </div>
-      <HeaderSearch />
+        </div>
+        {activeItem == "stays" &&
+          < HeaderSearch />
+        }
     </div>
     <br/>
     </>
