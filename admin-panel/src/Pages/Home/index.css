@@ -1,0 +1,24 @@
+/* .pageContainer {
+  @apply flex flex-col min-h-screen; 
+}
+
+.midContainer {
+  @apply flex-grow flex items-center justify-center
+} */
+
+.pageContainer {
+  @apply flex flex-col min-h-screen; /* Makes sure the container is full height */
+}
+
+/* Ensure that the midContainer expands to fill available space */
+.midContainer {
+  @apply flex-grow flex; /* Allows the midContainer to take remaining height */
+}
+
+/* .leftContainer{
+    @apply flex-none w-1/6 p-4 bg-cyan-200
+} */
+
+/* .rightContainer{
+   @apply flex-1 p-4
+} */

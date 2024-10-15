@@ -1,0 +1,38 @@
+/* .navbar {
+  @apply  h-20  bg-gradient-to-r from-cyan-900 via-cyan-800 to-cyan-700 w-full flex items-start justify-between px-4 md:px-8;
+}
+
+.websiteName {
+  @apply font-bold text-3xl text-white mt-5 mx-7;
+} */
+
+/* .NavItems {
+  @apply flex space-x-4; /* Adds space between buttons */
+
+/* .navButton {
+  @apply px-4 py-2 bg-cyan-500 text-white font-semibold rounded-lg shadow-md transition-all duration-300 ease-in-out mt-5;
+}
+
+.navButton:hover {
+  @apply bg-cyan-600 shadow-lg;
+} */
+
+.navbar {
+  @apply top-0 h-16 bg-black bg-opacity-70 w-full flex justify-between items-center px-4 md:px-8;
+}
+
+.websiteName {
+  @apply font-medium text-2xl text-white;
+}
+
+.NavItems {
+  @apply flex space-x-4; /* Adds space between buttons */
+}
+
+.navButton {
+  @apply px-4 py-1 bg-yellow-600  text-white  rounded-lg shadow-md transition-all duration-300 ease-in-out;
+}
+
+.navButton:hover {
+  @apply bg-yellow-500 shadow-lg;
+}
