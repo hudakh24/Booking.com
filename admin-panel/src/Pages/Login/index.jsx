@@ -56,8 +56,10 @@ const LoginComponent = () => {
     <div
       className={`flex min-h-screen items-center justify-center bg-gray-800 bg-[url('/book1.jpg')] bg-cover bg-center`}
     >
-      <div className="rounded-lg bg-gray-700 bg-opacity-80 p-8 shadow-md">
-        <h1 className="mb-4 text-2xl font-bold text-white">Welcome Back!</h1>
+      <div className="rounded-lg bg-gray-900 bg-opacity-80 p-8 shadow-md">
+        <h1 className="mb-4 text-2xl font-bold text-white bg-opacity-45">
+          Welcome Back!
+        </h1>
 
         <Formik
           initialValues={initialValues}
@@ -74,7 +76,7 @@ const LoginComponent = () => {
                   type="text"
                   id="username"
                   name="userName"
-                  className={`w-full rounded p-2 ${
+                  className={`w-full rounded p-2 bg-white  ${
                     errors.userName && touched.userName
                       ? "border-2 border-red-500"
                       : ""
