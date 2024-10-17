@@ -1,9 +1,9 @@
 import "./index.css";
 import { useEffect, useState, useContext } from "react";
-import axios from "axios";
 import { AuthContext } from "../../contexts/authContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash, faEdit } from "@fortawesome/free-solid-svg-icons";
+import axios from "axios";
 import UpdateForm from "../../Forms/UpdateForm";
 
 const HotelsTable = () => {

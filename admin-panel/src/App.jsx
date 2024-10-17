@@ -5,11 +5,8 @@ import LoginComponent from "./Pages/Login";
 import PrivateRoute from "./Components/ProtectedRoute";
 import HotelsTable from "./Pages/HotelTable";
 import RoomsTable from "./Pages/RoomsTable";
-// import { createContext, useState } from "react";
-// export const CloseForm = createContext(null);
 
 const App = () => {
-  // const [closeForm, setCloseForm] = useState(false);
   return (
     <>
       <Routes>
@@ -23,11 +20,8 @@ const App = () => {
               </PrivateRoute>
             }
           />
-          {/* <CloseForm.Provider
-            value={{ closeForm, setCloseForm }}
-          ></CloseForm.Provider> */}
           <Route
-            path="/hotels"
+            path="hotels"
             element={
               <PrivateRoute>
                 <HotelsTable />
@@ -35,7 +29,7 @@ const App = () => {
             }
           />
           <Route
-            path="/rooms"
+            path="rooms"
             element={
               <PrivateRoute>
                 <RoomsTable />
