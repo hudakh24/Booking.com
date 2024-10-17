@@ -42,7 +42,7 @@ const SidebarSearch = () => {
           location: inputValue,
           checkIn: date[0].startDate,  // Format startDate
           checkOut: date[0].endDate,    // Format endDate
-          hotelName: (hotelInput ? hotelInput : true)
+          hotelName: (hotelInput ? hotelInput : undefined)
       }
       });
         const availableRooms=response.data //did because large datas (nested objects etc) be send like response directly
