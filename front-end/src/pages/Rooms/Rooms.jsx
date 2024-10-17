@@ -68,7 +68,7 @@ const Rooms = () => {
           <div className="roomsList ">
             <h2 className="heading">Available Rooms</h2>
             
-            {rooms.map((room) => (
+            {rooms ? rooms.map((room) => (
               <div key={room.roomId} className="roomsCard">
                 <div>
                   <h2 className="cardHeading">{room.Hotel.hotelName}</h2>
@@ -88,7 +88,7 @@ const Rooms = () => {
                   Book
                 </button>
               </div>
-            ))}
+            )) : <h2 className="heading">No Available Rooms</h2>}
           </div>
         </div>
             <br/>

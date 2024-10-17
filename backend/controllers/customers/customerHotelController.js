@@ -86,9 +86,10 @@ module.exports = {
         res
       );
     }
+
     const hotels = await models.Hotels.findAll({
       where: {
-        ...(location ? { location } : true),
+        ...(location ? { location } : "Islamabad"),
         ...(hotelName ? { hotelName } : true),
       },
       attributes: [
