@@ -1,6 +1,6 @@
 import { Routes, Route } from "react-router-dom";
 import ErrorPage from "./Pages/ErrorPage";
-import Home from "./Pages/Home/Index";
+import Home from "./Pages/Home/index";
 import LoginComponent from "./Pages/Login";
 import PrivateRoute from "./Components/ProtectedRoute";
 import HotelsTable from "./Pages/HotelTable";
