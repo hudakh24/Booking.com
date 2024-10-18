@@ -1,9 +1,9 @@
 .add-form-container {
-  @apply w-full max-w-md rounded-lg bg-gray-200 p-6 shadow-md;
+  @apply w-full max-w-md rounded-lg bg-black bg-opacity-70  p-6 shadow-md;
 }
 
 .add-form-title {
-  @apply mb-4 text-center text-2xl font-bold;
+  @apply mb-4 text-center text-2xl  text-white;
 }
 
 .add-form {
@@ -11,14 +11,23 @@
 }
 
 .input-field {
-  @apply block w-full rounded border border-gray-300 p-2 focus:bg-white focus:outline-none;
+  @apply block w-full rounded border border-gray-500 bg-white bg-opacity-60 p-2;
 }
+
+.input-field::placeholder {
+  @apply text-gray-600;
+}
+
 .input-field:disabled {
   @apply bg-white text-black cursor-not-allowed;
 }
 
 .select-field {
-  @apply block w-full text-gray-500 rounded border border-gray-300 bg-white p-2 focus:bg-white focus:outline-none;
+  @apply block w-full text-gray-600 rounded border border-gray-500 bg-white bg-opacity-60 p-2;
+}
+
+.select-field option {
+  @apply border border-gray-500 bg-gray-500 bg-opacity-50 hover:bg-black;
 }
 
 .error-message {
@@ -26,5 +35,5 @@
 }
 
 .submit-button {
-  @apply w-full rounded bg-cyan-800 hover:bg-cyan-700 px-4 py-2 font-bold text-white;
+  @apply w-full rounded bg-yellow-700 hover:bg-yellow-600 px-4 py-2 font-bold text-white;
 }

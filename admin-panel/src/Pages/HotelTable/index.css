@@ -1,11 +1,11 @@
 .tittle {
-  @apply text-center text-lg font-bold mb-4;
+  @apply text-center  text-white text-xl font-bold mb-4;
 }
 
 .tableHeading {
-  @apply px-4 py-2 border-2 border-gray-300 bg-gray-400;
+  @apply px-4 py-2 border border-black bg-black bg-opacity-80 text-white;
 }
 
 .tableItems {
-  @apply px-4 py-2 border bg-gray-100 border-gray-300;
+  @apply px-4 py-2 border bg-black bg-opacity-90 text-white border-black;
 }

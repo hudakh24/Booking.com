@@ -25,7 +25,7 @@ const SideBar = () => {
               className="optionSpan"
               onClick={() => setIsHotelsOpen(!isHotelsOpen)}
             >
-              <span>Hotels</span>
+              <span> Hotels</span>
               <span>{isHotelsOpen ? "▲" : "▼"}</span>
             </div>
 

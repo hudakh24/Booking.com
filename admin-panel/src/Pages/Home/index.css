@@ -7,7 +7,7 @@
 } */
 
 .pageContainer {
-  @apply flex flex-col min-h-screen; /* Makes sure the container is full height */
+  @apply flex flex-col min-h-screen bg-[url('/book1.jpg')]  bg-cover bg-no-repeat; /* Makes sure the container is full height */
 }
 
 /* Ensure that the midContainer expands to fill available space */

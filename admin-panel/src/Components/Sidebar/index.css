@@ -1,9 +1,9 @@
 .sidebar {
-  @apply flex-none w-1/6 p-4 bg-gray-300;
+  @apply flex-none w-1/6 p-4 bg-black bg-opacity-70;
 }
 
 .sidebarHeading {
-  @apply text-center text-lg font-bold mb-2;
+  @apply text-center text-lg font-bold mb-2 text-white;
 }
 
 .line {
@@ -11,11 +11,11 @@
 }
 
 .sidebarOption {
-  @apply p-2 cursor-pointer hover:bg-gray-500 hover:text-white;
+  @apply p-1  text-white cursor-pointer  hover:text-white;
 }
 
 .optionSpan {
-  @apply flex justify-between items-center;
+  @apply p-1 hover:bg-gray-700 flex justify-between items-center;
 }
 
 .optionList {
@@ -23,7 +23,7 @@
 }
 
 .listItem {
-  @apply p-1 hover:bg-cyan-500 cursor-pointer;
+  @apply p-1 hover:bg-gray-700 cursor-pointer;
 }
 
 .outputContainer {
