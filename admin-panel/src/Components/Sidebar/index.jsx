@@ -2,7 +2,7 @@ import "./index.css";
 import { useState } from "react";
 // import HotelsTable from "../../Pages/HotelTable";
 // import RoomsTable from "../../Pages/RoomsTable";
-import AddForm from "../../Forms/AddForm";
+// import AddForm from "../../Forms/AddForm";
 import { Navigate } from "react-router-dom";
 
 const SideBar = () => {
@@ -80,12 +80,12 @@ const SideBar = () => {
       </div>
 
       {/* Conditionally render the selected table */}
-      <div className="outputContainer">
-        {selectedOption === "AllHotels" && <Navigate to="/home/hotels" />}
-        {selectedOption === "AllRooms" && <Navigate to="/home/rooms" />}
-        {selectedOption === "AddHotel" && <Navigate to="/home/add-hotel" />}
-        {selectedOption === "AddRoom" && <AddForm isHotel={false} />}
-      </div>
+      {/* <div className="outputContainer"> */}
+      {selectedOption === "AllHotels" && <Navigate to="/home/hotels" />}
+      {selectedOption === "AllRooms" && <Navigate to="/home/rooms" />}
+      {selectedOption === "AddHotel" && <Navigate to="/home/add-hotel" />}
+      {selectedOption === "AddRoom" && <Navigate to="/home/add-room" />}
+      {/* </div> */}
     </>
   );
 };

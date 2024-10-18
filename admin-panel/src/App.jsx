@@ -75,6 +75,16 @@ const App = () => {
             </PrivateRoute>
           }
         />
+        <Route
+          path="/home/add-room"
+          element={
+            <PrivateRoute>
+              <Layout>
+                <AddForm isHotel={false} />
+              </Layout>
+            </PrivateRoute>
+          }
+        />
         <Route path="*" element={<ErrorPage />} />
       </Routes>
     </>

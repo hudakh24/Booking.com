@@ -11,7 +11,8 @@ import PropTypes from "prop-types";
 
 const UpdateForm = ({ isHotel }) => {
   // const isHotel = true;
-  const { hotelId, roomId } = useParams();
+  let { hotelId, roomId } = useParams();
+  isHotel ? (roomId = undefined) : (hotelId = undefined);
   console.log(hotelId, roomId);
 
   const { isAdminLoggedIn } = useContext(AuthContext);
@@ -20,7 +21,7 @@ const UpdateForm = ({ isHotel }) => {
   const navigate = useNavigate();
   let response;
 
-  console.log(isHotel);
+  // console.log(isHotel);
   // State to store initial form data
   const [initialValues, setInitialValues] = useState({
     hotelName: "",
@@ -117,7 +118,7 @@ const UpdateForm = ({ isHotel }) => {
   };
 
   useEffect(() => {
-    console.log(hotelId);
+    // console.log(hotelId);
     if (isHotel && hotelId) {
       fetchHotelDetails();
     }
@@ -125,7 +126,7 @@ const UpdateForm = ({ isHotel }) => {
     if (!isHotel && roomId) {
       fetchRoomDetails();
     }
-  }, [hotelId, roomId, token]);
+  }, [hotelId, roomId]);
 
   // const handleSubmit = async (values, { resetForm }) => {
   //   if (isAdminLoggedIn) {

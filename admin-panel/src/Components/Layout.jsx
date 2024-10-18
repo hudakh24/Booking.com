@@ -1,27 +1,25 @@
-// import Footer from "";
-import Navbar from "./Navbar";
-import SideBar from "./Sidebar";
+import Navbar from "./Navbar/index";
+import SideBar from "./Sidebar/index";
 import PropTypes from "prop-types";
-// import "../Pages/Home/index.css";
 
 const Layout = (props) => {
   return (
     <>
-      {/* <div className="pageContainer">
+      <div className="flex flex-col min-h-screen bg-[url('/book1.jpg')]  bg-cover bg-no-repeat">
         <Navbar />
-        <div className="midContainer">
-          <SideBar /> */}
-      <Navbar />
-      <SideBar />
-      {props.children}
-      {/* </div>
-      </div> */}
+        <div className="flex-grow flex">
+          <SideBar />
+          <div className="flex-1 flex p-4 justify-center items-center">
+            {props.children}
+          </div>
+        </div>
+      </div>
     </>
   );
 };
 
 Layout.propTypes = {
-  children: PropTypes.any,
+  children: PropTypes.node.isRequired,
 };
 
 export default Layout;
