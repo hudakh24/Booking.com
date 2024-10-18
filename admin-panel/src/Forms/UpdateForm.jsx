@@ -1,7 +1,7 @@
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../contexts/authContext";
-// import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import * as Yup from "yup";
 import axios from "axios";
 import "./index.css"; // Import the CSS file
@@ -9,13 +9,18 @@ import PropTypes from "prop-types";
 
 //import AdminHome from "../../pages/AdminHome/AdminHome";
 
-const UpdateForm = ({ isHotel, hotelId, roomId }) => {
+const UpdateForm = ({ isHotel }) => {
+  // const isHotel = true;
+  const { hotelId, roomId } = useParams();
+  console.log(hotelId, roomId);
+
   const { isAdminLoggedIn } = useContext(AuthContext);
   const token = localStorage.getItem("authAdminToken");
   const [isUpload, setIsUpload] = useState(false);
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
   let response;
 
+  console.log(isHotel);
   // State to store initial form data
   const [initialValues, setInitialValues] = useState({
     hotelName: "",
@@ -112,6 +117,7 @@ const UpdateForm = ({ isHotel, hotelId, roomId }) => {
   };
 
   useEffect(() => {
+    console.log(hotelId);
     if (isHotel && hotelId) {
       fetchHotelDetails();
     }
@@ -230,8 +236,10 @@ const UpdateForm = ({ isHotel, hotelId, roomId }) => {
 
           console.log("updateHotel response-->", response);
           if (!response.data.error) {
-            alert("Hotel Updated Successfully");
+            // navigate("/home/hotels", { replace: true });
             resetForm(); // Reset the form fields
+            alert("Hotel Updated Successfully");
+            navigate(-1);
           } else {
             alert("Error in updating hotel");
             console.log("Error: " + response.data.error.message);
@@ -248,17 +256,17 @@ const UpdateForm = ({ isHotel, hotelId, roomId }) => {
             data,
             {
               headers: {
-                "Content-Type": "multipart/form-data",
                 Authorization: `Bearer ${token}`,
+                "Content-Type": "application/json",
               },
             }
           );
 
           console.log("room update response====>", response);
           if (!response.data.error) {
-            alert("Room Updated Successfully");
-            // navigate(-1);
             resetForm(); // Reset the form fields
+            alert("Room Updated Successfully");
+            navigate(-2);
           } else {
             alert("Error in updating room");
             console.log("Error: " + response.data.error.message);
@@ -308,6 +316,7 @@ const UpdateForm = ({ isHotel, hotelId, roomId }) => {
                 name="hotelName"
                 placeholder="Enter hotel name"
                 className="input-field"
+                // disabled={!isHotel}
                 disabled={!isHotel && roomId}
                 // value={!isHotel ? initialValues.hotelName : ""}
               />
@@ -457,8 +466,6 @@ const UpdateForm = ({ isHotel, hotelId, roomId }) => {
 
 UpdateForm.propTypes = {
   isHotel: PropTypes.bool,
-  hotelId: PropTypes.string,
-  roomId: PropTypes.string,
 };
 
 export default UpdateForm;

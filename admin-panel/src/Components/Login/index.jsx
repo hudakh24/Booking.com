@@ -35,7 +35,7 @@ const LoginComponent = () => {
         response.data.response.response !== "Invalid Credentials"
       ) {
         loginAdmin(response.data.response.response);
-        navigate("/");
+        navigate("/home");
       } else {
         setError("Invalid login credentials.");
       }

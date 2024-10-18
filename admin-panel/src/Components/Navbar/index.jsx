@@ -13,7 +13,7 @@ const Navbar = () => {
   };
 
   const showHome = () => {
-    navigate("/");
+    navigate("/home");
   };
 
   return (

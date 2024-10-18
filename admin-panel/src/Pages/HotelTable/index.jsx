@@ -1,10 +1,11 @@
 import "./index.css";
 import { useEffect, useState, useContext } from "react";
-import axios from "axios";
 import { AuthContext } from "../../contexts/authContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash, faEdit } from "@fortawesome/free-solid-svg-icons";
-import UpdateForm from "../../Forms/UpdateForm";
+import axios from "axios";
+// import UpdateForm from "../../Forms/UpdateForm";
+import { Navigate } from "react-router-dom";
 
 const HotelsTable = () => {
   const [hotels, setHotels] = useState([]);
@@ -67,7 +68,7 @@ const HotelsTable = () => {
     <div className="hotelsTableContainer">
       {/* Conditionally render the UpdateForm if a hotel is selected for editing */}
       {selectedHotel ? (
-        <UpdateForm hotelId={selectedHotel} isHotel={true} />
+        <Navigate to={`/home/hotels/update-hotel/${selectedHotel}`} />
       ) : (
         <>
           <h3 className="tittle">Hotels List</h3>

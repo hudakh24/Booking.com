@@ -4,7 +4,7 @@ const ErrorPage = () => {
   const navigate = useNavigate();
 
   const handleBackToHome = () => {
-    navigate("/"); // Navigate to the homepage or any other path you prefer
+    navigate("/home"); // Navigate to the homepage or any other path you prefer
   };
 
   return (

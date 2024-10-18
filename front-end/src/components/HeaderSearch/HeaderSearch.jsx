@@ -1,20 +1,19 @@
 import "./HeaderSearch.css";
 import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBed, faCalendarDays } from "@fortawesome/free-solid-svg-icons";
+import { faBed, faCalendarDays, faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons"; // Import the search icon
 import { DateRange } from 'react-date-range';
 import 'react-date-range/dist/styles.css'; 
 import 'react-date-range/dist/theme/default.css'; 
 import { format } from "date-fns"; 
-import { useNavigate, useLocation } from "react-router-dom"; // Import useLocation
+import { useNavigate, useLocation } from "react-router-dom"; 
 import axios from 'axios';
-
 
 const suggestions = ["Islamabad", "Karachi", "Lahore", "Peshawar", "Quetta"];
 
 const HeaderSearch = () => {
   const navigate = useNavigate();
-  const location = useLocation(); // Get the current location
+  const location = useLocation(); 
   const [showSuggestions, setShowSuggestions] = useState(false);
   const [inputValue, setInputValue] = useState("");
   const [openDate, setOpenDate] = useState(false);
@@ -25,9 +24,10 @@ const HeaderSearch = () => {
       key: "selection",
     },
   ]);
+
   // If the current location is not the home page, don't show the search
   if (location.pathname === '/rooms') {
-    return null; // Do not render HeaderSearch if on the rooms page
+    return null; 
   }
 
   const handleInputChange = (e) => {
@@ -39,18 +39,18 @@ const HeaderSearch = () => {
     setShowSuggestions(false);
   };
 
-  const handleSearch = async() => {
+  const handleSearch = async () => {
     try {
       if (inputValue && date) {
         const response = await axios.get("http://localhost:3000/customer/available-rooms", {
-      params: {
-          location: inputValue,
-          checkIn: date[0].startDate,  // Format startDate
-          checkOut: date[0].endDate    // Format endDate
-      }
-      });
-        const availableRooms=response.data //did because large datas (nested objects etc) be send like response directly
-        navigate("/rooms", { state: {availableRooms,inputValue, date } }); // Navigate to the rooms page
+          params: {
+            location: inputValue,
+            checkIn: date[0].startDate,  
+            checkOut: date[0].endDate    
+          }
+        });
+        const availableRooms = response.data;
+        navigate("/rooms", { state: { availableRooms, inputValue, date } });
       }
     } catch (error) {
       console.error("Error fetching unbooked rooms:", error);
@@ -88,7 +88,7 @@ const HeaderSearch = () => {
         )}
       </div>
 
-      <div className="headerSearchItem relative">
+      <div className="headerSearchItem">
         <FontAwesomeIcon
           onClick={() => setOpenDate(!openDate)}
           icon={faCalendarDays}
@@ -100,7 +100,7 @@ const HeaderSearch = () => {
         >{`${format(date[0].startDate, "MM/dd/yyyy")} to ${format(
           date[0].endDate,
           "MM/dd/yyyy"
-          )}`}</span>
+        )}`}</span>
         
         {openDate && (
           <DateRange
@@ -115,7 +115,9 @@ const HeaderSearch = () => {
       </div>
 
       <div className="headerSearchItem">
-        <button className="searchButton" onClick={handleSearch}>Search</button>
+        <button className="headerSearchButton" onClick={handleSearch}>
+          <FontAwesomeIcon icon={faMagnifyingGlass} className="text-white" /> {/* Replace text with icon */}
+        </button>
       </div>
     </div>
   );

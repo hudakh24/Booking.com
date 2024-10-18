@@ -1,8 +1,9 @@
 import "./index.css";
 import { useState } from "react";
-import HotelsTable from "../../Pages/HotelTable/index";
-import RoomsTable from "../RoomsTable";
+// import HotelsTable from "../../Pages/HotelTable";
+// import RoomsTable from "../../Pages/RoomsTable";
 import AddForm from "../../Forms/AddForm";
+import { Navigate } from "react-router-dom";
 
 const SideBar = () => {
   // State to manage open sections
@@ -80,9 +81,9 @@ const SideBar = () => {
 
       {/* Conditionally render the selected table */}
       <div className="outputContainer">
-        {selectedOption === "AllHotels" && <HotelsTable />}
-        {selectedOption === "AllRooms" && <RoomsTable />}
-        {selectedOption === "AddHotel" && <AddForm isHotel={true} />}
+        {selectedOption === "AllHotels" && <Navigate to="/home/hotels" />}
+        {selectedOption === "AllRooms" && <Navigate to="/home/rooms" />}
+        {selectedOption === "AddHotel" && <Navigate to="/home/add-hotel" />}
         {selectedOption === "AddRoom" && <AddForm isHotel={false} />}
       </div>
     </>

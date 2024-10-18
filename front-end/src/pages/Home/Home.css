@@ -1,5 +1,7 @@
 .home {
-  @apply flex flex-col min-h-screen; /* Tailwind utility classes */
+  @apply flex flex-col min-h-screen bg-[url('/book1.jpg')]  bg-cover bg-no-repeat;  /* Tailwind utility classes */
 }
+
+
 
 
