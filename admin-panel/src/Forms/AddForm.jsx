@@ -102,7 +102,7 @@ const AddForm = ({ isHotel }) => {
             }
             alert("Hotel Added Successfully");
           } else {
-            alert("Error in adding Hotel");
+            alert(`Error in adding Hotel ${response.data.error.message} `);
             console.log("Error: " + response.data.error.message);
           }
         } else {
@@ -132,7 +132,7 @@ const AddForm = ({ isHotel }) => {
             resetForm();
             alert("Room Added Successfully");
           } else {
-            alert("Error in adding Room");
+            alert(`Error in adding Room ${response.data.error.message} `);
             console.log("Error: " + response.data.error.message);
           }
         }

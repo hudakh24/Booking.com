@@ -12,7 +12,7 @@ import PropTypes from "prop-types";
 const UpdateForm = ({ isHotel }) => {
   // const isHotel = true;
   let { hotelId, roomId } = useParams();
-  isHotel ? (roomId = undefined) : (hotelId = undefined);
+  // isHotel ? (roomId = undefined) : (hotelId = undefined);
   console.log(hotelId, roomId);
 
   const { isAdminLoggedIn } = useContext(AuthContext);
@@ -242,7 +242,7 @@ const UpdateForm = ({ isHotel }) => {
             alert("Hotel Updated Successfully");
             navigate(-1);
           } else {
-            alert("Error in updating hotel");
+            alert(`Error in updating Hotel ${response.data.error.message} `);
             console.log("Error: " + response.data.error.message);
           }
         } else {

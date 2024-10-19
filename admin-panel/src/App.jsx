@@ -1,4 +1,4 @@
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useLocation } from "react-router-dom";
 import ErrorPage from "./Pages/ErrorPage";
 import Home from "./Pages/Home/index";
 import LoginComponent from "./Components/Login";
@@ -13,6 +13,7 @@ import AddForm from "./Forms/AddForm";
 
 const App = () => {
   const { isAdminLoggedIn } = useContext(AuthContext);
+  const location = useLocation();
 
   return isAdminLoggedIn ? (
     <>
@@ -39,7 +40,7 @@ const App = () => {
           path="/home/hotels/update-hotel/:hotelId"
           element={
             <PrivateRoute>
-              <Layout>
+              <Layout key={location.pathname}>
                 <UpdateForm isHotel={true} />
               </Layout>
             </PrivateRoute>
@@ -49,7 +50,7 @@ const App = () => {
           path="/home/add-hotel"
           element={
             <PrivateRoute>
-              <Layout>
+              <Layout key={location.pathname}>
                 <AddForm isHotel={true} />
               </Layout>
             </PrivateRoute>
@@ -59,7 +60,7 @@ const App = () => {
           path="/home/rooms"
           element={
             <PrivateRoute>
-              <Layout>
+              <Layout key={location.pathname}>
                 <RoomsTable />
               </Layout>
             </PrivateRoute>
@@ -69,7 +70,7 @@ const App = () => {
           path="/home/rooms/update-room/:roomId"
           element={
             <PrivateRoute>
-              <Layout>
+              <Layout key={location.pathname}>
                 <UpdateForm isHotel={false} />
               </Layout>
             </PrivateRoute>
@@ -79,7 +80,7 @@ const App = () => {
           path="/home/add-room"
           element={
             <PrivateRoute>
-              <Layout>
+              <Layout key={location.pathname}>
                 <AddForm isHotel={false} />
               </Layout>
             </PrivateRoute>
