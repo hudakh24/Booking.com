@@ -92,6 +92,7 @@ const App = () => {
   ) : (
     <Routes>
       <Route path="/" element={<LoginComponent />} />
+      <Route path="*" element={<LoginComponent />} />
     </Routes>
   );
 };

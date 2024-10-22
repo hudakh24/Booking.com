@@ -137,6 +137,8 @@ module.exports = {
         },
       },
       include: [{ model: models.Hotels }], // Include hotel info
+      // offset: query.offset,
+      // limit: query.limit,
     });
 
     responseHandler(availableRooms, res);
