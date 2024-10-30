@@ -8,6 +8,8 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import { AuthContext } from "../../contexts/AuthContext";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Rooms = () => {
   const [activeItem, setActiveItem] = useState("stays");
@@ -41,24 +43,25 @@ const Rooms = () => {
         if(check.data.error != "forbidden")
         {
           console.log("Room booked successfully!");
-          alert("Your Room has been successfully booked")
+          toast("Your Room has been successfully booked")
           setRooms((prevRooms) => prevRooms.filter(room => room.roomId !== roomId));
         }
         
       } catch (error) {
+        toast(`Error booking the room ${error}`)
         console.error("Error booking the room:", error);
       }
     }
     else{
-      navigate("/login");
+      navigate(`/login`);
     }
   };
 
   return (
     <>
-      <div className="home">
+      {rooms? (<div className="home">
         <Navbar />
-        <Header activeItem={activeItem} setActiveItem={setActiveItem} />        
+        <Header activeItem={null} setActiveItem={setActiveItem} />        
         {/* Main Flex container for sidebar and rooms */}
         {activeItem == "stays" && (
           <div className="mainContainer">
@@ -95,7 +98,8 @@ const Rooms = () => {
         )}
             <br/>
         <Footer />
-      </div>
+      <ToastContainer />
+      </div>) : <h1>No selcted place</h1>}
     </>
   );
 }

@@ -50,7 +50,7 @@ const HeaderSearch = () => {
           }
         });
         const availableRooms = response.data;
-        navigate("/rooms", { state: { availableRooms, inputValue, date } });
+        navigate("/available-rooms", { state: { availableRooms, inputValue, date } });
       }
     } catch (error) {
       console.error("Error fetching unbooked rooms:", error);

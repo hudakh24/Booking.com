@@ -1,7 +1,8 @@
 import "./HotelsCard.css"
 import { useEffect, useState } from "react";
 import axios from "axios";
-import ShowHotelsRooms from "../ShowHotelsRooms";
+// import ShowHotelsRooms from "../ShowHotelsRooms";
+import { Navigate } from "react-router-dom";
 
 
 const StarRating = ({ rating }) => {
@@ -34,8 +35,8 @@ const Hotels = () => {
     }
   };
 
-  const showRooms = (hotelName) => {
-    setSelectedHotel(hotelName);
+  const showRooms = (hotelId) => {
+    setSelectedHotel(hotelId);
   };
 
   
@@ -43,21 +44,22 @@ const Hotels = () => {
     fetchHotels();
   }, []);
   
-  if (selectedHotel) {
-    return <ShowHotelsRooms hotelName={selectedHotel} />;
-  }
+  // if (selectedHotel) {
+  //   return <ShowHotelsRooms hotelName={selectedHotel} />;
+  // }
 
   return (
     <div className="hotels-container">
       <br />
       <div className="hotels-grid ">
         
-        {hotels.map((hotel) => (
+        { selectedHotel? (<Navigate to={`/rooms/${selectedHotel}`} />) :  (hotels.map((hotel) => (
           
           <div
             key={hotel.hotelId}
             className="hotel-card "
-            onClick={() => showRooms(hotel.hotelName)}
+            onClick={() => showRooms(hotel.hotelId)}
+            // onClick={<Navigate to={`/rooms/${hotel.hotelId}`} />} 
           >
             <div className="hotel-image-container">
             <img 
@@ -73,7 +75,7 @@ const Hotels = () => {
             {/* Display the rating as stars */}
             <StarRating rating={hotel.ratings} />
           </div>
-        ))}
+        )))}
       </div>
       <br/>
     </div>

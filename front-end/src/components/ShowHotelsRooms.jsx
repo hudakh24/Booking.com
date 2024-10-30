@@ -1,16 +1,20 @@
 import { useEffect, useState } from 'react'
 import axios from "axios";
+import { useParams } from 'react-router-dom';
 
 
-const ShowHotelsRooms = (props) => {
+// const ShowHotelsRooms = (props) => {
+const ShowHotelsRooms = () => {
 
     const [rooms, setRooms] = useState([]);
-    const hotelName = props.hotelName;
+    // const hotelName = props.hotelName;
+
+    const {hotelId} = useParams();
     const showItsRooms = async () => {
     try {
       const response = await axios.get("http://localhost:3000/customer/get-all-rooms", {
       params: {
-          hotelName: hotelName
+          hotelId: hotelId
       }
       });
       setRooms(response.data.response.response);

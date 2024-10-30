@@ -47,7 +47,7 @@ const SidebarSearch = () => {
       }
       });
         const availableRooms=response.data //did because large datas (nested objects etc) be send like response directly
-        navigate("/rooms", { state: {availableRooms,inputValue, date } }); // Navigate to the rooms page
+        navigate("/available-rooms", { state: {availableRooms,inputValue, date } }); // Navigate to the rooms page
       }
     } catch (error) {
       console.error("Error fetching unbooked rooms:", error);

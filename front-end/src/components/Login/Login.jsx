@@ -9,6 +9,8 @@ const LoginComponent = () => {
   const { login } = useContext(AuthContext);
   const [error, setError] = useState("");
   const navigate = useNavigate();
+  // const location = useLocation();
+  // const redirectPath = new URLSearchParams(location.search).get('redirect') || '/';
 
   const initialValues = {
     userName: "",
@@ -33,6 +35,7 @@ const LoginComponent = () => {
       {
           login(response.data.response.response); // Call login from context to update global state
           navigate("/")
+          // navigate(redirectPath);
       } 
       else 
       {

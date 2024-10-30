@@ -5,6 +5,7 @@ import Signup from "./components/Signup/Signup.jsx";
 import Rooms from "./pages/Rooms/Rooms.jsx";
 import "./index.css";
 import ErrorPage from "./pages/ErrorPage.jsx";
+import ShowHotelsRooms from "./components/ShowHotelsRooms.jsx";
 
 const App = () => {
 
@@ -12,7 +13,8 @@ const App = () => {
     <>
     <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/rooms" element={<Rooms />} />
+        <Route path="/available-rooms" element={<Rooms />} />
+        <Route path="/rooms/:hotelId" element={<ShowHotelsRooms />} />
         <Route path="/login" element={<LoginComponent />} /> {/* Customer Login */}
         <Route path="/register" element={<Signup />} />
         <Route path="*" element={<ErrorPage />} />
